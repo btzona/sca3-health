@@ -1,0 +1,11 @@
+{
+  "name": "sca3-health",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public ledger of SCA3 / Machado-Joseph research",
+  "scripts": {
+    "fetch": "python3 fetch.py",
+    "serve": "python3 -m http.server 8765",
+    "build": "python3 fetch.py"
+  }
+}

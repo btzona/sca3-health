@@ -1,0 +1,1441 @@
+{
+  "site": "Ataxin-3",
+  "subtitle": "A public ledger of SCA3 and Machado-Joseph research",
+  "updated": "2026-10-16T17:42:59.714355+00:00",
+  "article_count": 102,
+  "feeds": [
+    {
+      "id": "europepmc",
+      "name": "Europe PMC",
+      "ok": true,
+      "items": 151
+    },
+    {
+      "id": "crossref",
+      "name": "Crossref",
+      "ok": true,
+      "items": 77
+    },
+    {
+      "id": "preprints",
+      "name": "bioRxiv and medRxiv",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "clinicaltrials",
+      "name": "ClinicalTrials.gov",
+      "ok": true,
+      "items": 7
+    },
+    {
+      "id": "naf",
+      "name": "National Ataxia Foundation",
+      "ok": true,
+      "items": 0,
+      "warning": "live feed blocked; archived RSS had no matching SCA3 items"
+    },
+    {
+      "id": "google-news",
+      "name": "News search",
+      "ok": true,
+      "items": 5
+    },
+    {
+      "id": "hdbuzz",
+      "name": "HDBuzz",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "neurologylive",
+      "name": "NeurologyLive",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "biopharmadive",
+      "name": "BioPharma Dive",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "stat",
+      "name": "STAT",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "sciencedaily",
+      "name": "ScienceDaily",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "nature-neurodeg",
+      "name": "Nature (Neurodegeneration)",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "biohaven",
+      "name": "Biohaven",
+      "ok": true,
+      "items": 0
+    },
+    {
+      "id": "prnewswire",
+      "name": "PR Newswire",
+      "ok": true,
+      "items": 0
+    }
+  ],
+  "articles": [
+    {
+      "id": "cf04a92caf36a366",
+      "title": "Stage‐Specific Patterns of Imaging and Non‐Motor Biomarkers in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1002/acn3.70555",
+      "summary": "ABSTRACT Objective Advancements in disease‐modifying therapies for spinocerebellar ataxia Type 3 (SCA3) underscore the need for robust biomarkers to monitor disease progression and evaluate treatment efficacy. Although motor phenotypes have been well characterized, less is known about non‐motor and imaging‐based…",
+      "source": "Annals of Clinical and Translational Neurology",
+      "source_id": "crossref",
+      "date": "2026-10-13T12:00:00+00:00",
+      "tags": [
+        "Biomarkers",
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "ecaf6c379e1651b9",
+      "title": "Rare diseases, body, and stigma: a comparative analysis of people living with berardinelli syndrome and Machado-Joseph disease in Brazil",
+      "link": "https://doi.org/10.1007/s12687-026-00950-3",
+      "summary": "Objectives This article analyses how people living with rare diseases are stigmatised due to physical features and bodily alterations, considering the moral dimensions through which these differences are read. The analysis draws on research conducted in two regions of Brazil (Northeast and Southeast) with people…",
+      "source": "Journal of community genetics",
+      "source_id": "europepmc",
+      "date": "2026-10-08T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "d555ffe93d465ce2",
+      "title": "Autophagosome-tethering compounds selectively lower mutant ataxin-3 in preclinical models of spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.64898/2026.10.02.756117",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is most common subtype of autosomal dominant spinocerebellar ataxia worldwide and the most prevalent CAG expansion disorder in the east Asian population, but disease-modifying therapies remain unavailable. SCA3 is caused by the accumulation of polyglutamine- (polyQ-) expanded…",
+      "source": "bioRxiv",
+      "source_id": "europepmc",
+      "date": "2026-10-04T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "fa9ea80013d2171d",
+      "title": "A Wearable Sensor-Based Quantitative Gait System for Biomarkers Exploring in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1109/jsen.2026.3726075",
+      "summary": "IEEE Sensors Journal",
+      "source": "IEEE Sensors Journal",
+      "source_id": "crossref",
+      "date": "2026-10-01T12:00:00+00:00",
+      "tags": [
+        "Biomarkers",
+        "Care/Rehab"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "3818f933c9107588",
+      "title": "Non-Invasive Classification Approach for Spinocerebellar Ataxia Type 3 via Metabolic Fingerprints Enhanced by Bimetallic Alloys",
+      "link": "https://doi.org/10.1002/smll.75802",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is a progressive inherited neurodegenerative disorder for which accessible blood-based classification approaches are needed. In this retrospective, single-center study, plasma metabolic fingerprints were acquired from 202 participants using mesoporous PdPt nanoparticle-assisted…",
+      "source": "Small (Weinheim an der Bergstrasse, Germany)",
+      "source_id": "europepmc",
+      "date": "2026-09-30T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "5764e9585cf10607",
+      "title": "Severity of ataxia in patients with spinocerebellar ataxia type 3 is positively correlated with anxiety symptom presence",
+      "link": "https://doi.org/10.1186/s12883-026-05420-4",
+      "summary": "BMC Neurology",
+      "source": "BMC Neurology",
+      "source_id": "crossref",
+      "date": "2026-09-28T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "891b49cae1c2da9e",
+      "title": "Assessment of microexon-associated junction usage in Parkinson's disease and spinocerebellar Ataxia type 3",
+      "link": "https://doi.org/10.3389/fnmol.2026.1872346",
+      "summary": "Background Microexons are short exonic sequences of 3-30 nucleotides that undergo alternative splicing and have been implicated in several neurodevelopmental disorders. However, their contribution to neurodegenerative diseases remains insufficiently characterized. Methods We analyzed microexon-associated junction…",
+      "source": "Frontiers in molecular neuroscience",
+      "source_id": "europepmc",
+      "date": "2026-09-17T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "c0abe2aa25ddcfa3",
+      "title": "Sintomas audiovestibulares em portadores de Machado-Joseph",
+      "link": "https://doi.org/10.51126/revsalus.v8isupiii.48079",
+      "summary": "RevSALUS - Revista Científica da Rede Académica das Ciências da Saúde da Lusofonia",
+      "source": "RevSALUS - Revista Científica da Rede Académica das Ciências da Saúde da Lusofon",
+      "source_id": "crossref",
+      "date": "2026-09-17T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "83766f4afc864179",
+      "title": "Efficacy and Safety of DL-3-n-Butylphthalide in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1002/mds.70499",
+      "summary": "Background Preclinical studies have suggested that DL-3-n-butylphthalide (NBP) may exhibit neuroprotective effects in neurodegenerative diseases; however, no human trial has evaluated NBP in spinocerebellar ataxia type 3 (SCA3). Objectives The aim of the study was to evaluate the efficacy and safety of oral NBP in…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-09-15T12:00:00+00:00",
+      "tags": [
+        "Clinical trial"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "7fff72266cf4ce79",
+      "title": "Brain and blood DNA methylation profiling in Machado-Joseph disease (MJD)/spinocerebellar ataxia type 3 (SCA3)",
+      "link": "https://doi.org/10.21203/rs.3.rs-10732082/v1",
+      "summary": "Abstract Background Machado–Joseph disease (MJD) is a hereditary neurodegenerative disorder caused by an expanded CAG repeat in the ATXN3 gene. Despite its monogenic origin, MJD presents heterogeneous clinical and neuropathological features that are only partially explained by genetic factors, suggesting a potential…",
+      "source": "Research Square",
+      "source_id": "europepmc",
+      "date": "2026-09-09T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "c926614d2d61d560",
+      "title": "How tiny tags on ataxin-3 protein shape its toxicity in SCA3",
+      "link": "https://www.ataxia.org/scasourceposts/how-tiny-tags-on-ataxin-3-protein-shape-its-toxicity-in-sca3/",
+      "summary": "How tiny tags on ataxin-3 protein shape its toxicity in SCA3 National Ataxia Foundation",
+      "source": "National Ataxia Foundation",
+      "source_id": "naf",
+      "date": "2026-09-04T12:42:58+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "news"
+    },
+    {
+      "id": "d0f30104b94ba2b5",
+      "title": "PolyQ-expanded ataxin-3 is associated with mitochondrial alterations in Machado-Joseph disease",
+      "link": "https://doi.org/10.1242/dmm.052757",
+      "summary": "Spinocerebellar ataxia type 3, also known as Machado-Joseph disease (MJD), is a fatal neurodegenerative disease caused by an expanded CAG repeat in ataxin-3 (ATXN3). Here, we investigated mitochondrial alterations across complementary MJD models, including transgenic zebrafish, CMVMJD135 mice and primary neuronal…",
+      "source": "Disease models & mechanisms",
+      "source_id": "europepmc",
+      "date": "2026-09-01T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "01f833125509d4e9",
+      "title": "Digital Balance Biomarkers and Interpretable Evaluation of Disease Severity in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1111/nyas.70398",
+      "summary": "The clinical assessment of spinocerebellar ataxia type 3 (SCA3) is hindered by subjective factors and inter-rater variability. This study utilizes a previously validated wearable plantar pressure insole system established in our prior work to build a multiscenario digital balance detection framework, and assesses its…",
+      "source": "Annals of the New York Academy of Sciences",
+      "source_id": "europepmc",
+      "date": "2026-09-01T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "36822dbdb075c503",
+      "title": "Optimizing Parameters of Transcranial Temporal Interference Stimulation for Spinocerebellar Ataxia Type 3",
+      "link": "https://clinicaltrials.gov/study/NCT07743866",
+      "summary": "Status: Not Yet Recruiting. Conditions: Spinocerebellar Ataxia Type 3. The purpose of this research study is to identify the optimal biological dose for tTIS that targets DN in SCA3 while achieving the best possible balance between therapeutic efficacy and safety.",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-09-01T12:00:00+00:00",
+      "tags": [
+        "Clinical trial"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "4a50be2c1eb603e8",
+      "title": "First, Allogeneic, Adipose-Derived, Mesenchymal Stem Cell Treatment of a Patient with Spinocerebellar Ataxia Type 3 in the United States: Case Report",
+      "link": "https://doi.org/10.1159/crn/abyag006",
+      "summary": "No disease-modifying therapies are approved to treat spinocerebellar ataxia (SCA), rare neurogenerative diseases that lead to progressive uncoordinated gait and dysphagia. Allogeneic, adipose-derived, mesenchymal stem cells cultured and expanded with a proprietary process (pADMSCs; Stemchymal, Steminent…",
+      "source": "Case Reports in Neurology",
+      "source_id": "crossref",
+      "date": "2026-08-31T12:00:00+00:00",
+      "tags": [
+        "Therapy/ASO",
+        "Care/Rehab"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "c6760ae70889109d",
+      "title": "Importin-8 silencing reduces Ataxin-3 aggregation and alleviates Machado-Joseph disease/spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.isci.2026.116446",
+      "summary": "Machado-Joseph disease (MJD) is a polyglutamine neurodegenerative disorder characterized by the formation of neuronal intranuclear Ataxin-3 inclusions. The nucleocytoplasmic transport is known to be profoundly dysregulated from early stages of neurodegeneration, further aggravating its progressive nature. To…",
+      "source": "iScience",
+      "source_id": "europepmc",
+      "date": "2026-08-26T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "11a358a11d1bc1db",
+      "title": "RISCA : Prospective Study of Individuals at Risk for SCA1, SCA2, SCA3, SCA6, SCA7",
+      "link": "https://clinicaltrials.gov/study/NCT01037777",
+      "summary": "Status: Completed. Conditions: Spinocerebellar Ataxias. The spinocerebellar ataxias (SCAs) are a clinically and genetically heterogeneous group of autosomal dominantly inherited progressive ataxia disorders. It is estimated that there are 30,000 individuals in the European Community that directly descend from…",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-08-19T12:00:00+00:00",
+      "tags": [
+        "Clinical trial"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "8f8f61851292ecf6",
+      "title": "A Safety and Pharmacokinetics Trial of VO659 in SCA1, SCA3 and HD",
+      "link": "https://clinicaltrials.gov/study/NCT05822908",
+      "summary": "Status: Recruiting. Conditions: Spinocerebellar Ataxia Type 1 Spinocerebellar Ataxia Type 3 Huntington Disease. The goal of this first-in-human clinical trial is to assess the safety and tolerability of four doses of a new study drug called VO659 in people with genetic disorders called spinocerebellar ataxia type 1…",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-08-19T12:00:00+00:00",
+      "tags": [
+        "Clinical trial",
+        "Therapy/ASO"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "557df5260c6b7fc1",
+      "title": "Predicting disease progression in progressive cerebellar ataxias: integrating clinical, imaging, fluid, genetic, and digital biomarkers",
+      "link": "https://doi.org/10.3389/fneur.2026.1921210",
+      "summary": "Progressive cerebellar ataxias, including the polyglutamine spinocerebellar ataxias (SCA1, SCA2, SCA3, and SCA6), Friedreich ataxia, and the autosomal recessive and sporadic forms, are rare, clinically heterogeneous neurodegenerative disorders. Disease-modifying therapies, notably antisense oligonucleotides and the…",
+      "source": "Frontiers in neurology",
+      "source_id": "europepmc",
+      "date": "2026-08-17T12:00:00+00:00",
+      "tags": [
+        "Therapy/ASO",
+        "Biomarkers",
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "610855d74f5d8302",
+      "title": "Longitudinal changes in DTI-ALPS index are associated with clinical progression and brainstem atrophy in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.parkreldis.2026.108937",
+      "summary": "Background The perivascular and neurofluid-related tissue environment is implicated in neurodegeneration, but its clinical relevance in spinocerebellar ataxia type 3 (SCA3) remains unclear. We investigated alterations in diffusion tensor image analysis along the perivascular space (DTI-ALPS) across disease stages…",
+      "source": "Parkinsonism & related disorders",
+      "source_id": "europepmc",
+      "date": "2026-08-11T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "568e0577b1ca45db",
+      "title": "Ficd loss rescues motor impairments and reverses oligodendrocyte maturation deficits in a mouse model of spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.64898/2026.08.07.743629",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is an inherited, fatal neurodegenerative disease caused by a pathological CAG repeat expansion in the ATXN3 gene, resulting in the selective degeneration of vulnerable neuronal populations. Recent work has identified impairments in oligodendrocyte maturation as a novel and robust…",
+      "source": "bioRxiv",
+      "source_id": "europepmc",
+      "date": "2026-08-10T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "80b0384e5dd5652c",
+      "title": "Repetitive transcranial magnetic stimulation normalizes cerebrocerebellar loop functional connectivity in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1186/s13023-026-04402-6",
+      "summary": "Abstract Background Spinocerebellar ataxia type 3 (SCA3) is a rare neurodegenerative disorder characterized by ataxia; structural and functional damage to the cerebrocerebellar loop play key roles in its pathology. However, effective treatments for SCA3 remain limited. Repetitive transcranial magnetic stimulation…",
+      "source": "Orphanet Journal of Rare Diseases",
+      "source_id": "crossref",
+      "date": "2026-08-10T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "5e80158a29f90298",
+      "title": "Expanded ATXN3 CAG Repeat is Stable in Human Purkinje Cells",
+      "link": "https://doi.org/10.1002/mds.70465",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) is a neurodegenerative disorder caused by an abnormally long polyglutamine-encoding CAG repeat in the ATXN3 gene. Objectives We aimed to determine whether somatic expansion of the mutant ATXN3 (mATXN3) CAG repeat is present in the output cell of the cerebellar cortex…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-08-07T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "eb2f6da7d80737cd",
+      "title": "Cerebellar DBS in SCA1 and SCA3 Study",
+      "link": "https://clinicaltrials.gov/study/NCT07752095",
+      "summary": "Status: Not Yet Recruiting. Conditions: Spinocerebellar Ataxia Genotype Type 1 Spinocerebellar Ataxia Genotype Type 3. The purpose of this study is to evaluate the safety and feasibility of deep brain stimulation (DBS) in the deep cerebellar nuclei (DCN) in patients with Spinocerebellar Ataxia (SCA) types 1 and 3…",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-08-07T12:00:00+00:00",
+      "tags": [
+        "Clinical trial"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "48ccffab1222441a",
+      "title": "Therapeutic potential of the Nrf2 activator omaveloxolone in spinocerebellar ataxia type 3 in cellular and Drosophila models",
+      "link": "https://doi.org/10.3389/fphar.2026.1872142",
+      "summary": "Introduction Spinocerebellar ataxia type 3 (SCA3), also known as Machado-Joseph disease, is an autosomal dominant polyglutamine neurodegenerative disorder caused by a CAG repeat expansion in the ataxin-3 gene (ATXN3). Mutant ataxin-3 accumulation, oxidative stress, mitochondrial dysfunction, and impaired protein…",
+      "source": "Frontiers in pharmacology",
+      "source_id": "europepmc",
+      "date": "2026-08-05T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "f90e2f32c8df8604",
+      "title": "Correction to: Preclinical Evidence Supporting Early Initiation of Citalopram Treatment in Machado-Joseph Disease",
+      "link": "https://doi.org/10.1007/s12035-026-06080-8",
+      "summary": "Molecular neurobiology",
+      "source": "Molecular neurobiology",
+      "source_id": "europepmc",
+      "date": "2026-08-04T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "3a2f381503489b75",
+      "title": "Natural History Study of and Genetic Modifiers in Spinocerebellar Ataxias",
+      "link": "https://clinicaltrials.gov/study/NCT01060371",
+      "summary": "Status: Recruiting. Conditions: Spinocerebellar Ataxia Type 1 Spinocerebellar Ataxia Type 2 Spinocerebellar Ataxia Type 3 Spinocerebellar Ataxia Type 6 Spinocerebellar Ataxia Type 7 Spinocerebellar Ataxia Type 8 Spinocerebellar Ataxia Type 10 RFC1 Gene Mutation Spinocerebellar Ataxia Type 27b Healthy Participants…",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-08-03T12:00:00+00:00",
+      "tags": [
+        "Clinical trial",
+        "Natural history"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "f26a495b703ec85d",
+      "title": "Establishing Sensory Neurons as Therapeutic Targets in Peripheral Neuropathy Driven by Polyglutamine Expanded Murine ATXN3",
+      "link": "https://doi.org/10.1002/ana.78317",
+      "summary": "Objective Repeat expansion mutations underlie diverse neurogenetic disorders, many involving the peripheral nervous system. Despite peripheral neuropathy being the most common neurological disorder worldwide, its contribution to repeat expansion diseases remains poorly defined, and robust preclinical models are…",
+      "source": "Annals of neurology",
+      "source_id": "europepmc",
+      "date": "2026-07-31T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "7542675332fef971",
+      "title": "Abnormal Local Brain Activity in SCA3 Patients with Cognitive Impairment: A Resting-State Functional MRI Study",
+      "link": "https://doi.org/10.1007/s12311-026-02061-8",
+      "summary": "Cognitive impairment (CI) has been reported in spinocerebellar ataxia 3 (SCA3). However, the link between alterations in intrinsic brain activity and cognitive functions remains poorly understood. This study aimed to explore these alterations and their association with cognitive functions to elucidate the…",
+      "source": "Cerebellum (London, England)",
+      "source_id": "europepmc",
+      "date": "2026-07-25T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "55bb2ef1410fe2d2",
+      "title": "Polyphenol-Rich Cinnamon Bud Extract Affects Ataxin-3 Aggregation and Ameliorates SCA3 Phenotypes Through a Dual Anti-Amyloidogenic and Antioxidant Mechanism",
+      "link": "https://doi.org/10.3390/molecules31142510",
+      "summary": "Aberrant self-assembly of ataxin-3 (ATX3) into amyloid aggregates is a key pathological event in spinocerebellar ataxia type 3 (SCA3). Bioactive nutraceutical compounds, particularly polyphenols, have emerged as promising candidates for targeting protein aggregation and cellular stress responses associated with…",
+      "source": "Molecules (Basel, Switzerland)",
+      "source_id": "europepmc",
+      "date": "2026-07-17T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "01c44ff9f46c9b40",
+      "title": "Alterations in Skin Microbiota in Patients with Spinocerebellar Ataxia Type 3: A Pilot Study",
+      "link": "https://doi.org/10.2174/011570159x460646260630071933",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) exhibits marked variability in age of onset and disease progression that cannot be fully explained by CAG repeat length, indicating the presence of additional modifiers. The skin, as a neuro-immune interface, has been linked to neurological diseases but remains…",
+      "source": "Current neuropharmacology",
+      "source_id": "europepmc",
+      "date": "2026-07-07T12:00:00+00:00",
+      "tags": [
+        "Natural history",
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "382ff8c994e2f0c7",
+      "title": "Adipose-Derived Mesenchymal Stem Cells Improve Motor Function and Reduce Neuroinflammation and Mutant Ataxin-3 Protein Levels in SCA3 Mice",
+      "link": "https://doi.org/10.15283/ijsc25141",
+      "summary": "The CAG expansion in the ataxin-3 ( ATXN3 ) protein is the underlying cause of Spinocerebellar Ataxia Type 3 (SCA3), a polyglutamine disease. The aggregation of mutant ATXN3 protein is hypothesized to contribute to neuronal dysfunction, neurodegeneration, or neuroinflammation. Mesenchymal stem cells have pleiotropic…",
+      "source": "International journal of stem cells",
+      "source_id": "europepmc",
+      "date": "2026-07-02T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "60ef5e908d7f62bb",
+      "title": "Diagnostic Pitfalls in Hereditary Neurological Disorders: Machado-Joseph Disease Presenting as Charcot-Marie-Tooth Disease: A Case Report",
+      "link": "https://doi.org/10.1002/ccr3.73182",
+      "summary": "We report a 60-year-old Chinese woman with Machado-Joseph disease (MJD/SCA3), initially managed as Charcot-Marie-Tooth disease due to distal sensory loss, pes cavus, and areflexia. Later cerebellar, bulbar, and ocular signs, together with ATXN3 CAG expansion, clarified the diagnosis and highlighted the need to…",
+      "source": "Clinical case reports",
+      "source_id": "europepmc",
+      "date": "2026-07-01T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "a85b79eec143191e",
+      "title": "Transcriptome-guided modeling reveals insulin-related metabolic dysfunction in SCA3 mouse cerebellum",
+      "link": "https://doi.org/10.1016/j.brainres.2026.150451",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is a polyglutamine neurodegenerative disorder in which metabolic involvement may extend beyond proteotoxicity alone. We integrated cerebellar RNA sequencing with transcriptome-constrained genome-scale metabolic modeling to characterize metabolic dysregulation in transgenic SCA3…",
+      "source": "Brain research",
+      "source_id": "europepmc",
+      "date": "2026-07-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "266d2eab4b461c38",
+      "title": "Mapping the Disrupted Connectome in Spinocerebellar Ataxia Type 3: A Network-Based Statistics Study Identifying Novel Therapeutic Targets for Neuromodulation",
+      "link": "https://doi.org/10.1002/cns.71016",
+      "summary": "Aims Spinocerebellar ataxia type 3 (SCA3) is characterized by progressive neurodegeneration. This study aimed to map alterations in structural and functional connectivity (SC and FC) in SCA3 using network-based statistics (NBS) and to explore the potential of transcranial magnetic stimulation (TMS) for modulating…",
+      "source": "CNS neuroscience & therapeutics",
+      "source_id": "europepmc",
+      "date": "2026-07-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "109a7bbe66ed1962",
+      "title": "Spinocerebellar Ataxia Type 3 Accompanied by Amyotrophic Lateral Sclerosis: A Case Report and Comprehensive Literature Review",
+      "link": "https://doi.org/10.2169/internalmedicine.6369-25",
+      "summary": "Internal Medicine",
+      "source": "Internal Medicine",
+      "source_id": "crossref",
+      "date": "2026-07-01T12:00:00+00:00",
+      "tags": [
+        "Review"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "d2dee916c1e4760a",
+      "title": "Longitudinal Dynamics of Polyglutamine-Expanded ATXN3 in Biofluids of Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1002/mds.70411",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3), the most common autosomal dominant ataxia, is driven by the accumulation of polyglutamine-expanded (polyQ) ATXN3 proteins. While promising as biomarkers, their longitudinal trajectories across multiple biofluids remain poorly defined. Objectives To quantify polyQ ATXN3…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-06-30T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "b9247501c3658fd3",
+      "title": "Cerebellar Normative Modeling Identifies Neuroanatomical Biotypes Predicting dTMS Response in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.64898/2026.06.24.734389",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) presents with significant clinical heterogeneity. Traditional case-control neuroimaging, based on group means, obscures inter-individual anatomical variability, hindering the identification of stratification biomarkers for interventions like Transcranial Magnetic…",
+      "source": "bioRxiv",
+      "source_id": "europepmc",
+      "date": "2026-06-30T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "d98a101f5476e9d3",
+      "title": "Putamen Structural-Functional Decoupling as an Early-Stage Candidate Imaging Marker for Motor Severity in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1002/mds.70402",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) shows marked phenotypic heterogeneity and clinico-radiological dissociation, wherein macrostructural atrophy often fails to fully account for clinical severity. Although structural and functional connectivity abnormalities are well recognized, their potential…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-06-29T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "d1b4a1be12f5b16a",
+      "title": "REPROCELL Submits Application for Manufacturing and Marketing Approval in Japan for Stem Cell Therapy Stemchymal® for Spinocerebellar Ataxia (SCA3 and SCA6)",
+      "link": "https://www.newswire.ca/news-releases/reprocell-submits-application-for-manufacturing-and-marketing-approval-in-japan-for-stem-cell-therapy-stemchymal-r-for-spinocerebellar-ataxia-sca3-and-sca6--854882445.html",
+      "summary": "REPROCELL Submits Application for Manufacturing and Marketing Approval in Japan for Stem Cell Therapy Stemchymal® for Spinocerebellar Ataxia (SCA3 and SCA6) PR Newswire Canada",
+      "source": "PR Newswire Canada",
+      "source_id": "google-news",
+      "date": "2026-06-24T07:00:00+00:00",
+      "tags": [
+        "Therapy/ASO"
+      ],
+      "kind": "news"
+    },
+    {
+      "id": "7c88c0afbdb63fd2",
+      "title": "Troriluzole in Adult Participants With Spinocerebellar Ataxia",
+      "link": "https://clinicaltrials.gov/study/NCT03701399",
+      "summary": "Status: Active Not Recruiting. Conditions: Spinocerebellar Ataxias Spinocerebellar Ataxia Type 1 Spinocerebellar Ataxia Type 2 Spinocerebellar Ataxia Type 3 Spinocerebellar Ataxia Type 6 Spinocerebellar Ataxia Type 7 Spinocerebellar Ataxia Type 8 Spinocerebellar Ataxia Type 10. The purpose of this study is to compare…",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-06-24T12:00:00+00:00",
+      "tags": [
+        "Clinical trial",
+        "Therapy/ASO"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "e23071fe4953dcd0",
+      "title": "Replication analysis of the PRKN V380L (rs1801582) variant in a Japanese cohort of spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1186/s12883-026-05101-2",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) is caused by CAG repeat expansion in ATXN3, which inversely correlates with age at onset but does not fully account for interindividual variability. A recent study in a mixed European/South and North American cohort suggested that the PRKN V380L variant (rs1801582)…",
+      "source": "BMC neurology",
+      "source_id": "europepmc",
+      "date": "2026-06-23T12:00:00+00:00",
+      "tags": [
+        "Natural history",
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "53f282bd77269e52",
+      "title": "Optimizing twin prime editing components for scalable genome editing and therapy in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.omtn.2026.102988",
+      "summary": "Recent advances in prime editing technologies using CRISPR modules fused with reverse transcriptase (RT) have enabled efficient and precise reprogramming of target genomic sequences. Twin prime editing using two coordinated prime editor complexes is a promising strategy for inducing extensive genomic modifications…",
+      "source": "Molecular therapy. Nucleic acids",
+      "source_id": "europepmc",
+      "date": "2026-06-17T12:00:00+00:00",
+      "tags": [
+        "Gene therapy"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "73157c98bf962d60",
+      "title": "Time to Progression to Wheelchair Comparing Troriluzole versus Untreated Natural History Cohorts in Spinocerebellar Ataxia (SCA) (S26.009)",
+      "link": "https://doi.org/10.1212/wnl.0000000000217020",
+      "summary": "Neurology",
+      "source": "Neurology",
+      "source_id": "crossref",
+      "date": "2026-06-09T12:00:00+00:00",
+      "tags": [
+        "Therapy/ASO",
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "23c31119ac84e561",
+      "title": "Neurochemical Endpoints to Inform Early-Stage Trials of Spinocerebellar Ataxia 2 and 3 in a Multisite Setting",
+      "link": "https://doi.org/10.1002/acn3.70443",
+      "summary": "Objective Neurochemical levels measured by brain MR spectroscopy (MRS) have been proposed as endpoints for clinical trials in early-stage spinocerebellar ataxia (SCA) trials. We tested their trial-readiness by quantifying neurochemicals in three affected brain regions in early-stage cohorts of SCA2 and SCA3…",
+      "source": "Annals of clinical and translational neurology",
+      "source_id": "europepmc",
+      "date": "2026-06-08T12:00:00+00:00",
+      "tags": [
+        "Clinical trial",
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "999043d8fc9f640e",
+      "title": "The fT3/fT4 ratio as a candidate marker of motor progression in SCA3",
+      "link": "https://doi.org/10.1016/j.nbd.2026.107474",
+      "summary": "Background Motor severity and progression in spinocerebellar ataxia type 3 (SCA3) vary across individuals, yet physiological factors contributing to this heterogeneity remain incompletely understood. Thyroid hormones are central regulators of systemic metabolism and are associated with motor function and frailty in…",
+      "source": "Neurobiology of disease",
+      "source_id": "europepmc",
+      "date": "2026-06-06T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "3a83735a4ad49504",
+      "title": "Astragalus membranaceus therapy in patients with spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.jtcme.2026.06.002",
+      "summary": "Background and aim Spinocerebellar ataxia type 3 (SCA3) is the most common form of hereditary cerebellar ataxia. The insulin/insulin-like growth factor 1 (IGF1) system (IIS) has been proposed as a potential target for disease-modifying therapy. Astragalus membranaceus (AM) may modulate the IIS pathway and reduce…",
+      "source": "Journal of traditional and complementary medicine",
+      "source_id": "europepmc",
+      "date": "2026-06-03T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "728c3ed4f1d2a371",
+      "title": "Engineered Exosomes Deliver miR-370 Inhibitor to Regulate DNAJB1 and Synergize With miR-25 in Improving SCA3 Mice Behavior and Neuropathology",
+      "link": "https://doi.org/10.1096/fj.202601357rr",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3), the most common inherited ataxia, lacks effective therapies. Current microRNA (miRNA) approaches directly targeting ataxin-3 (ATXN3) mRNA risk reducing essential wild-type ATXN3, a key regulator of proteostasis and various signaling pathways. Consequently, developing…",
+      "source": "FASEB journal : official publication of the Federation of American Societies for",
+      "source_id": "europepmc",
+      "date": "2026-06-01T12:00:00+00:00",
+      "tags": [
+        "Gene therapy"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "992b9fbf38f98be0",
+      "title": "Polyglutamine-Expanded Ataxin-3 Accelerates CFTR Degradation Through K63-Linked Ubiquitination to Exacerbate Microglial Inflammation",
+      "link": "https://doi.org/10.1080/17590914.2026.2662867",
+      "summary": "The deubiquitinase Ataxin-3 causes spinocerebellar ataxia type 3 (SCA3) upon polyglutamine (polyQ) expansion. While expressed in the nervous system, the function of the cystic fibrosis transmembrane conductance regulator (CFTR) chloride channel therein remains unclear, as does its potential regulation by Ataxin-3…",
+      "source": "ASN neuro",
+      "source_id": "europepmc",
+      "date": "2026-05-26T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "f1f32b42c30e4eec",
+      "title": "White matter structural network alterations in spinocerebellar ataxia type 3: A graph theory analysis",
+      "link": "https://doi.org/10.1016/j.neuroscience.2026.05.027",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is an inherited neurodegenerative disorder characterized by progressive motor impairment and cerebellar atrophy. While previous studies have reported white matter (WM) microstructural damage in SCA3, the topological organization of WM structural networks and its relationship with…",
+      "source": "Neuroscience",
+      "source_id": "europepmc",
+      "date": "2026-05-25T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "cde2f8033319c106",
+      "title": "Intermittent Theta-Burst Stimulation (iTBS) Improves Motor Coordination and Modulates Neuroinflammation and Autophagy in SCA3/MJD Mice",
+      "link": "https://doi.org/10.1007/s12311-026-02027-w",
+      "summary": "Spinocerebellar ataxia type 3/Machado-Joseph disease (SCA3/MJD) is an autosomal dominant neurodegenerative disorder characterized by misfolded ataxin-3 aggregation and neuronal intranuclear inclusions. Its primary symptom is progressive ataxia, progressively restricting daily living activities. While repetitive…",
+      "source": "Cerebellum (London, England)",
+      "source_id": "europepmc",
+      "date": "2026-05-25T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "6a34fa6af38e6086",
+      "title": "Quantitative Ocular Motor / Vestibular Assessment in Patients with Spinocerebellar Ataxia Type 3 (SCA3, Machado Joseph Disease) - Systematic Review of the Literature",
+      "link": "https://doi.org/10.1007/s12311-026-02021-2",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3 or Machado-Joseph disease) is the second most common autosomal-dominant hereditary ataxia and often presents with ocular motor and vestibular impairment. The value of ocular motor testing for early disease detection, monitoring disease progression and as a potential treatment…",
+      "source": "Cerebellum (London, England)",
+      "source_id": "europepmc",
+      "date": "2026-05-12T12:00:00+00:00",
+      "tags": [
+        "Natural history",
+        "Review"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "acb8843659ccbc8d",
+      "title": "DOENÇA DE MACHADO-JOSEPH EM IDOSO: RELATO DE EXPERIÊNCIA EM ATENDIMENTO DOMICILIAR NA ATENÇÃO PRIMÁRIA",
+      "link": "https://doi.org/10.48195/jis2026.30502",
+      "summary": "Anais da IX Jornada Interdisciplinar em Saúde – JIS",
+      "source": "Anais da IX Jornada Interdisciplinar em Saúde – JIS",
+      "source_id": "crossref",
+      "date": "2026-05-11T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "af3d0a52e29be2f2",
+      "title": "A Severity-Agnostic Atrophy Pattern in Spinocerebellar Ataxia Type 3: Volumetrics from ENIGMA-Ataxia",
+      "link": "https://doi.org/10.1002/mds.70349",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) is a rare, inherited neurodegenerative disease characterized by progressive loss of motor coordination. Objectives We undertook a multisite magnetic resonance imaging study to profile the spatial spread of atrophy across the brain, determine whether atrophy…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-05-10T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "db5b043162af7daf",
+      "title": "Stage-Dependent Dyslipidemia in Spinocerebellar Ataxia Type 3 Masked by Disease-Associated Low Body Mass Index",
+      "link": "https://doi.org/10.1002/mds.70353",
+      "summary": "Background Central lipid dysregulation is implicated in spinocerebellar ataxia type 3 (SCA3), but peripheral lipid profiles remain poorly understood. Disease-associated low body mass index (BMI) may confound interpretation. Objective The aim was to characterize peripheral lipid profiles across SCA3 disease stages and…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-05-05T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "0d59c4fa77d6899d",
+      "title": "Nongenetic Factors Associated with Age at Onset and Disease Severity in Spinocerebellar Ataxia Type 3: A Cross-Sectional Cohort Study",
+      "link": "https://doi.org/10.1002/mds.70345",
+      "summary": "Background Beyond genetic factors, demographic and environmental associations with onset and severity in spinocerebellar ataxia type 3 (SCA3) remain incompletely understood. Objective The aim of this study was to identify the association of nongenetic factors with onset and severity of SCA3. Methods Associations of…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-05-04T12:00:00+00:00",
+      "tags": [
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "5cee582020f4a48c",
+      "title": "The ATXN2 9 bp duplication in SCA3: clarifying evidence and correcting misinterpretations",
+      "link": "https://doi.org/10.1186/s40478-026-02305-y",
+      "summary": "Lauerer et al. (Acta Neuropathol Commun 13:157, 2025) recently investigated the role of ATXN2 variants, including intermediate CAG repeats and a 9-bp duplication, in spinocerebellar ataxia type 3 (SCA3). While their study contributes valuable data, several of their interpretations diverge from our previous findings…",
+      "source": "Acta neuropathologica communications",
+      "source_id": "europepmc",
+      "date": "2026-05-01T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "ebee15fa1ab74c56",
+      "title": "JOSD2 deubiquitinating enzyme: Structure, function, and potential as a therapeutic target",
+      "link": "https://doi.org/10.1016/j.cellsig.2026.112568",
+      "summary": "Background Ubiquitination, a central post-translational mechanism, shapes the amplitude and duration of cellular signalling. Josephin domain-containing 2 (JOSD2), a Machado-Joseph disease (MJD) family deubiquitinase, eliminates ubiquitin moieties from ubiquitin-conjugated substrates and tunes proteostasis and…",
+      "source": "Cellular signalling",
+      "source_id": "europepmc",
+      "date": "2026-04-30T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "bfdd60d15b56f6cc",
+      "title": "Umbilical Cord Mesenchymal Stem Cells Therapy (19#iSCLife®-SA) for Patients With Spinocerebellar Ataxia",
+      "link": "https://clinicaltrials.gov/study/NCT03378414",
+      "summary": "Status: Not Yet Recruiting. Conditions: Spinocerebellar Ataxia Type 1 Spinocerebellar Ataxia Type 2 Spinocerebellar Ataxia Type 3 Spinocerebellar Ataxia Type 6. The purpose of this study is verify the safety and efficacy of Human Umbilical Cord Mesenchymal Stem Cells (UC-MSC) therapy for patients with Spinocerebellar…",
+      "source": "ClinicalTrials.gov",
+      "source_id": "clinicaltrials",
+      "date": "2026-04-23T12:00:00+00:00",
+      "tags": [
+        "Clinical trial"
+      ],
+      "kind": "trial"
+    },
+    {
+      "id": "f507ca1bd0bd1237",
+      "title": "Glymphatic Dysfunction, Brain Damage, and Clinical Disability in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1002/mds.70311",
+      "summary": "Background The glymphatic system, a key fluid clearance pathway in the central nervous system, is emerging as a potential therapeutic target for synucleinopathies. Dysregulation of this system may contribute to spinocerebellar ataxia type 3 (SCA3) pathogenesis, in which the accumulation of misfolded proteins acts as…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-04-20T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "e1a2f0f13dd42f91",
+      "title": "Bile acid treatment prevents movement and balance symptoms in SCA3 animals",
+      "link": "https://www.ataxia.org/scasourceposts/bile-acid-treatment-prevents-movement-and-balance-symptoms-in-sca3-animals/",
+      "summary": "Bile acid treatment prevents movement and balance symptoms in SCA3 animals National Ataxia Foundation",
+      "source": "National Ataxia Foundation",
+      "source_id": "naf",
+      "date": "2026-04-19T03:26:46+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "news"
+    },
+    {
+      "id": "fc71c7985b64ea89",
+      "title": "The association between diplopia and clinical phenotypes in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1186/s12883-026-04848-y",
+      "summary": "BACKGROUND: Spinocerebellar ataxia type 3 (SCA3) is a rare monogenic hereditary neurodegenerative disease. It is the most common form of spinocerebellar ataxia worldwide, with diplopia being one of its most frequent symptoms. Diplopia has been reported to be associated with clinical phenotypes and daily living…",
+      "source": "BMC neurology",
+      "source_id": "europepmc",
+      "date": "2026-04-10T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "33e103625bca76c2",
+      "title": "Rad23b exacerbates pathological aggregates through disrupting proteasome functions in Spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.neurot.2026.e00928",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is the most common autosomal dominant ataxia globally, caused by expanded CAG repeats in the ATXN3 gene and consequent pathogenic accumulation of mutant ATXN3 (mATXN3) aggregates. The formation of these aggregates perturbs neuronal functions and leads to progressive…",
+      "source": "Neurotherapeutics : the journal of the American Society for Experimental NeuroTh",
+      "source_id": "europepmc",
+      "date": "2026-04-01T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "cc05830452b2589f",
+      "title": "Association Between Cerebellar Metabolic Markers and Activities of Daily Living in Patients With Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1002/mgg3.70197",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) is a progressive neurodegenerative disorder that results in the impaired ability to perform activities of daily living (ADLs). However, there is a lack of objective neuroimaging indices to assess functional decline. In this study, we investigated the association between…",
+      "source": "Molecular genetics & genomic medicine",
+      "source_id": "europepmc",
+      "date": "2026-04-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "99c38cfe34512940",
+      "title": "Predictive models for ataxia progression and conversion in spinocerebellar ataxia type 1 and 3",
+      "link": "https://doi.org/10.1093/brain/awaf408",
+      "summary": "The READISCA study aims to prepare for clinical trials in spinocerebellar ataxia types 1 and 3 (SCA1 and SCA3). Hence, we searched for predictive variables of ataxia onset (phenoconversion) and progression. Individuals with SCA1 or SCA3 and controls were enrolled from 2018 to 2021 in the USA and Europe. Clinical…",
+      "source": "Brain : a journal of neurology",
+      "source_id": "europepmc",
+      "date": "2026-04-01T12:00:00+00:00",
+      "tags": [
+        "Clinical trial"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "42eeb7c619f4cbbc",
+      "title": "Modulation of the Stress Granule Component Carhsp1 Mitigates Disease-Associated Deficits in Spinocerebellar Ataxia Type 3 Mouse Models",
+      "link": "https://doi.org/10.1002/mds.70271",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3) is a polyglutamine (polyQ) neurogenerative disorder that results from CAG trinucleotide repeat expansions in the ATXN3 gene, leading to toxic protein aggregate formation and cellular pathway dysfunction. The dysfunction of cellular pathways also correlates with stress…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-03-19T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "2f9a62a7052b9d11",
+      "title": "Somatosensory Evoked Potentials in Spinocerebellar Ataxia Type 3 and Type 10",
+      "link": "https://doi.org/10.1007/s12311-026-01998-0",
+      "summary": "Spinocerebellar ataxias (SCAs) are heterogeneous neurodegenerative disorders with variable phenotypes. Somatosensory evoked potentials (SSEPs) provide insights into the integrity of the dorsal-lemniscal pathway. This study aimed to evaluate SSEP findings in patients with SCA3 and SCA10 and compare their…",
+      "source": "Cerebellum (London, England)",
+      "source_id": "europepmc",
+      "date": "2026-03-10T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "605eb208ad7cb70c",
+      "title": "Extracellular vesicles-mediated delivery of SpCas9 RNPs for therapeutic gene editing in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.1016/j.biomaterials.2026.124119",
+      "summary": "Spinocerebellar Ataxia Type 3 (SCA3) is a neurodegenerative dominantly-inherited disorder caused by an overexpansion of a CAG tract within the ATXN3 gene, conferring toxic properties to the ataxin-3 protein. Genome editing with CRISPR-Cas9 enzymes is a promising strategy to inactivate mutant ATXN3 alleles, however…",
+      "source": "Biomaterials",
+      "source_id": "europepmc",
+      "date": "2026-03-09T12:00:00+00:00",
+      "tags": [
+        "Gene therapy",
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "db9e62f4f9900451",
+      "title": "Relationship of subclinical lung injury to chronic airway inflammation in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1186/s13023-026-04306-5",
+      "summary": "BACKGROUND: Spinocerebellar ataxia type 3 (SCA3) is one of the most prevalent hereditary neurodegenerative disorders, with respiratory failure being the leading cause of mortality. Nevertheless, pulmonary function in SCA3 has not been thoroughly characterized, and the underlying mechanisms remain unclear. METHODS: We…",
+      "source": "Orphanet journal of rare diseases",
+      "source_id": "europepmc",
+      "date": "2026-03-09T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "0b918fa98b31bdab",
+      "title": "Revisited case for intranasal neuropeptide Y based therapeutics: From preclinical to clinical",
+      "link": "https://doi.org/10.1016/j.npep.2026.102605",
+      "summary": "Compelling evidence from a variety of approaches attributes manifold benefits to NPY in the brain. NPY can reduce stress, depressive symptoms, pain, neuroinflammation, seizures, and is implicated in attenuating alcohol use disorder and neurodegenerative diseases, such as Alzheimer's, Machado-Joseph and Huntington…",
+      "source": "Neuropeptides",
+      "source_id": "europepmc",
+      "date": "2026-03-05T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "476ad7bae5eaea93",
+      "title": "Retrotransposition Events Shape the Evolution of the Ataxin-3 Gene Family in Primates",
+      "link": "https://doi.org/10.1093/gbe/evag047",
+      "summary": "Evolutionary studies of disease-associated genes provide crucial insights into pathological mechanisms and potential therapeutic targets. Polyglutamine spinocerebellar ataxias (SCAs) are human neurodegenerative diseases caused by toxic expanded CAG repeats. Studies on SCA1 have shown that a paralog of the…",
+      "source": "Genome biology and evolution",
+      "source_id": "europepmc",
+      "date": "2026-03-01T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "76e5001fc3d6b94a",
+      "title": "Vico Therapeutics Announces Patient Dosing in Twice-Annual Regimen of VO659 in Phase 1/2 Trial in Huntington’s Disease, Spinocerebellar Ataxia Type 3 and Type 1",
+      "link": "https://www.businesswire.com/news/home/20260224986992/en/Vico-Therapeutics-Announces-Patient-Dosing-in-Twice-Annual-Regimen-of-VO659-in-Phase-12-Trial-in-Huntingtons-Disease-Spinocerebellar-Ataxia-Type-3-and-Type-1",
+      "summary": "Vico Therapeutics Announces Patient Dosing in Twice-Annual Regimen of VO659 in Phase 1/2 Trial in Huntington’s Disease, Spinocerebellar Ataxia Type 3 and Type 1 Business Wire",
+      "source": "Business Wire",
+      "source_id": "google-news",
+      "date": "2026-02-24T08:00:00+00:00",
+      "tags": [
+        "Clinical trial",
+        "Therapy/ASO"
+      ],
+      "kind": "news"
+    },
+    {
+      "id": "02b971f9832c9e8c",
+      "title": "Gastrodin inhibits the formation of ataxin-3 aggregates by regulating the level of ERK1/2/P38 proteins",
+      "link": "https://doi.org/10.1186/s13023-025-04089-1",
+      "summary": "BACKGROUND: Spinocerebellar ataxia type 3 (SCA3/Machado-Joseph disease), an incurable autosomal dominant neurodegenerative disorder, is caused by cytotoxic aggregation of polyglutamine-expanded ataxin-3 protein. Novel therapeutic strategies targeting its pathogenesis are urgently needed. PURPOSE: Given gastrodin’s…",
+      "source": "Orphanet journal of rare diseases",
+      "source_id": "europepmc",
+      "date": "2026-02-19T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "0eae4b48d7c52583",
+      "title": "Single-Cell RNA Sequencing Reveals Impaired CHIP-Mediated Heat Stress Response in SCA3 Pathogenesis",
+      "link": "https://doi.org/10.1007/s12035-026-05726-x",
+      "summary": "Nine distinct polyglutamine (PolyQ) diseases are caused by CAG repeat expansions in the coding regions of their respective causative genes, among which spinocerebellar ataxia type 3 (SCA3), driven by CAG repeat expansion in the ATXN3 gene, is one of the most common subtypes. SCA3 is characterized by the aggregation…",
+      "source": "Molecular neurobiology",
+      "source_id": "europepmc",
+      "date": "2026-02-17T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "b09aebeea30ddd90",
+      "title": "The Relevance of Vestibular Deficit in Machado-Joseph Disease and CANVAS: From a Simple Clinical Test to 20 Years of Studies",
+      "link": "https://doi.org/10.1007/978-3-032-07539-0_13",
+      "summary": "Contemporary Clinical Neuroscience",
+      "source": "Contemporary Clinical Neuroscience",
+      "source_id": "crossref",
+      "date": "2026-02-17T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "79981f5785c8d3a1",
+      "title": "Cerebellar magnetic stimulation increased beta power and phase synchronisation in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.clinph.2026.2111699",
+      "summary": "Objective Spinocerebellar ataxia type 3 (SCA3) is the most common autosomal dominant ataxia, with no cure currently available. Although repetitive transcranial magnetic stimulation (rTMS) over the cerebellum improves ataxia severity, its efficacy in SCA3 remains suboptimal. This study aimed to investigate the…",
+      "source": "Clinical neurophysiology : official journal of the International Federation of C",
+      "source_id": "europepmc",
+      "date": "2026-02-13T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "c9af2fed5d5978c2",
+      "title": "SCA3 Can Manifest Phenotypically with ALS-like Characteristics",
+      "link": "https://doi.org/10.2169/internalmedicine.6851-25",
+      "summary": "Internal medicine (Tokyo, Japan)",
+      "source": "Internal medicine (Tokyo, Japan)",
+      "source_id": "europepmc",
+      "date": "2026-02-10T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "d5ebb7c5a137e8ce",
+      "title": "Value of MRI Outcomes for Preventive and Early-Stage Trials in Spinocerebellar Ataxias 1 and 3",
+      "link": "https://doi.org/10.1002/acn3.70325",
+      "summary": "Objective To examine the value of MRI outcomes as endpoints for preventive and early-stage trials of two polyglutamine spinocerebellar ataxias (SCAs). Methods A cohort of 100 participants (23 SCA1, 63 SCA3, median Scale for the Assessment and Rating of Ataxia (SARA) score = 5, 42% preataxic, and 14 gene-negative…",
+      "source": "Annals of clinical and translational neurology",
+      "source_id": "europepmc",
+      "date": "2026-02-10T12:00:00+00:00",
+      "tags": [
+        "Biomarkers",
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "dc726472898776c5",
+      "title": "IGFBP1 as a metabolic-neurodegenerative biomarker in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.3892/etm.2026.13100",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is a progressive neurodegenerative disorder for which reliable metabolic biomarkers are lacking. Insulin-like growth factor binding protein 1 (IGFBP1), a stress-responsive protein regulated by insulin signaling, serves as an indicator of neurodegenerative burden. The present study…",
+      "source": "Experimental and therapeutic medicine",
+      "source_id": "europepmc",
+      "date": "2026-02-10T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "45cc72e3016b85a0",
+      "title": "Peripheral metabolic profiles in spinocerebellar ataxia type 3: Features and genotype-phenotype links",
+      "link": "https://doi.org/10.1016/j.parkreldis.2026.108236",
+      "summary": "Background Peripheral metabolic dysregulation is increasingly recognized in neurodegenerative disorders, but its contribution to spinocerebellar ataxia type 3 (SCA3) remains unclear. Objectives To characterize peripheral metabolic alterations in SCA3 patients, evaluate their diagnostic potential, and assess their…",
+      "source": "Parkinsonism & related disorders",
+      "source_id": "europepmc",
+      "date": "2026-02-10T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "87d1dced37861d4b",
+      "title": "Pediatric-onset spinocerebellar ataxia type 3 with dual ATXN3 and HTT gene mutations: a case report and literature-informed hypothesis",
+      "link": "https://doi.org/10.3389/fgene.2026.1723599",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is an autosomal dominant neurodegenerative disorder caused by CAG repeat expansion in the ATXN3 gene, typically onsetting in adults aged 30-40 years. Pediatric-onset cases are extremely rare, and concurrent CAG repeat expansions in both ATXN3 and huntingtin ( HTT ) genes are even…",
+      "source": "Frontiers in genetics",
+      "source_id": "europepmc",
+      "date": "2026-02-10T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "48e25e9198037060",
+      "title": "Cognitive impairment in SCA3: A multi-center cohort study with demographic, imaging, and biomarker correlates",
+      "link": "https://doi.org/10.1016/j.nbd.2026.107301",
+      "summary": "Background Cognitive deficits are common in spinocerebellar ataxia type 3 (SCA3), but their neurobiological correlates remain largely unknown. Objectives To investigate cognitive performance in a large international cohort of SCA3 mutation carriers covering the entire disease course and to explore associations with…",
+      "source": "Neurobiology of disease",
+      "source_id": "europepmc",
+      "date": "2026-02-05T12:00:00+00:00",
+      "tags": [
+        "Biomarkers",
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "505e47cdb145e232",
+      "title": "Repurposing of natural products for spinocerebellar ataxia type 3 using integrated network pharmacology and in silico approaches",
+      "link": "https://doi.org/10.1038/s41598-025-30652-8",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is a progressive inherited neurodegenerative disorder characterized by impaired coordination and balance due to cerebellar ataxia. Currently, there are no Food and Drug Administration (FDA)-approved drugs or curative treatments for SCA3. This study aimed to uncover the potential…",
+      "source": "Scientific reports",
+      "source_id": "europepmc",
+      "date": "2026-02-05T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "fb48e825213650f0",
+      "title": "Mesenchymal Stromal Cell Therapeutic Potential to Restore Neurovascular Integrity in Machado-Joseph Disease",
+      "link": "https://doi.org/10.64898/2026.01.31.703043",
+      "summary": "Background Machado-Joseph disease (MJD), or Spinocerebellar Ataxia type 3 (SCA3), is a neurodegenerative disorder caused by an expansion of the CAG repeat in the MJD1/ATXN3 gene, which encodes for a polyglutamine-expansion in Ataxin-3. Similar to what occurs in other neurodegenerative disorders, the cerebrovascular…",
+      "source": "bioRxiv",
+      "source_id": "europepmc",
+      "date": "2026-02-03T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "18aac99f2140f133",
+      "title": "TCF4 intronic CAG repeat length modulates the effect of ATXN3 on age at onset in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1016/j.jare.2026.02.031",
+      "summary": "Introduction Spinocerebellar ataxia type 3 (SCA3) is caused by ATXN3 CAG expansions, yet repeat length explains only 50-70% of age at onset (AO) variability, suggesting the influence of additional genetic modifiers. We investigated whether transcription factor 4 (TCF4), harboring an intronic CAG repeat and highly…",
+      "source": "Journal of advanced research",
+      "source_id": "europepmc",
+      "date": "2026-02-01T12:00:00+00:00",
+      "tags": [
+        "Natural history",
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "4048a202295d7511",
+      "title": "Reshaping “Cerebellar Inhibition”: Mechanistic Insights and Precision Medicine Perspectives for rTMS in Machado-Joseph Disease",
+      "link": "https://doi.org/10.3724/j.pibb.2026.0006",
+      "summary": "Progress in Biochemistry and Biophysics",
+      "source": "Progress in Biochemistry and Biophysics",
+      "source_id": "crossref",
+      "date": "2026-02-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "046c947f75bb1476",
+      "title": "Association of rare apolipoprotein E ε4 homozygosity with an earlier age at onset in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.1093/hmg/ddag016",
+      "summary": "Spinocerebellar Ataxia Type 3 (SCA3) is an autosomal dominant neurodegenerative Polyglutamine (polyQ) disease, caused by a cytosine-adenine-guanine (CAG) repeat expansion in the ATXN3 gene, resulting in an expanded polyQ tract in the Ataxin-3 protein. Although the principal genetic determinant of the age at onset…",
+      "source": "Human molecular genetics",
+      "source_id": "europepmc",
+      "date": "2026-02-01T12:00:00+00:00",
+      "tags": [
+        "Natural history",
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "541e14916debecf8",
+      "title": "Redox environment modulates aggregation of ataxin-3 in vitro - Implications for drug screening of cysteine-rich proteins",
+      "link": "https://doi.org/10.1111/febs.70426",
+      "summary": "Spinocerebellar ataxia type 3 is a debilitating neurodegenerative disorder driven by the pathological aggregation of ataxin-3 (Atx3), a deubiquitinating enzyme with a cysteine-rich catalytic domain and an expandable polyglutamine (polyQ) tract. While the role of polyQ expansion in Atx3 aggregation is well documented…",
+      "source": "The FEBS journal",
+      "source_id": "europepmc",
+      "date": "2026-01-29T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "dc105069df8a9c3e",
+      "title": "Allele-specific expression of ATXN3 in blood samples of Machado-Joseph disease expansion carriers",
+      "link": "https://doi.org/10.64898/2026.01.26.26344891",
+      "summary": "ABSTRACT Although the CAG repeat expansion in the ATXN3 gene was identified over 30 years ago as the cause of Machado-Joseph disease (MJD), the disorder remains untreatable. Notably, MJD is the most prevalent hereditary spinocerebellar ataxia worldwide and is particularly frequent in the Azores Islands (Portugal)…",
+      "source": "medRxiv",
+      "source_id": "europepmc",
+      "date": "2026-01-29T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "d4ebf1164510c444",
+      "title": "A Resting-state fMRI Investigation of Brain Networks in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.17576/mh.2026.2101.25",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is characterised by disconnection within the cerebellar-cerebral network. In the present study, we examined differences in this network between healthy controls (n = 14) and individuals with SCA3 (n = 14) using resting-state functional magnetic resonance imaging. Using cerebellar…",
+      "source": "Medicine & Health",
+      "source_id": "crossref",
+      "date": "2026-01-29T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "8a59905a1b88e3f8",
+      "title": "Understanding corticosterone fluctuations and HPA-axis regulation in a mouse model of Spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.64898/2026.01.22.701070",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) or Machado-Joseph Disease (MJD) is a neurodegenerative disease caused by a CAG triplet expansion in the ATXN3 gene, primarily characterized by motor impairments. However, SCA3/MJD also includes mood-related comorbidities that affect both patients and their caregivers. Current…",
+      "source": "bioRxiv",
+      "source_id": "europepmc",
+      "date": "2026-01-24T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "50bef6d37b3d030f",
+      "title": "Remote Assessment of Ataxia Severity in SCA3 Across Multiple Centers and Time Points",
+      "link": "https://doi.org/10.1002/acn3.70316",
+      "summary": "Objective Spinocerebellar ataxia type 3 (SCA3) is a genetically defined ataxia. The Scale for Assessment and Rating of Ataxia (SARA) is a clinician-reported outcome that measures ataxia severity at a single time point. In its standard application, SARA fails to capture short-term fluctuations, limiting its…",
+      "source": "Annals of clinical and translational neurology",
+      "source_id": "europepmc",
+      "date": "2026-01-22T12:00:00+00:00",
+      "tags": [
+        "Natural history"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "f1c04720209bc581",
+      "title": "Electrophysiological Evidence of Visual Dysfunction in SCA3: PERG/PVEP as Novel Biomarkers for Ataxia Severity and Cognitive Decline",
+      "link": "https://doi.org/10.1002/mds.70195",
+      "summary": "Background Spinocerebellar ataxia type 3 (SCA3), a rare autosomal dominant neurodegenerative disease, consistently exhibits visual abnormalities. Retinal functional and morphological abnormalities present in SCA3 patients may serve as clinically relevant biomarkers. Objective The aim of this study was to investigate…",
+      "source": "Movement disorders : official journal of the Movement Disorder Society",
+      "source_id": "europepmc",
+      "date": "2026-01-21T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "bbfff5c870abcc78",
+      "title": "Early transcriptomic perturbations highlight the spinal cord as a key pathogenic region in spinocerebellar ataxia type 3",
+      "link": "https://doi.org/10.3389/fncel.2025.1735225",
+      "summary": "Spinocerebellar ataxia type 3 (SCA3) is a neurodegenerative disease caused by polyglutamine repeat expansion in the ATXN3 gene. Despite the ubiquitous expression of ATXN3 throughout the body, SCA3 pathology is most pronounced in select, vulnerable central nervous system regions. Notably, spinal cord atrophy that is…",
+      "source": "Frontiers in cellular neuroscience",
+      "source_id": "europepmc",
+      "date": "2026-01-14T12:00:00+00:00",
+      "tags": [
+        "Genetics/Reproduction"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "176d4ab361085bf8",
+      "title": "Altered Glymphatic Network in Spinocerebellar Ataxia: a Multimodal MRI Study Within a Structure-Environment-Function Framework",
+      "link": "https://doi.org/10.1007/s12311-025-01951-7",
+      "summary": "This study characterizes in vivo glymphatic system alterations in spinocerebellar ataxia (SCA) using a structure-environment-function multimodal MRI framework and explores subtype-specific signatures and longitudinal progression. Twenty genetically confirmed SCA patients (SCA1 = 1, SCA2 = 11, SCA3 = 6, SCA7 = 2) and…",
+      "source": "Cerebellum (London, England)",
+      "source_id": "europepmc",
+      "date": "2026-01-08T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "a453bdb0dd470630",
+      "title": "Peripheral and autonomic nervous system involvement in spinocerebellar ataxia type 3: unveiling an invisible burden",
+      "link": "https://doi.org/10.1007/s00415-025-13588-x",
+      "summary": "Background Neuropathological examinations in spinocerebellar ataxia type 3 (SCA3) have demonstrated peripheral and autonomic nervous system degeneration, but the impact of associated symptoms on genetically affected individuals at different disease stages remains understudied. Objective To investigate the clinical…",
+      "source": "Journal of neurology",
+      "source_id": "europepmc",
+      "date": "2026-01-07T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "90891c43efc51903",
+      "title": "Investigating the pathogenic role of calpain proteases and the therapeutic potential of their inhibition in mice modelling Machado-Joseph disease",
+      "link": "https://doi.org/10.1093/hmg/ddaf196",
+      "summary": "Machado-Joseph disease (MJD, also known as spinocerebellar ataxia type-3) is a fatal disease characterised by motor impairments and the presence of aggregated ataxin-3, the protein affected in MJD, in degenerating brain regions. Ataxin-3 protein aggregates have previously been reported to contain both full-length…",
+      "source": "Human molecular genetics",
+      "source_id": "europepmc",
+      "date": "2026-01-06T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "0520548cb573b6d4",
+      "title": "Increased Brain Age Gap and Anatomical Substrates in Spinocerebellar Ataxia Type 3",
+      "link": "https://doi.org/10.2139/ssrn.6801787",
+      "summary": "Background: Brain age serves as a valuable biomarker of neurological health and has been widely used to study various brain disorders. However, its specific characteristics in spinocerebellar ataxia type 3 (SCA3) remain poorly understood. Objective: This study aimed to determine whether patients with SCA3…",
+      "source": "Crossref",
+      "source_id": "crossref",
+      "date": "2026-01-01T12:00:00+00:00",
+      "tags": [
+        "Biomarkers"
+      ],
+      "kind": "preprint"
+    },
+    {
+      "id": "15f4f5e326071d2b",
+      "title": "Cerebellar transcranial direct current stimulation in spinocerebellar ataxia type 3: An electric field modelling study",
+      "link": "https://doi.org/10.1016/j.clinph.2025.2111405",
+      "summary": "Clinical Neurophysiology",
+      "source": "Clinical Neurophysiology",
+      "source_id": "crossref",
+      "date": "2026-01-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "57423dd01acde72b",
+      "title": "Role of the serotonin receptor 5-HT3/LGC-50 in spinocerebellar ataxia type 3 pathogenesis: a C. elegans-based study",
+      "link": "https://doi.org/10.1016/j.nsa.2026.106975",
+      "summary": "Neuroscience Applied",
+      "source": "Neuroscience Applied",
+      "source_id": "crossref",
+      "date": "2026-01-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "dc03c41c5839e637",
+      "title": "Multidimensional abnormal gait analysis and biomarker identification for patients with spinocerebellar ataxia type 3 using an Azure Kinect-based motion capture system",
+      "link": "https://doi.org/10.1016/j.gaitpost.2025.110019",
+      "summary": "Gait & Posture",
+      "source": "Gait & Posture",
+      "source_id": "crossref",
+      "date": "2026-01-01T12:00:00+00:00",
+      "tags": [
+        "Biomarkers",
+        "Care/Rehab"
+      ],
+      "kind": "paper"
+    },
+    {
+      "id": "dcfdaaeb301b9b14",
+      "title": "Diffusion along perivascular spaces as a marker for Glymphatic system impairment in spinocerebellar Ataxia type 3",
+      "link": "https://doi.org/10.1016/j.nbd.2025.107232",
+      "summary": "Neurobiology of Disease",
+      "source": "Neurobiology of Disease",
+      "source_id": "crossref",
+      "date": "2026-01-01T12:00:00+00:00",
+      "tags": [
+        "Research"
+      ],
+      "kind": "paper"
+    }
+  ]
+}
