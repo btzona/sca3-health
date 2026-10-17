@@ -1637,11 +1637,13 @@ def fetch_open_ctgov() -> tuple[list[dict], str | None]:
 
 
 def servier_registry_is_open() -> tuple[bool | None, str]:
-    """Ask the public EU CTIS record whether S233107 is still an open trial.
+    """Read the public CTIS record for S233107.
 
-    None means the registry could not be read. False means it is not an open trial.
-    The sponsor page has lagged that record, so an unreadable registry is not
-    treated as permission to publish "not yet recruiting."
+    The public trial page shows this as ctStatus. On 17 October 2026 that page
+    said "End of trial 11/09/2026" and marked Denmark, France, Spain, and
+    Portugal Ended, reason Sponsor Decision. Servier's own page still said
+    not yet recruiting. An unreadable registry is not treated as permission
+    to list the study as open.
     """
     raw, err = fetch_url(
         EU_CT_API,

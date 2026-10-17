@@ -9,7 +9,7 @@ Headlines and excerpts stay with their publishers. Each card links out. The site
 Pages beside the ledger:
 
 - [About SCA3](about.html) — a plain-language introduction, checked against GeneReviews and the papers cited on that page.
-- [Open trials](trials.html) — interventional SCA3 studies a registry still lists as recruiting or not yet recruiting. `fetch.py` refreshes `data/trials.json` on the daily run and leaves Servier’s S233107 off while the EU registry lists that trial as ended.
+- [Open trials](trials.html) — interventional SCA3 studies a registry still lists as recruiting or not yet recruiting. `fetch.py` refreshes `data/trials.json` on the daily run and leaves Servier’s S233107 off while the public CTIS page lists that trial as end of trial on 11 September 2026.
 - [Pipeline](pipeline.html) — therapy programs by stage, from the 5 October 2026 review.
 - [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 5 October 2026.
 - [For families at risk](families.html) — inheritance, testing, pregnancy, and talking with children.
