@@ -127,6 +127,15 @@
     </aside>`;
   }
 
+  function accessHtml(article) {
+    const level = article.access;
+    const url = article.access_url;
+    if ((level !== "full" && level !== "abstract") || !/^https?:\/\//.test(url || "")) return "";
+    const full = level === "full";
+    const label = full ? "Free full text" : "Free abstract";
+    return `<a class="oa ${full ? "oa-full" : "oa-abstract"}" href="${escapeHtml(url)}" rel="noopener noreferrer">${label}</a>`;
+  }
+
   function cardHtml(article) {
     const tags = article.tags || [];
     const primary = tags[0] || "Research";
@@ -154,7 +163,10 @@
   ${extra}
   ${share}
   <div class="card-foot">
-    <time class="date" datetime="${escapeHtml(article.date || "")}">${formatDate(article.date)}</time>
+    <div class="foot-meta">
+      <time class="date" datetime="${escapeHtml(article.date || "")}">${formatDate(article.date)}</time>
+      ${accessHtml(article)}
+    </div>
     <a class="outlink" href="${escapeHtml(article.link)}" rel="noopener noreferrer">Original</a>
   </div>
 </article>`;

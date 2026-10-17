@@ -458,6 +458,278 @@ def prefer_article(old: dict, new: dict) -> dict:
     return chosen
 
 
+UNPAYWALL_EMAIL = "btzona@users.noreply.github.com"
+CC_LICENSE_RE = re.compile(r"creativecommons\.org/(?:licenses|publicdomain)/", re.I)
+# 10.1101 is the long-standing bioRxiv and medRxiv prefix. 10.64898 is the
+# prefix those servers use on 2026 preprints in this ledger.
+SERVER_PREPRINT_RE = re.compile(r"biorxiv|medrxiv", re.I)
+
+
+def is_server_preprint(article: dict) -> bool:
+    blob = f"{article.get('source') or ''} {article.get('link') or ''}"
+    if SERVER_PREPRINT_RE.search(blob):
+        return True
+    doi = extract_doi(article.get("link") or "") or ""
+    return doi.startswith("10.1101/")
+
+
+def preprint_url(article: dict) -> str | None:
+    if not is_server_preprint(article):
+        return None
+    doi = extract_doi(article.get("link") or "")
+    if doi:
+        return f"https://doi.org/{doi}"
+    link = str(article.get("link") or "")
+    return link if link.startswith("http") else None
+
+
+def epmc_is_free(record: dict) -> bool:
+    if str(record.get("isOpenAccess") or "").upper() == "Y":
+        return True
+    if str(record.get("hasPDF") or "").upper() == "Y":
+        return True
+    urls = ((record.get("fullTextUrlList") or {}).get("fullTextUrl") or [])
+    if isinstance(urls, dict):
+        urls = [urls]
+    for item in urls:
+        if not isinstance(item, dict):
+            continue
+        code = str(item.get("availabilityCode") or "").upper()
+        availability = str(item.get("availability") or "").lower()
+        if code == "F" or availability in {"free", "open access"}:
+            return True
+    return False
+
+
+def epmc_full_url(record: dict) -> str | None:
+    pmcid = str(record.get("pmcid") or "").strip()
+    if pmcid:
+        return f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/"
+    urls = ((record.get("fullTextUrlList") or {}).get("fullTextUrl") or [])
+    if isinstance(urls, dict):
+        urls = [urls]
+    html_url = ""
+    for item in urls:
+        if not isinstance(item, dict):
+            continue
+        url = str(item.get("url") or "")
+        if not url.startswith("http"):
+            continue
+        if str(item.get("documentStyle") or "").lower() == "html":
+            html_url = url
+            break
+        html_url = html_url or url
+    return html_url or None
+
+
+def epmc_abstract_url(record: dict, doi: str) -> str:
+    source = str(record.get("source") or "")
+    ident = str(record.get("id") or "")
+    if source and ident:
+        return f"https://europepmc.org/article/{source}/{ident}"
+    if doi:
+        return f"https://doi.org/{doi}"
+    return ""
+
+
+def unpaywall_url(record: dict) -> str | None:
+    location = record.get("best_oa_location") or {}
+    if not isinstance(location, dict):
+        return None
+    for key in ("url_for_pdf", "url"):
+        url = str(location.get(key) or "")
+        if url.startswith("http"):
+            return url
+    return None
+
+
+def crossref_is_oa(message: dict) -> bool:
+    for item in message.get("license") or []:
+        if isinstance(item, dict) and CC_LICENSE_RE.search(str(item.get("URL") or "")):
+            return True
+    return False
+
+
+def crossref_has_abstract(message: dict) -> bool:
+    return bool(strip_html(str(message.get("abstract") or "")).strip())
+
+
+def decide_access(
+    article: dict,
+    *,
+    epmc: dict | None,
+    unpay: dict | None,
+    xref: dict | None,
+) -> tuple[str, str, str]:
+    """Return access level, url, and which source supplied the link."""
+    doi = extract_doi(article.get("link") or "") or ""
+    if epmc and epmc_is_free(epmc):
+        url = epmc_full_url(epmc) or (f"https://doi.org/{doi}" if doi else "")
+        if url:
+            return "full", url, "europepmc"
+    if unpay and unpay.get("is_oa") and unpaywall_url(unpay):
+        return "full", unpaywall_url(unpay) or "", "unpaywall"
+    if xref and crossref_is_oa(xref) and doi:
+        return "full", f"https://doi.org/{doi}", "crossref"
+    preprint = preprint_url(article)
+    if preprint:
+        return "full", preprint, "preprint"
+    if epmc and strip_html(str(epmc.get("abstractText") or "")).strip():
+        return "abstract", epmc_abstract_url(epmc, doi), "europepmc"
+    if xref and crossref_has_abstract(xref) and doi:
+        return "abstract", f"https://doi.org/{doi}", "crossref"
+    return "closed", "", ""
+
+
+def fetch_json(url: str) -> tuple[dict | None, str | None, bool]:
+    """Return payload, error, and whether the identifier was simply unknown."""
+    raw, err = fetch_url(url, headers={"Accept": "application/json", "User-Agent": USER_AGENT})
+    if err or not raw:
+        missing = bool(err and "404" in err)
+        return None, err or "empty response", missing
+    if raw[:1] not in (b"{", b"["):
+        return None, "not json", False
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        return None, f"parse: {exc}", False
+    if not isinstance(payload, dict):
+        return None, "unexpected json", False
+    return payload, None, False
+
+
+def europepmc_record_for_doi(doi: str, results: list[dict]) -> dict | None:
+    """Pick the Europe PMC hit for one DOI search.
+
+    PMC-hosted records often omit the DOI field, so a single-hit search is
+    still that paper. A DOI printed on the record wins when several hits return.
+    """
+    matched = [
+        record
+        for record in results
+        if extract_doi(str(record.get("doi") or "")) == doi
+    ]
+    pool = matched or (results if len(results) == 1 else [])
+    if not pool and results:
+        # Several records and none repeat the DOI. Keep an open-access hit only.
+        pool = [record for record in results if epmc_is_free(record)][:1]
+    if not pool:
+        return None
+    pool.sort(key=lambda record: (0 if epmc_is_free(record) else 1, 0 if record.get("pmcid") else 1))
+    return pool[0]
+
+
+def europepmc_by_doi(dois: list[str]) -> tuple[dict[str, dict], set[str]]:
+    found: dict[str, dict] = {}
+    failed: set[str] = set()
+    for index, doi in enumerate(dois):
+        url = "https://www.ebi.ac.uk/europepmc/webservices/rest/search?" + urllib.parse.urlencode(
+            {
+                "query": f'DOI:"{doi}"',
+                "format": "json",
+                "resultType": "core",
+                "pageSize": "5",
+            }
+        )
+        payload, err, _missing = fetch_json(url)
+        if err or not payload:
+            failed.add(doi)
+            continue
+        results = ((payload.get("resultList") or {}).get("result") or [])
+        if isinstance(results, dict):
+            results = [results]
+        record = europepmc_record_for_doi(doi, [item for item in results if isinstance(item, dict)])
+        if record:
+            found[doi] = record
+        if index % 25 == 24:
+            print(f"  Europe PMC {index + 1}/{len(dois)}")
+        time.sleep(0.05)
+    if failed:
+        print(f"  Europe PMC access lookup failed for {len(failed)} DOI(s).")
+    return found, failed
+
+
+def annotate_access(articles: list[dict]) -> dict[str, int]:
+    """Set access, access_url, and access_via from Unpaywall, Europe PMC, and Crossref.
+
+    A source that fails leaves that article's previous values in place.
+    bioRxiv and medRxiv preprints count as free full text even if a lookup fails.
+    """
+    dois: list[str] = []
+    seen: set[str] = set()
+    for article in articles:
+        doi = extract_doi(article.get("link") or "")
+        if doi and doi not in seen:
+            seen.add(doi)
+            dois.append(doi)
+
+    epmc, epmc_failed = europepmc_by_doi(dois)
+
+    unpay: dict[str, dict | None] = {}
+    unpay_failed: set[str] = set()
+    xref: dict[str, dict | None] = {}
+    xref_failed: set[str] = set()
+    for index, doi in enumerate(dois):
+        payload, err, missing = fetch_json(
+            "https://api.unpaywall.org/v2/"
+            + urllib.parse.quote(doi, safe="/")
+            + "?"
+            + urllib.parse.urlencode({"email": UNPAYWALL_EMAIL})
+        )
+        if payload and not err:
+            unpay[doi] = payload
+        elif missing:
+            unpay[doi] = None
+        else:
+            unpay_failed.add(doi)
+        time.sleep(0.08)
+        payload, err, missing = fetch_json("https://api.crossref.org/works/" + urllib.parse.quote(doi, safe="/"))
+        message = (payload or {}).get("message") if payload else None
+        if isinstance(message, dict) and not err:
+            xref[doi] = message
+        elif missing:
+            xref[doi] = None
+        else:
+            xref_failed.add(doi)
+        if index % 25 == 24:
+            print(f"  Access lookups {index + 1}/{len(dois)}")
+        time.sleep(0.08)
+
+    counts = {"full": 0, "abstract": 0, "closed": 0, "kept": 0}
+    for article in articles:
+        doi = extract_doi(article.get("link") or "") or ""
+        looked_up = bool(doi)
+        failed = doi in unpay_failed or doi in xref_failed or doi in epmc_failed
+        # A preprint still gets a full-text badge when the lookups fail.
+        if looked_up and failed and not is_server_preprint(article) and doi not in epmc and doi not in unpay and doi not in xref:
+            if article.get("access") in {"full", "abstract", "closed"}:
+                counts["kept"] += 1
+            continue
+        if not looked_up and not is_server_preprint(article):
+            level, url, via = "closed", "", ""
+        else:
+            level, url, via = decide_access(
+                article,
+                epmc=epmc.get(doi) if doi else None,
+                unpay=unpay.get(doi) if doi in unpay else None,
+                xref=xref.get(doi) if doi in xref else None,
+            )
+            if looked_up and failed and level == "closed" and article.get("access") in {"full", "abstract"}:
+                counts["kept"] += 1
+                continue
+        article["access"] = level
+        article["access_url"] = url
+        article["access_via"] = via
+        counts[level] = counts.get(level, 0) + 1
+    print(
+        "Access badges: "
+        f"{counts['full']} free full text, {counts['abstract']} free abstract, "
+        f"{counts['closed']} no badge"
+        + (f", {counts['kept']} kept previous" if counts["kept"] else "")
+    )
+    return counts
+
+
 def load_previous_articles() -> list[dict]:
     if not OUT.exists():
         return []
@@ -1717,6 +1989,12 @@ def main() -> int:
     if not collected:
         if previous:
             print(f"No articles collected. Keeping last good {OUT} ({len(previous)} articles).")
+            annotate_access(previous)
+            kept = json.loads(OUT.read_text(encoding="utf-8"))
+            if isinstance(kept, dict):
+                kept["articles"] = previous
+                kept["access_updated"] = datetime.now(timezone.utc).isoformat()
+                write_ledger(kept)
             return 0
         write_ledger(
             {
@@ -1732,6 +2010,7 @@ def main() -> int:
         return 0
 
     selected = cap_history(merge_articles(previous, collected))
+    annotate_access(selected)
     dated = [article["date"] for article in selected if article.get("date")]
     payload = {
         "site": "Ataxin-3",

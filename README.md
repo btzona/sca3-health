@@ -78,7 +78,7 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `js/app.js` | Loads the ledger, filters, month groups, load more, summaries |
 | `js/trials.js` | Renders `data/trials.json` |
 | `fetch.py` | Source fetch, merge, cap, open-trial refresh, and stock closes. Not deployed. |
-| `data/articles.json` | Article ledger |
+| `data/articles.json` | Article ledger, including free-full-text and free-abstract links |
 | `data/trials.json` | Open interventional trials |
 | `data/stocks.json` | Delayed last closes for the public companies on Who’s working |
 | `data/summaries.json` | Hand-written plain-language notes, matched by link |
