@@ -63,7 +63,7 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 
 | Path | Role |
 |------|------|
-| `index.html` | Ledger, with a short note from Bryan Timmins |
+| `index.html` | Ledger, with the home-page note |
 | `about.html` | What SCA3 is |
 | `trials.html` | Open interventional trials |
 | `pipeline.html` | Therapy board, reviewed 5 October 2026 |
