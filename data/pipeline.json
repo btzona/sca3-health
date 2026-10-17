@@ -1,20 +1,51 @@
 {
   "reviewed": "2026-10-05",
-  "note": "These are the programs on the pipeline page. A registry status is added from the latest ClinicalTrials.gov or EU CTIS record when this page has a record number. No approved SCA3 drug is listed.",
-  "closest": [
+  "programs": [
     {
       "name": "Stemchymal",
-      "stage": "Regulatory review",
-      "summary": "A marketing application was submitted in Japan on 24 June 2026 for donor mesenchymal stromal cells in SCA3 and SCA6. That filing is not an approval.",
-      "registry_id": "",
-      "href": "pipeline.html"
+      "approved": false,
+      "closest": true,
+      "plain": "A company in Japan has asked regulators to approve a stem-cell treatment for SCA3 and SCA6 (filed June 24, 2026). Asking isn't the same as approval.",
+      "href": "https://www.reprocell.com/news/reprocell-submits-application-for-manufacturing-and-marketing-approval-in-japan-for-stem-cell-therapy-stemchymal-for-spinocerebellar-ataxia-sca3-and-sca6",
+      "registry_id": ""
     },
     {
       "name": "VO659",
-      "stage": "Phase 1/2a",
-      "summary": "An antisense oligonucleotide given into the spinal fluid, for adults with SCA1, SCA3, or Huntington disease.",
-      "registry_id": "NCT05822908",
-      "href": "https://clinicaltrials.gov/study/NCT05822908"
+      "approved": false,
+      "closest": true,
+      "plain": "An experimental drug given by spinal injection, aimed at the expanded genetic repeat that causes SCA3. The same study also includes SCA1 and Huntington disease. It is an early safety study in adults.",
+      "href": "https://clinicaltrials.gov/study/NCT05822908",
+      "registry_id": "NCT05822908"
+    },
+    {
+      "name": "S233107",
+      "approved": false,
+      "closest": false,
+      "registry_id": "2025-525111-17-00"
+    },
+    {
+      "name": "Troriluzole",
+      "approved": false,
+      "closest": false,
+      "registry_id": "NCT03701399"
+    },
+    {
+      "name": "BIIB132",
+      "approved": false,
+      "closest": false,
+      "registry_id": "NCT05160558"
+    },
+    {
+      "name": "Cure Rare Disease ASO",
+      "approved": false,
+      "closest": false,
+      "registry_id": ""
+    },
+    {
+      "name": "AAV / RNAi and other gene therapy",
+      "approved": false,
+      "closest": false,
+      "registry_id": ""
     }
   ]
 }

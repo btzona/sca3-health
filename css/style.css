@@ -116,6 +116,45 @@ summary:focus-visible {
   top: 1rem;
 }
 
+.hope-banner {
+  background: var(--teal-soft);
+  color: var(--navy);
+  padding: 1.6rem 0 1.7rem;
+  border-bottom: 1px solid #c5e6e2;
+}
+
+.hope-banner h2 {
+  margin: 0 0 0.55rem;
+  max-width: 22em;
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(1.85rem, 4vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--navy);
+}
+
+.hope-banner p {
+  margin: 0.45rem 0 0;
+  max-width: 44rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.hope-banner .hope-link {
+  margin-top: 0.85rem;
+  font-weight: 700;
+}
+
+.hope-banner .hope-link a {
+  color: var(--teal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.hope-approval { font-family: Fraunces, Georgia, serif; font-size: 1.25rem; color: var(--navy); }
+
 .wrap {
   width: min(100% - 1.5rem, var(--max));
   margin-inline: auto;
@@ -1335,11 +1374,11 @@ details.criteria summary {
   font-size: 0.82rem;
 }
 
-.board-count {
-  margin: 0.2rem 0;
+.board-lead {
+  margin: 0.35rem 0 0.2rem;
   font-family: Fraunces, Georgia, serif;
-  font-size: 3.2rem;
-  line-height: 1;
+  font-size: 1.55rem;
+  line-height: 1.25;
   color: var(--navy);
   font-weight: 600;
 }
@@ -1350,7 +1389,18 @@ details.criteria summary {
 .board-status { color: var(--ink); font-weight: 700; }
 
 .change-list { margin: 0.3rem 0 0; padding-left: 1.1rem; }
-.change-list li { margin: 0.45rem 0; color: var(--muted); }
+.change-list li { margin: 0.7rem 0; color: var(--ink); }
+.change-list p { margin: 0.15rem 0; }
+.board-title { color: var(--faint); font-size: 0.82rem; }
+
+.family-kicker {
+  margin: 0.2rem 0 0;
+  color: var(--teal);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
 .family-home {
   display: grid;
@@ -1414,29 +1464,29 @@ details.criteria summary {
   box-shadow: none;
 }
 
-.ledger .card[data-evidence="Review"] { border-left-color: #1e3a5f; }
-.ledger .card[data-evidence="Human trial"] { border-left-color: var(--teal); }
-.ledger .card[data-evidence="Human observational study"] { border-left-color: #1d4e89; }
+.ledger .card[data-evidence="Review of past research"] { border-left-color: #1e3a5f; }
+.ledger .card[data-evidence="Treatment trial in people"] { border-left-color: var(--teal); }
+.ledger .card[data-evidence="Study in people"] { border-left-color: #1d4e89; }
 .ledger .card[data-evidence="Animal study"] { border-left-color: #b45309; }
-.ledger .card[data-evidence="Cell/lab study"] { border-left-color: #6d28d9; }
-.ledger .card[data-evidence="Preprint (not peer-reviewed)"] { border-left-color: var(--coral); }
-.ledger .card[data-evidence="Other"] { border-left-color: #94a3b8; }
+.ledger .card[data-evidence="Lab study (cells)"] { border-left-color: #6d28d9; }
+.ledger .card[data-evidence="Early, not yet peer-reviewed"] { border-left-color: var(--coral); }
+.ledger .card[data-evidence="Research paper"],
+.ledger .card[data-evidence="News"] { border-left-color: #94a3b8; }
 
 .evidence { margin: 0; }
 .evidence-name {
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--muted);
 }
 
-.ledger .card[data-evidence="Review"] .evidence-name { color: #1e3a5f; }
-.ledger .card[data-evidence="Human trial"] .evidence-name { color: var(--teal); }
-.ledger .card[data-evidence="Human observational study"] .evidence-name { color: #1d4e89; }
+.ledger .card[data-evidence="Review of past research"] .evidence-name { color: #1e3a5f; }
+.ledger .card[data-evidence="Treatment trial in people"] .evidence-name { color: var(--teal); }
+.ledger .card[data-evidence="Study in people"] .evidence-name { color: #1d4e89; }
 .ledger .card[data-evidence="Animal study"] .evidence-name { color: #b45309; }
-.ledger .card[data-evidence="Cell/lab study"] .evidence-name { color: #6d28d9; }
-.ledger .card[data-evidence="Preprint (not peer-reviewed)"] .evidence-name { color: var(--coral); }
+.ledger .card[data-evidence="Lab study (cells)"] .evidence-name { color: #6d28d9; }
+.ledger .card[data-evidence="Early, not yet peer-reviewed"] .evidence-name { color: var(--coral); }
 
 .ledger .card h3 {
   font-family: Fraunces, Georgia, serif;

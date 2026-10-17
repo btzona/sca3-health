@@ -14,13 +14,15 @@
       document.querySelectorAll("[data-status-for]").forEach((node) => {
         const record = records[node.dataset.statusFor];
         if (!record) return;
-        node.textContent = `${record.registry}: ${record.status}`;
+        node.textContent = window.AtaxinVoice
+          ? AtaxinVoice.statusSentence(record.status)
+          : `${record.registry}: ${record.status}`;
       });
       document.querySelectorAll("[data-checked]").forEach((node) => {
         const record = records[node.dataset.checked];
         node.textContent = record
           ? record.label
-          : "The latest refresh did not include this registry record.";
+          : "We could not find a public trial record for this one in the latest refresh.";
       });
     })
     .catch(() => {

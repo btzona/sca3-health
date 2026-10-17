@@ -138,13 +138,14 @@
 
   function familyHtml(article) {
     if (!article.family_line) return "";
-    return `<p class="family-line">${italicizeGenes(article.family_line)}</p>
-      <p class="family-note">Automated summary from the abstract. Not medical advice.</p>`;
+    return `<p class="family-kicker">What this means</p>
+      <p class="family-line">${italicizeGenes(article.family_line)}</p>
+      <p class="family-note">From the kind of study. It is not a result, and it is not a promise.</p>`;
   }
 
   function cardHtml(article) {
     const tags = article.tags || [];
-    const evidence = article.evidence || "Other";
+    const evidence = article.evidence || "Research paper";
     const extra = tags.length
       ? `<p class="tag-row">${tags
           .map((tag) => `<span class="badge" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`)

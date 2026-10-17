@@ -77,13 +77,13 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `img/mark.svg` | Header and favicon. A small CAG-helix mark drawn for this site |
 | `img/cajal-purkinje.webp` | Drawing used on the social card |
 | `js/app.js` | Loads the ledger, evidence labels, family lines, filters, month groups |
-| `js/board.js` | Home status board |
+| `js/board.js` | Home status board, in plain language |
 | `js/registry.js` | “Checked against” marks from `data/registry.json` |
 | `js/trials.js` | Renders `data/trials.json` |
 | `fetch.py` | Source fetch, evidence labels, family lines, registry checks, open trials, and stock closes. Not deployed. |
 | `data/articles.json` | Article ledger, including evidence labels, family lines, and access links |
 | `data/trials.json` | Open interventional trials, with the registry check on each study |
-| `data/pipeline.json` | Programs closest to patients, taken from the pipeline page |
+| `data/pipeline.json` | Pipeline programs, including whether any is approved. The home banner reads this file |
 | `data/registry.json` | ClinicalTrials.gov v2 and EU CTIS statuses read by the daily job |
 | `data/changes.json` | What changed this month, diffed against the previous refresh |
 | `data/stocks.json` | Delayed last closes for the public companies on Who’s working |
