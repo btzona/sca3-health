@@ -1181,6 +1181,7 @@ SERVIER_URL = (
     "a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/"
 )
 EU_CT_URL = "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00"
+EU_CT_API = "https://euclinicaltrials.eu/ctis-public-api/retrieve/2025-525111-17-00"
 OPEN_STATUSES = {"RECRUITING", "NOT_YET_RECRUITING"}
 
 
@@ -1363,7 +1364,39 @@ def fetch_open_ctgov() -> tuple[list[dict], str | None]:
     return found, None
 
 
+def servier_registry_is_open() -> tuple[bool | None, str]:
+    """Ask the public EU CTIS record whether S233107 is still an open trial.
+
+    None means the registry could not be read. False means it is not an open trial.
+    The sponsor page has lagged that record, so an unreadable registry is not
+    treated as permission to publish "not yet recruiting."
+    """
+    raw, err = fetch_url(
+        EU_CT_API,
+        headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+    )
+    if err or not raw:
+        return None, err or "empty EU CTIS response"
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        return None, f"EU CTIS parse: {exc}"
+    status = str(payload.get("ctStatus") or "").strip()
+    end = str(payload.get("endDateEU") or "").strip()
+    if status.lower() == "ended":
+        when = f", end date {end}" if end else ""
+        return False, f"EU CTIS lists this trial as Ended{when}"
+    if status.lower() in {"authorised", "authorized", "ongoing"}:
+        return True, status
+    if not status:
+        return None, "EU CTIS response had no trial status"
+    return False, f"EU CTIS status {status} is not an open trial"
+
+
 def fetch_servier_trial() -> tuple[dict | None, str | None]:
+    open_now, reason = servier_registry_is_open()
+    if open_now is not True:
+        return None, reason
     raw, err = fetch_url(SERVIER_URL, headers={"User-Agent": BROWSER_UA, "Accept": "text/html"})
     if err or not raw:
         return None, err or "empty Servier page"
@@ -1441,6 +1474,19 @@ def fetch_servier_trial() -> tuple[dict | None, str | None]:
     return trial, None
 
 
+def previous_servier_trial() -> dict | None:
+    if not TRIALS_OUT.exists():
+        return None
+    try:
+        payload = json.loads(TRIALS_OUT.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    for trial in payload.get("trials") or []:
+        if trial.get("eu_ct") == "2025-525111-17-00" or "S233107" in (trial.get("title") or ""):
+            return trial
+    return None
+
+
 def refresh_open_trials() -> None:
     """Write data/trials.json. A failed source keeps the last good file."""
     TRIALS_OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -1452,10 +1498,18 @@ def refresh_open_trials() -> None:
     trials = list(ctgov)
     ids = {trial.get("nct_id") for trial in trials}
     titles = " ".join(trial.get("title") or "" for trial in trials)
+    ended = bool(servier_err and "lists this trial as Ended" in servier_err)
     if servier and "S233107" not in titles and servier["id"] not in ids:
         trials.append(servier)
+    elif ended:
+        print(f"Servier trial left off the open list: {servier_err}")
     elif servier is None:
-        print(f"Servier trial page skipped: {servier_err}")
+        kept = previous_servier_trial()
+        if kept:
+            trials.append(kept)
+            print(f"Servier trial page skipped ({servier_err}). Kept the previous Servier record.")
+        else:
+            print(f"Servier trial page skipped: {servier_err}")
     if not trials:
         print("Open trials refresh found nothing. Keeping the previous file.")
         return
@@ -1485,9 +1539,163 @@ def refresh_open_trials() -> None:
     print(f"Wrote {len(trials)} open trials → {TRIALS_OUT}")
 
 
+STOCKS_OUT = ROOT / "data" / "stocks.json"
+# Public companies on the Who's working page. Stooq is tried first.
+# Yahoo's chart endpoint is the fallback when Stooq does not return CSV.
+STOCK_SYMBOLS = [
+    {"id": "BHVN", "stooq": "bhvn.us", "yahoo": "BHVN", "exchange": "NYSE", "currency": "USD"},
+    {"id": "BIIB", "stooq": "biib.us", "yahoo": "BIIB", "exchange": "NasdaqGS", "currency": "USD"},
+    {"id": "SRPT", "stooq": "srpt.us", "yahoo": "SRPT", "exchange": "NasdaqGS", "currency": "USD"},
+    {"id": "4978.T", "stooq": "4978.jp", "yahoo": "4978.T", "exchange": "Tokyo", "currency": "JPY"},
+]
+
+
+def load_previous_stocks() -> dict:
+    if not STOCKS_OUT.exists():
+        return {}
+    try:
+        payload = json.loads(STOCKS_OUT.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def round_price(value: float, currency: str) -> float:
+    if currency == "JPY":
+        return round(value, 1) if abs(value - round(value)) >= 0.05 else float(round(value))
+    return round(value, 2)
+
+
+def quote_from_closes(closes: list[tuple[str, float]], currency: str) -> dict | None:
+    usable = [(day, price) for day, price in closes if price is not None and price > 0]
+    if len(usable) < 2:
+        return None
+    prev_day, previous = usable[-2]
+    day, close = usable[-1]
+    change = (close - previous) / previous * 100
+    return {
+        "close": round_price(close, currency),
+        "previous_close": round_price(previous, currency),
+        "change_percent": round(change, 2),
+        "as_of": day,
+        "previous_as_of": prev_day,
+    }
+
+
+def parse_stooq_csv(raw: bytes, currency: str) -> dict | None:
+    text = raw.decode("utf-8", "replace").strip()
+    if not text or text.lstrip().startswith("<") or "javascript" in text[:400].lower():
+        return None
+    closes: list[tuple[str, float]] = []
+    for line in text.splitlines():
+        parts = [part.strip() for part in line.split(",")]
+        if len(parts) < 5 or not re.match(r"\d{4}-\d{2}-\d{2}", parts[0]):
+            continue
+        try:
+            closes.append((parts[0], float(parts[4])))
+        except ValueError:
+            continue
+    return quote_from_closes(closes, currency)
+
+
+def parse_yahoo_chart(raw: bytes, fallback_exchange: str, fallback_currency: str) -> dict | None:
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+        result = (payload.get("chart") or {}).get("result") or []
+        if not result:
+            return None
+        row = result[0]
+        meta = row.get("meta") or {}
+        timestamps = row.get("timestamp") or []
+        quote = ((row.get("indicators") or {}).get("quote") or [{}])[0]
+        closes_raw = quote.get("close") or []
+    except (UnicodeDecodeError, json.JSONDecodeError, IndexError, TypeError):
+        return None
+    closes: list[tuple[str, float]] = []
+    for stamp, price in zip(timestamps, closes_raw):
+        if price is None:
+            continue
+        day = datetime.fromtimestamp(int(stamp), timezone.utc).date().isoformat()
+        try:
+            closes.append((day, float(price)))
+        except (TypeError, ValueError):
+            continue
+    currency = str(meta.get("currency") or fallback_currency)
+    parsed = quote_from_closes(closes, currency)
+    if not parsed:
+        return None
+    parsed["exchange"] = str(meta.get("fullExchangeName") or fallback_exchange)
+    parsed["currency"] = currency
+    parsed["source"] = "yahoo-chart"
+    return parsed
+
+
+def fetch_stock_quote(spec: dict) -> tuple[dict | None, str | None]:
+    stooq_url = "https://stooq.com/q/d/l/?s=" + urllib.parse.quote(spec["stooq"]) + "&i=d"
+    raw, err = fetch_url(stooq_url, headers={"User-Agent": BROWSER_UA, "Accept": "text/csv,*/*"})
+    parsed = parse_stooq_csv(raw, spec["currency"]) if raw else None
+    if parsed:
+        parsed["exchange"] = spec["exchange"]
+        parsed["currency"] = spec["currency"]
+        parsed["source"] = "stooq"
+        parsed["symbol"] = spec["id"]
+        return parsed, None
+    yahoo_url = (
+        "https://query1.finance.yahoo.com/v8/finance/chart/"
+        + urllib.parse.quote(spec["yahoo"])
+        + "?interval=1d&range=1mo"
+    )
+    raw, yahoo_err = fetch_url(
+        yahoo_url,
+        headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+    )
+    parsed = parse_yahoo_chart(raw, spec["exchange"], spec["currency"]) if raw else None
+    if parsed:
+        parsed["symbol"] = spec["id"]
+        return parsed, None
+    return None, yahoo_err or err or "no daily closes"
+
+
+def refresh_stocks() -> None:
+    """Write data/stocks.json. A symbol that fails keeps its last good quote."""
+    STOCKS_OUT.parent.mkdir(parents=True, exist_ok=True)
+    previous = load_previous_stocks()
+    quotes = dict(previous.get("quotes") or {})
+    errors: list[str] = []
+    refreshed = 0
+    for spec in STOCK_SYMBOLS:
+        quote, err = fetch_stock_quote(spec)
+        if quote:
+            quotes[spec["id"]] = quote
+            refreshed += 1
+            print(
+                f"  {spec['id']} {quote['close']} {quote['currency']} "
+                f"({quote['change_percent']:+.2f}%) as of {quote['as_of']} via {quote['source']}"
+            )
+        else:
+            errors.append(f"{spec['id']}: {err}")
+            if spec["id"] in quotes:
+                print(f"  {spec['id']} failed ({err}). Kept the previous quote.")
+            else:
+                print(f"  {spec['id']} failed ({err}).")
+        time.sleep(0.2)
+    if refreshed == 0 and previous.get("quotes"):
+        print(f"Stock refresh failed. Keeping last good {STOCKS_OUT.name}.")
+        return
+    payload = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "disclaimer": "Delayed last close from a public daily price history. Not investment advice.",
+        "quotes": quotes,
+        "errors": errors,
+    }
+    STOCKS_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Wrote {len(quotes)} stock quotes → {STOCKS_OUT}")
+
+
 def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     refresh_open_trials()
+    refresh_stocks()
     feed_status: list[dict] = []
     collected: list[dict] = []
 
