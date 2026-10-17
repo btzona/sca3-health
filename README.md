@@ -12,7 +12,7 @@ Pages beside the ledger:
 - [Open trials](trials.html) — interventional SCA3 studies a registry still lists as recruiting or not yet recruiting. `fetch.py` refreshes `data/trials.json` on the daily run and leaves Servier’s S233107 off while the public CTIS page lists that trial as end of trial on 11 September 2026.
 - [Pipeline](pipeline.html) — therapy programs by stage, from the 5 October 2026 review.
 - [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 5 October 2026.
-- [For families at risk](families.html) — inheritance, testing, pregnancy, and talking with children.
+- [For families at risk](families.html) — inheritance, testing, pregnancy, talking with children, NAF’s virtual counseling offer, and the ESMI and READISCA studies.
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
@@ -63,7 +63,7 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 
 | Path | Role |
 |------|------|
-| `index.html` | Ledger, with the home-page note |
+| `index.html` | Status board, family link, then the ledger |
 | `about.html` | What SCA3 is |
 | `trials.html` | Open interventional trials |
 | `pipeline.html` | Therapy board, reviewed 5 October 2026 |
@@ -74,12 +74,18 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `resources.html` | Organizations, clinics, registries |
 | `css/style.css` | Layout, including small screens |
 | `fonts/` | Self-hosted Manrope and Fraunces (SIL Open Font License) |
-| `img/cajal-purkinje.webp` | Small brand mark, Santiago Ramón y Cajal, circa 1900, public domain |
-| `js/app.js` | Loads the ledger, filters, month groups, load more, summaries |
+| `img/mark.svg` | Header and favicon. A small CAG-helix mark drawn for this site |
+| `img/cajal-purkinje.webp` | Drawing used on the social card |
+| `js/app.js` | Loads the ledger, evidence labels, family lines, filters, month groups |
+| `js/board.js` | Home status board |
+| `js/registry.js` | “Checked against” marks from `data/registry.json` |
 | `js/trials.js` | Renders `data/trials.json` |
-| `fetch.py` | Source fetch, merge, cap, open-trial refresh, and stock closes. Not deployed. |
-| `data/articles.json` | Article ledger, including free-full-text and free-abstract links |
-| `data/trials.json` | Open interventional trials |
+| `fetch.py` | Source fetch, evidence labels, family lines, registry checks, open trials, and stock closes. Not deployed. |
+| `data/articles.json` | Article ledger, including evidence labels, family lines, and access links |
+| `data/trials.json` | Open interventional trials, with the registry check on each study |
+| `data/pipeline.json` | Programs closest to patients, taken from the pipeline page |
+| `data/registry.json` | ClinicalTrials.gov v2 and EU CTIS statuses read by the daily job |
+| `data/changes.json` | What changed this month, diffed against the previous refresh |
 | `data/stocks.json` | Delayed last closes for the public companies on Who’s working |
 | `data/summaries.json` | Hand-written plain-language notes, matched by link |
 | `data/glossary.json` | Terms used for the dotted links |
@@ -90,4 +96,4 @@ Europe PMC and Crossref supply the journal record. bioRxiv and medRxiv are queri
 
 ## Design
 
-Deep navy, a teal accent, and white cards on a cool paper background. Manrope for text, Fraunces for the large titles. The Cajal drawing is a small round mark beside the name. The footer repeats the credit and the license. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.
+Deep navy, a teal accent, and a cool paper background. Manrope for text, Fraunces for the large titles. The header mark is an original CAG-helix drawing. The ledger is a single editorial list: an evidence label colors the left rule, the family line is italic, and the source and badges sit in small type. The Cajal drawing remains the social-card image. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.

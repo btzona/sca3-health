@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T02:36:09.796531+00:00",
+  "updated": "2026-10-17T10:02:58.361773+00:00",
   "query": "SCA3 OR Machado-Joseph OR ATXN3, interventional, recruiting or not yet recruiting",
   "sources": [
     {
@@ -135,6 +135,9 @@
         }
       ],
       "registry_updated": "2026-08-19",
+      "checked_registry": "ClinicalTrials.gov",
+      "checked_date": "2026-08-19",
+      "checked_label": "Checked against ClinicalTrials.gov, 19 Aug 2026",
       "source": "ClinicalTrials.gov API v2"
     },
     {
@@ -173,6 +176,9 @@
         }
       ],
       "registry_updated": "2025-11-20",
+      "checked_registry": "ClinicalTrials.gov",
+      "checked_date": "2025-11-20",
+      "checked_label": "Checked against ClinicalTrials.gov, 20 Nov 2025",
       "source": "ClinicalTrials.gov API v2"
     },
     {
@@ -216,6 +222,9 @@
         }
       ],
       "registry_updated": "2026-08-07",
+      "checked_registry": "ClinicalTrials.gov",
+      "checked_date": "2026-08-07",
+      "checked_label": "Checked against ClinicalTrials.gov, 7 Aug 2026",
       "source": "ClinicalTrials.gov API v2"
     },
     {
@@ -253,6 +262,9 @@
         }
       ],
       "registry_updated": "2026-09-01",
+      "checked_registry": "ClinicalTrials.gov",
+      "checked_date": "2026-09-01",
+      "checked_label": "Checked against ClinicalTrials.gov, 1 Sep 2026",
       "source": "ClinicalTrials.gov API v2"
     },
     {
@@ -283,6 +295,9 @@
         }
       ],
       "registry_updated": "2026-04-23",
+      "checked_registry": "ClinicalTrials.gov",
+      "checked_date": "2026-04-23",
+      "checked_label": "Checked against ClinicalTrials.gov, 23 Apr 2026",
       "source": "ClinicalTrials.gov API v2"
     }
   ]

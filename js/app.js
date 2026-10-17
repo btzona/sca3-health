@@ -100,7 +100,7 @@
     const tags = article.tags || [];
     if (filter !== "all" && !tags.includes(filter)) return false;
     if (!query) return true;
-    const blob = [article.title, article.summary, article.source, tags.join(" ")]
+    const blob = [article.title, article.summary, article.family_line, article.evidence, article.source, tags.join(" ")]
       .join(" ")
       .toLowerCase();
     return blob.includes(query);
@@ -136,12 +136,17 @@
     return `<a class="oa ${full ? "oa-full" : "oa-abstract"}" href="${escapeHtml(url)}" rel="noopener noreferrer">${label}</a>`;
   }
 
+  function familyHtml(article) {
+    if (!article.family_line) return "";
+    return `<p class="family-line">${italicizeGenes(article.family_line)}</p>
+      <p class="family-note">Automated summary from the abstract. Not medical advice.</p>`;
+  }
+
   function cardHtml(article) {
     const tags = article.tags || [];
-    const primary = tags[0] || "Research";
-    const rest = tags.slice(1);
-    const extra = rest.length
-      ? `<p class="tag-row">${rest
+    const evidence = article.evidence || "Other";
+    const extra = tags.length
+      ? `<p class="tag-row">${tags
           .map((tag) => `<span class="badge" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`)
           .join("")}</p>`
       : "";
@@ -152,23 +157,22 @@
           })
         : "";
     return `
-<article class="card">
-  <div class="card-top">
-    <span class="badge" data-tag="${escapeHtml(primary)}">${escapeHtml(primary)}</span>
-    <span class="source">${escapeHtml(article.source || "")}</span>
-  </div>
+<article class="card" data-evidence="${escapeHtml(evidence)}">
+  <p class="evidence"><span class="evidence-name">${escapeHtml(evidence)}</span></p>
   <h3><a href="${escapeHtml(article.link)}" rel="noopener noreferrer">${italicizeGenes(article.title)}</a></h3>
-  <p class="excerpt">${italicizeGenes(article.summary)}</p>
+  <p class="excerpt">${italicizeGenes(String(article.summary || "").replace(/^(abstract|summary)\b[:\s-]*/i, "").replace(/^(objective|objectives|background)\b[:\s-]*/i, ""))}</p>
+  ${familyHtml(article)}
   ${meansHtml(article.link)}
-  ${extra}
-  ${share}
   <div class="card-foot">
     <div class="foot-meta">
+      <span class="source">${escapeHtml(article.source || "")}</span>
       <time class="date" datetime="${escapeHtml(article.date || "")}">${formatDate(article.date)}</time>
+      ${extra}
       ${accessHtml(article)}
     </div>
     <a class="outlink" href="${escapeHtml(article.link)}" rel="noopener noreferrer">Original</a>
   </div>
+  ${share}
 </article>`;
   }
 
