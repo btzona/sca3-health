@@ -103,7 +103,10 @@
         "Biomarkers",
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13660296/",
+      "access_via": "europepmc"
     },
     {
       "id": "ecaf6c379e1651b9",
@@ -116,7 +119,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13646224/",
+      "access_via": "europepmc"
     },
     {
       "id": "d555ffe93d465ce2",
@@ -129,7 +135,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.64898/2026.10.02.756117",
+      "access_via": "europepmc"
     },
     {
       "id": "fa9ea80013d2171d",
@@ -143,7 +152,10 @@
         "Biomarkers",
         "Care/Rehab"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "3818f933c9107588",
@@ -156,7 +168,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/smll.75802",
+      "access_via": "unpaywall"
     },
     {
       "id": "5764e9585cf10607",
@@ -169,7 +184,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1186/s12883-026-05420-4",
+      "access_via": "unpaywall"
     },
     {
       "id": "891b49cae1c2da9e",
@@ -182,7 +200,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13627293/",
+      "access_via": "europepmc"
     },
     {
       "id": "c0abe2aa25ddcfa3",
@@ -195,7 +216,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.51126/revsalus.v8isupiii.48079",
+      "access_via": "unpaywall"
     },
     {
       "id": "83766f4afc864179",
@@ -208,7 +232,10 @@
       "tags": [
         "Clinical trial"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/mds.70499",
+      "access_via": "unpaywall"
     },
     {
       "id": "7fff72266cf4ce79",
@@ -221,7 +248,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.21203/rs.3.rs-10732082/v1",
+      "access_via": "europepmc"
     },
     {
       "id": "c926614d2d61d560",
@@ -234,7 +264,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "news"
+      "kind": "news",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "d0f30104b94ba2b5",
@@ -247,7 +280,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13617979/",
+      "access_via": "europepmc"
     },
     {
       "id": "01f833125509d4e9",
@@ -260,7 +296,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.2139/ssrn.5394702",
+      "access_via": "unpaywall"
     },
     {
       "id": "36822dbdb075c503",
@@ -273,7 +312,10 @@
       "tags": [
         "Clinical trial"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "4a50be2c1eb603e8",
@@ -287,7 +329,10 @@
         "Therapy/ASO",
         "Care/Rehab"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1159/crn/abyag006",
+      "access_via": "unpaywall"
     },
     {
       "id": "c6760ae70889109d",
@@ -300,7 +345,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13544303/",
+      "access_via": "europepmc"
     },
     {
       "id": "11a358a11d1bc1db",
@@ -313,7 +361,10 @@
       "tags": [
         "Clinical trial"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "8f8f61851292ecf6",
@@ -327,7 +378,10 @@
         "Clinical trial",
         "Therapy/ASO"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "557df5260c6b7fc1",
@@ -342,7 +396,10 @@
         "Biomarkers",
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13527938/",
+      "access_via": "europepmc"
     },
     {
       "id": "610855d74f5d8302",
@@ -355,7 +412,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42594559",
+      "access_via": "europepmc"
     },
     {
       "id": "568e0577b1ca45db",
@@ -368,7 +428,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.64898/2026.08.07.743629",
+      "access_via": "europepmc"
     },
     {
       "id": "80b0384e5dd5652c",
@@ -381,7 +444,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1186/s13023-026-04402-6",
+      "access_via": "unpaywall"
     },
     {
       "id": "5e80158a29f90298",
@@ -394,7 +460,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1002/mds.70465",
+      "access_via": "unpaywall"
     },
     {
       "id": "eb2f6da7d80737cd",
@@ -407,7 +476,10 @@
       "tags": [
         "Clinical trial"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "48ccffab1222441a",
@@ -420,7 +492,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13487206/",
+      "access_via": "europepmc"
     },
     {
       "id": "f90e2f32c8df8604",
@@ -433,7 +508,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://link.springer.com/content/pdf/10.1007/s12035-026-06080-8.pdf",
+      "access_via": "unpaywall"
     },
     {
       "id": "3a2f381503489b75",
@@ -447,7 +525,10 @@
         "Clinical trial",
         "Natural history"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "f26a495b703ec85d",
@@ -460,7 +541,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1002/ana.78317",
+      "access_via": "unpaywall"
     },
     {
       "id": "7542675332fef971",
@@ -473,7 +557,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42501193",
+      "access_via": "europepmc"
     },
     {
       "id": "55bb2ef1410fe2d2",
@@ -486,7 +573,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13415171/",
+      "access_via": "europepmc"
     },
     {
       "id": "01c44ff9f46c9b40",
@@ -500,7 +590,10 @@
         "Natural history",
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42439334",
+      "access_via": "europepmc"
     },
     {
       "id": "382ff8c994e2f0c7",
@@ -513,7 +606,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ijstemcell.com/journal/download_pdf.php?doi=10.15283/ijsc25141",
+      "access_via": "unpaywall"
     },
     {
       "id": "60ef5e908d7f62bb",
@@ -526,7 +622,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13392492/",
+      "access_via": "europepmc"
     },
     {
       "id": "a85b79eec143191e",
@@ -539,7 +638,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42386068",
+      "access_via": "europepmc"
     },
     {
       "id": "266d2eab4b461c38",
@@ -552,7 +654,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13334373/",
+      "access_via": "europepmc"
     },
     {
       "id": "109a7bbe66ed1962",
@@ -565,7 +670,10 @@
       "tags": [
         "Review"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13423774/",
+      "access_via": "europepmc"
     },
     {
       "id": "d2dee916c1e4760a",
@@ -578,7 +686,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42381263",
+      "access_via": "europepmc"
     },
     {
       "id": "b9247501c3658fd3",
@@ -591,7 +702,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.64898/2026.06.24.734389",
+      "access_via": "europepmc"
     },
     {
       "id": "d98a101f5476e9d3",
@@ -604,7 +718,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42374825",
+      "access_via": "europepmc"
     },
     {
       "id": "d1b4a1be12f5b16a",
@@ -617,7 +734,10 @@
       "tags": [
         "Therapy/ASO"
       ],
-      "kind": "news"
+      "kind": "news",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "7c88c0afbdb63fd2",
@@ -631,7 +751,10 @@
         "Clinical trial",
         "Therapy/ASO"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "e23071fe4953dcd0",
@@ -645,7 +768,10 @@
         "Natural history",
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13543455/",
+      "access_via": "europepmc"
     },
     {
       "id": "53f282bd77269e52",
@@ -658,7 +784,10 @@
       "tags": [
         "Gene therapy"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13330521/",
+      "access_via": "europepmc"
     },
     {
       "id": "73157c98bf962d60",
@@ -672,7 +801,10 @@
         "Therapy/ASO",
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "23c31119ac84e561",
@@ -686,7 +818,10 @@
         "Clinical trial",
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13394087/",
+      "access_via": "europepmc"
     },
     {
       "id": "999043d8fc9f640e",
@@ -699,7 +834,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.nbd.2026.107474",
+      "access_via": "unpaywall"
     },
     {
       "id": "3a83735a4ad49504",
@@ -712,7 +850,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13541599/",
+      "access_via": "europepmc"
     },
     {
       "id": "728c3ed4f1d2a371",
@@ -725,7 +866,10 @@
       "tags": [
         "Gene therapy"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42253155",
+      "access_via": "europepmc"
     },
     {
       "id": "992b9fbf38f98be0",
@@ -738,7 +882,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13215304/",
+      "access_via": "europepmc"
     },
     {
       "id": "f1f32b42c30e4eec",
@@ -751,7 +898,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42191105",
+      "access_via": "europepmc"
     },
     {
       "id": "cde2f8033319c106",
@@ -764,7 +914,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42183960",
+      "access_via": "europepmc"
     },
     {
       "id": "6a34fa6af38e6086",
@@ -778,7 +931,10 @@
         "Natural history",
         "Review"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13649910/",
+      "access_via": "europepmc"
     },
     {
       "id": "acb8843659ccbc8d",
@@ -791,7 +947,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "af3d0a52e29be2f2",
@@ -804,7 +963,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13518284/",
+      "access_via": "europepmc"
     },
     {
       "id": "db5b043162af7daf",
@@ -817,7 +979,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42087344",
+      "access_via": "europepmc"
     },
     {
       "id": "0d59c4fa77d6899d",
@@ -830,7 +995,10 @@
       "tags": [
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42083341",
+      "access_via": "europepmc"
     },
     {
       "id": "5cee582020f4a48c",
@@ -843,7 +1011,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13137668/",
+      "access_via": "europepmc"
     },
     {
       "id": "ebee15fa1ab74c56",
@@ -856,7 +1027,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/42069099",
+      "access_via": "europepmc"
     },
     {
       "id": "bfdd60d15b56f6cc",
@@ -869,7 +1043,10 @@
       "tags": [
         "Clinical trial"
       ],
-      "kind": "trial"
+      "kind": "trial",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "f507ca1bd0bd1237",
@@ -882,7 +1059,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13387968/",
+      "access_via": "europepmc"
     },
     {
       "id": "e1a2f0f13dd42f91",
@@ -895,7 +1075,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "news"
+      "kind": "news",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "fc71c7985b64ea89",
@@ -908,7 +1091,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13188680/",
+      "access_via": "europepmc"
     },
     {
       "id": "33e103625bca76c2",
@@ -921,7 +1107,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13224077/",
+      "access_via": "europepmc"
     },
     {
       "id": "cc05830452b2589f",
@@ -934,7 +1123,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13080496/",
+      "access_via": "europepmc"
     },
     {
       "id": "99c38cfe34512940",
@@ -947,7 +1139,10 @@
       "tags": [
         "Clinical trial"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12998449/",
+      "access_via": "europepmc"
     },
     {
       "id": "42eeb7c619f4cbbc",
@@ -960,7 +1155,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1002/mds.70271",
+      "access_via": "unpaywall"
     },
     {
       "id": "2f9a62a7052b9d11",
@@ -973,7 +1171,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13090235/",
+      "access_via": "europepmc"
     },
     {
       "id": "605eb208ad7cb70c",
@@ -987,7 +1188,10 @@
         "Gene therapy",
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13288182/",
+      "access_via": "europepmc"
     },
     {
       "id": "db9e62f4f9900451",
@@ -1000,7 +1204,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13085427/",
+      "access_via": "europepmc"
     },
     {
       "id": "0b918fa98b31bdab",
@@ -1013,7 +1220,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.npep.2026.102605",
+      "access_via": "unpaywall"
     },
     {
       "id": "476ad7bae5eaea93",
@@ -1026,7 +1236,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13010821/",
+      "access_via": "europepmc"
     },
     {
       "id": "76e5001fc3d6b94a",
@@ -1040,7 +1253,10 @@
         "Clinical trial",
         "Therapy/ASO"
       ],
-      "kind": "news"
+      "kind": "news",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "02b971f9832c9e8c",
@@ -1053,7 +1269,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12922401/",
+      "access_via": "europepmc"
     },
     {
       "id": "0eae4b48d7c52583",
@@ -1066,7 +1285,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/41701293",
+      "access_via": "europepmc"
     },
     {
       "id": "b09aebeea30ddd90",
@@ -1079,7 +1301,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "closed",
+      "access_url": "",
+      "access_via": ""
     },
     {
       "id": "79981f5785c8d3a1",
@@ -1092,7 +1317,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/41707444",
+      "access_via": "europepmc"
     },
     {
       "id": "c9af2fed5d5978c2",
@@ -1105,7 +1333,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.jstage.jst.go.jp/article/internalmedicine/advpub/0/advpub_6851-25/_pdf",
+      "access_via": "unpaywall"
     },
     {
       "id": "d5ebb7c5a137e8ce",
@@ -1119,7 +1350,10 @@
         "Biomarkers",
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13358550/",
+      "access_via": "europepmc"
     },
     {
       "id": "dc726472898776c5",
@@ -1132,7 +1366,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12933716/",
+      "access_via": "europepmc"
     },
     {
       "id": "45cc72e3016b85a0",
@@ -1145,7 +1382,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/41690140",
+      "access_via": "europepmc"
     },
     {
       "id": "87d1dced37861d4b",
@@ -1158,7 +1398,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12928606/",
+      "access_via": "europepmc"
     },
     {
       "id": "48e25e9198037060",
@@ -1172,7 +1415,10 @@
         "Biomarkers",
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.nbd.2026.107301",
+      "access_via": "unpaywall"
     },
     {
       "id": "505e47cdb145e232",
@@ -1185,7 +1431,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12923746/",
+      "access_via": "europepmc"
     },
     {
       "id": "fb48e825213650f0",
@@ -1198,7 +1447,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.64898/2026.01.31.703043",
+      "access_via": "europepmc"
     },
     {
       "id": "18aac99f2140f133",
@@ -1212,7 +1464,10 @@
         "Natural history",
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.jare.2026.02.031",
+      "access_via": "unpaywall"
     },
     {
       "id": "4048a202295d7511",
@@ -1225,7 +1480,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.3724/j.pibb.2026.0006",
+      "access_via": "unpaywall"
     },
     {
       "id": "046c947f75bb1476",
@@ -1239,7 +1497,10 @@
         "Natural history",
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/41854058",
+      "access_via": "europepmc"
     },
     {
       "id": "541e14916debecf8",
@@ -1252,7 +1513,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/febs.70426",
+      "access_via": "unpaywall"
     },
     {
       "id": "dc105069df8a9c3e",
@@ -1265,7 +1529,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.64898/2026.01.26.26344891",
+      "access_via": "europepmc"
     },
     {
       "id": "d4ebf1164510c444",
@@ -1278,7 +1545,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.17576/mh.2026.2101.25",
+      "access_via": "unpaywall"
     },
     {
       "id": "8a59905a1b88e3f8",
@@ -1291,7 +1561,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.64898/2026.01.22.701070",
+      "access_via": "europepmc"
     },
     {
       "id": "50bef6d37b3d030f",
@@ -1304,7 +1577,10 @@
       "tags": [
         "Natural history"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13358552/",
+      "access_via": "europepmc"
     },
     {
       "id": "f1c04720209bc581",
@@ -1317,7 +1593,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/mds.70195",
+      "access_via": "unpaywall"
     },
     {
       "id": "bbfff5c870abcc78",
@@ -1330,7 +1609,10 @@
       "tags": [
         "Genetics/Reproduction"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12846992/",
+      "access_via": "europepmc"
     },
     {
       "id": "176d4ab361085bf8",
@@ -1343,7 +1625,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "abstract",
+      "access_url": "https://europepmc.org/article/MED/41504997",
+      "access_via": "europepmc"
     },
     {
       "id": "a453bdb0dd470630",
@@ -1356,7 +1641,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12779735/",
+      "access_via": "europepmc"
     },
     {
       "id": "90891c43efc51903",
@@ -1369,7 +1657,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13158246/",
+      "access_via": "europepmc"
     },
     {
       "id": "0520548cb573b6d4",
@@ -1382,7 +1673,10 @@
       "tags": [
         "Biomarkers"
       ],
-      "kind": "preprint"
+      "kind": "preprint",
+      "access": "full",
+      "access_url": "https://doi.org/10.2139/ssrn.6801787",
+      "access_via": "unpaywall"
     },
     {
       "id": "15f4f5e326071d2b",
@@ -1395,7 +1689,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.clinph.2025.2111405",
+      "access_via": "unpaywall"
     },
     {
       "id": "57423dd01acde72b",
@@ -1408,7 +1705,10 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.nsa.2026.106975",
+      "access_via": "unpaywall"
     },
     {
       "id": "dc03c41c5839e637",
@@ -1422,7 +1722,10 @@
         "Biomarkers",
         "Care/Rehab"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.2139/ssrn.5275915",
+      "access_via": "unpaywall"
     },
     {
       "id": "dcfdaaeb301b9b14",
@@ -1435,7 +1738,11 @@
       "tags": [
         "Research"
       ],
-      "kind": "paper"
+      "kind": "paper",
+      "access": "full",
+      "access_url": "https://doi.org/10.1016/j.nbd.2025.107232",
+      "access_via": "unpaywall"
     }
-  ]
+  ],
+  "access_updated": "2026-10-17T02:44:07.101316+00:00"
 }

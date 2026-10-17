@@ -1,0 +1,51 @@
+{
+  "updated": "2026-10-17T02:36:09.208778+00:00",
+  "disclaimer": "Delayed last close from a public daily price history. Not investment advice.",
+  "quotes": {
+    "BHVN": {
+      "close": 10.78,
+      "previous_close": 11.43,
+      "change_percent": -5.69,
+      "as_of": "2026-10-16",
+      "previous_as_of": "2026-10-15",
+      "exchange": "NYSE",
+      "currency": "USD",
+      "source": "yahoo-chart",
+      "symbol": "BHVN"
+    },
+    "BIIB": {
+      "close": 232.65,
+      "previous_close": 235.35,
+      "change_percent": -1.15,
+      "as_of": "2026-10-16",
+      "previous_as_of": "2026-10-15",
+      "exchange": "NasdaqGS",
+      "currency": "USD",
+      "source": "yahoo-chart",
+      "symbol": "BIIB"
+    },
+    "SRPT": {
+      "close": 17.1,
+      "previous_close": 17.79,
+      "change_percent": -3.88,
+      "as_of": "2026-10-16",
+      "previous_as_of": "2026-10-15",
+      "exchange": "NasdaqGS",
+      "currency": "USD",
+      "source": "yahoo-chart",
+      "symbol": "SRPT"
+    },
+    "4978.T": {
+      "close": 123.0,
+      "previous_close": 122.0,
+      "change_percent": 0.82,
+      "as_of": "2026-10-16",
+      "previous_as_of": "2026-10-15",
+      "exchange": "Tokyo",
+      "currency": "JPY",
+      "source": "yahoo-chart",
+      "symbol": "4978.T"
+    }
+  },
+  "errors": []
+}

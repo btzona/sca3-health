@@ -458,6 +458,278 @@ def prefer_article(old: dict, new: dict) -> dict:
     return chosen
 
 
+UNPAYWALL_EMAIL = "btzona@users.noreply.github.com"
+CC_LICENSE_RE = re.compile(r"creativecommons\.org/(?:licenses|publicdomain)/", re.I)
+# 10.1101 is the long-standing bioRxiv and medRxiv prefix. 10.64898 is the
+# prefix those servers use on 2026 preprints in this ledger.
+SERVER_PREPRINT_RE = re.compile(r"biorxiv|medrxiv", re.I)
+
+
+def is_server_preprint(article: dict) -> bool:
+    blob = f"{article.get('source') or ''} {article.get('link') or ''}"
+    if SERVER_PREPRINT_RE.search(blob):
+        return True
+    doi = extract_doi(article.get("link") or "") or ""
+    return doi.startswith("10.1101/")
+
+
+def preprint_url(article: dict) -> str | None:
+    if not is_server_preprint(article):
+        return None
+    doi = extract_doi(article.get("link") or "")
+    if doi:
+        return f"https://doi.org/{doi}"
+    link = str(article.get("link") or "")
+    return link if link.startswith("http") else None
+
+
+def epmc_is_free(record: dict) -> bool:
+    if str(record.get("isOpenAccess") or "").upper() == "Y":
+        return True
+    if str(record.get("hasPDF") or "").upper() == "Y":
+        return True
+    urls = ((record.get("fullTextUrlList") or {}).get("fullTextUrl") or [])
+    if isinstance(urls, dict):
+        urls = [urls]
+    for item in urls:
+        if not isinstance(item, dict):
+            continue
+        code = str(item.get("availabilityCode") or "").upper()
+        availability = str(item.get("availability") or "").lower()
+        if code == "F" or availability in {"free", "open access"}:
+            return True
+    return False
+
+
+def epmc_full_url(record: dict) -> str | None:
+    pmcid = str(record.get("pmcid") or "").strip()
+    if pmcid:
+        return f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/"
+    urls = ((record.get("fullTextUrlList") or {}).get("fullTextUrl") or [])
+    if isinstance(urls, dict):
+        urls = [urls]
+    html_url = ""
+    for item in urls:
+        if not isinstance(item, dict):
+            continue
+        url = str(item.get("url") or "")
+        if not url.startswith("http"):
+            continue
+        if str(item.get("documentStyle") or "").lower() == "html":
+            html_url = url
+            break
+        html_url = html_url or url
+    return html_url or None
+
+
+def epmc_abstract_url(record: dict, doi: str) -> str:
+    source = str(record.get("source") or "")
+    ident = str(record.get("id") or "")
+    if source and ident:
+        return f"https://europepmc.org/article/{source}/{ident}"
+    if doi:
+        return f"https://doi.org/{doi}"
+    return ""
+
+
+def unpaywall_url(record: dict) -> str | None:
+    location = record.get("best_oa_location") or {}
+    if not isinstance(location, dict):
+        return None
+    for key in ("url_for_pdf", "url"):
+        url = str(location.get(key) or "")
+        if url.startswith("http"):
+            return url
+    return None
+
+
+def crossref_is_oa(message: dict) -> bool:
+    for item in message.get("license") or []:
+        if isinstance(item, dict) and CC_LICENSE_RE.search(str(item.get("URL") or "")):
+            return True
+    return False
+
+
+def crossref_has_abstract(message: dict) -> bool:
+    return bool(strip_html(str(message.get("abstract") or "")).strip())
+
+
+def decide_access(
+    article: dict,
+    *,
+    epmc: dict | None,
+    unpay: dict | None,
+    xref: dict | None,
+) -> tuple[str, str, str]:
+    """Return access level, url, and which source supplied the link."""
+    doi = extract_doi(article.get("link") or "") or ""
+    if epmc and epmc_is_free(epmc):
+        url = epmc_full_url(epmc) or (f"https://doi.org/{doi}" if doi else "")
+        if url:
+            return "full", url, "europepmc"
+    if unpay and unpay.get("is_oa") and unpaywall_url(unpay):
+        return "full", unpaywall_url(unpay) or "", "unpaywall"
+    if xref and crossref_is_oa(xref) and doi:
+        return "full", f"https://doi.org/{doi}", "crossref"
+    preprint = preprint_url(article)
+    if preprint:
+        return "full", preprint, "preprint"
+    if epmc and strip_html(str(epmc.get("abstractText") or "")).strip():
+        return "abstract", epmc_abstract_url(epmc, doi), "europepmc"
+    if xref and crossref_has_abstract(xref) and doi:
+        return "abstract", f"https://doi.org/{doi}", "crossref"
+    return "closed", "", ""
+
+
+def fetch_json(url: str) -> tuple[dict | None, str | None, bool]:
+    """Return payload, error, and whether the identifier was simply unknown."""
+    raw, err = fetch_url(url, headers={"Accept": "application/json", "User-Agent": USER_AGENT})
+    if err or not raw:
+        missing = bool(err and "404" in err)
+        return None, err or "empty response", missing
+    if raw[:1] not in (b"{", b"["):
+        return None, "not json", False
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        return None, f"parse: {exc}", False
+    if not isinstance(payload, dict):
+        return None, "unexpected json", False
+    return payload, None, False
+
+
+def europepmc_record_for_doi(doi: str, results: list[dict]) -> dict | None:
+    """Pick the Europe PMC hit for one DOI search.
+
+    PMC-hosted records often omit the DOI field, so a single-hit search is
+    still that paper. A DOI printed on the record wins when several hits return.
+    """
+    matched = [
+        record
+        for record in results
+        if extract_doi(str(record.get("doi") or "")) == doi
+    ]
+    pool = matched or (results if len(results) == 1 else [])
+    if not pool and results:
+        # Several records and none repeat the DOI. Keep an open-access hit only.
+        pool = [record for record in results if epmc_is_free(record)][:1]
+    if not pool:
+        return None
+    pool.sort(key=lambda record: (0 if epmc_is_free(record) else 1, 0 if record.get("pmcid") else 1))
+    return pool[0]
+
+
+def europepmc_by_doi(dois: list[str]) -> tuple[dict[str, dict], set[str]]:
+    found: dict[str, dict] = {}
+    failed: set[str] = set()
+    for index, doi in enumerate(dois):
+        url = "https://www.ebi.ac.uk/europepmc/webservices/rest/search?" + urllib.parse.urlencode(
+            {
+                "query": f'DOI:"{doi}"',
+                "format": "json",
+                "resultType": "core",
+                "pageSize": "5",
+            }
+        )
+        payload, err, _missing = fetch_json(url)
+        if err or not payload:
+            failed.add(doi)
+            continue
+        results = ((payload.get("resultList") or {}).get("result") or [])
+        if isinstance(results, dict):
+            results = [results]
+        record = europepmc_record_for_doi(doi, [item for item in results if isinstance(item, dict)])
+        if record:
+            found[doi] = record
+        if index % 25 == 24:
+            print(f"  Europe PMC {index + 1}/{len(dois)}")
+        time.sleep(0.05)
+    if failed:
+        print(f"  Europe PMC access lookup failed for {len(failed)} DOI(s).")
+    return found, failed
+
+
+def annotate_access(articles: list[dict]) -> dict[str, int]:
+    """Set access, access_url, and access_via from Unpaywall, Europe PMC, and Crossref.
+
+    A source that fails leaves that article's previous values in place.
+    bioRxiv and medRxiv preprints count as free full text even if a lookup fails.
+    """
+    dois: list[str] = []
+    seen: set[str] = set()
+    for article in articles:
+        doi = extract_doi(article.get("link") or "")
+        if doi and doi not in seen:
+            seen.add(doi)
+            dois.append(doi)
+
+    epmc, epmc_failed = europepmc_by_doi(dois)
+
+    unpay: dict[str, dict | None] = {}
+    unpay_failed: set[str] = set()
+    xref: dict[str, dict | None] = {}
+    xref_failed: set[str] = set()
+    for index, doi in enumerate(dois):
+        payload, err, missing = fetch_json(
+            "https://api.unpaywall.org/v2/"
+            + urllib.parse.quote(doi, safe="/")
+            + "?"
+            + urllib.parse.urlencode({"email": UNPAYWALL_EMAIL})
+        )
+        if payload and not err:
+            unpay[doi] = payload
+        elif missing:
+            unpay[doi] = None
+        else:
+            unpay_failed.add(doi)
+        time.sleep(0.08)
+        payload, err, missing = fetch_json("https://api.crossref.org/works/" + urllib.parse.quote(doi, safe="/"))
+        message = (payload or {}).get("message") if payload else None
+        if isinstance(message, dict) and not err:
+            xref[doi] = message
+        elif missing:
+            xref[doi] = None
+        else:
+            xref_failed.add(doi)
+        if index % 25 == 24:
+            print(f"  Access lookups {index + 1}/{len(dois)}")
+        time.sleep(0.08)
+
+    counts = {"full": 0, "abstract": 0, "closed": 0, "kept": 0}
+    for article in articles:
+        doi = extract_doi(article.get("link") or "") or ""
+        looked_up = bool(doi)
+        failed = doi in unpay_failed or doi in xref_failed or doi in epmc_failed
+        # A preprint still gets a full-text badge when the lookups fail.
+        if looked_up and failed and not is_server_preprint(article) and doi not in epmc and doi not in unpay and doi not in xref:
+            if article.get("access") in {"full", "abstract", "closed"}:
+                counts["kept"] += 1
+            continue
+        if not looked_up and not is_server_preprint(article):
+            level, url, via = "closed", "", ""
+        else:
+            level, url, via = decide_access(
+                article,
+                epmc=epmc.get(doi) if doi else None,
+                unpay=unpay.get(doi) if doi in unpay else None,
+                xref=xref.get(doi) if doi in xref else None,
+            )
+            if looked_up and failed and level == "closed" and article.get("access") in {"full", "abstract"}:
+                counts["kept"] += 1
+                continue
+        article["access"] = level
+        article["access_url"] = url
+        article["access_via"] = via
+        counts[level] = counts.get(level, 0) + 1
+    print(
+        "Access badges: "
+        f"{counts['full']} free full text, {counts['abstract']} free abstract, "
+        f"{counts['closed']} no badge"
+        + (f", {counts['kept']} kept previous" if counts["kept"] else "")
+    )
+    return counts
+
+
 def load_previous_articles() -> list[dict]:
     if not OUT.exists():
         return []
@@ -1181,6 +1453,7 @@ SERVIER_URL = (
     "a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/"
 )
 EU_CT_URL = "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00"
+EU_CT_API = "https://euclinicaltrials.eu/ctis-public-api/retrieve/2025-525111-17-00"
 OPEN_STATUSES = {"RECRUITING", "NOT_YET_RECRUITING"}
 
 
@@ -1363,7 +1636,41 @@ def fetch_open_ctgov() -> tuple[list[dict], str | None]:
     return found, None
 
 
+def servier_registry_is_open() -> tuple[bool | None, str]:
+    """Read the public CTIS record for S233107.
+
+    The public trial page shows this as ctStatus. On 17 October 2026 that page
+    said "End of trial 11/09/2026" and marked Denmark, France, Spain, and
+    Portugal Ended, reason Sponsor Decision. Servier's own page still said
+    not yet recruiting. An unreadable registry is not treated as permission
+    to list the study as open.
+    """
+    raw, err = fetch_url(
+        EU_CT_API,
+        headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+    )
+    if err or not raw:
+        return None, err or "empty EU CTIS response"
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        return None, f"EU CTIS parse: {exc}"
+    status = str(payload.get("ctStatus") or "").strip()
+    end = str(payload.get("endDateEU") or "").strip()
+    if status.lower() == "ended":
+        when = f", end date {end}" if end else ""
+        return False, f"EU CTIS lists this trial as Ended{when}"
+    if status.lower() in {"authorised", "authorized", "ongoing"}:
+        return True, status
+    if not status:
+        return None, "EU CTIS response had no trial status"
+    return False, f"EU CTIS status {status} is not an open trial"
+
+
 def fetch_servier_trial() -> tuple[dict | None, str | None]:
+    open_now, reason = servier_registry_is_open()
+    if open_now is not True:
+        return None, reason
     raw, err = fetch_url(SERVIER_URL, headers={"User-Agent": BROWSER_UA, "Accept": "text/html"})
     if err or not raw:
         return None, err or "empty Servier page"
@@ -1441,6 +1748,19 @@ def fetch_servier_trial() -> tuple[dict | None, str | None]:
     return trial, None
 
 
+def previous_servier_trial() -> dict | None:
+    if not TRIALS_OUT.exists():
+        return None
+    try:
+        payload = json.loads(TRIALS_OUT.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+    for trial in payload.get("trials") or []:
+        if trial.get("eu_ct") == "2025-525111-17-00" or "S233107" in (trial.get("title") or ""):
+            return trial
+    return None
+
+
 def refresh_open_trials() -> None:
     """Write data/trials.json. A failed source keeps the last good file."""
     TRIALS_OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -1452,10 +1772,18 @@ def refresh_open_trials() -> None:
     trials = list(ctgov)
     ids = {trial.get("nct_id") for trial in trials}
     titles = " ".join(trial.get("title") or "" for trial in trials)
+    ended = bool(servier_err and "lists this trial as Ended" in servier_err)
     if servier and "S233107" not in titles and servier["id"] not in ids:
         trials.append(servier)
+    elif ended:
+        print(f"Servier trial left off the open list: {servier_err}")
     elif servier is None:
-        print(f"Servier trial page skipped: {servier_err}")
+        kept = previous_servier_trial()
+        if kept:
+            trials.append(kept)
+            print(f"Servier trial page skipped ({servier_err}). Kept the previous Servier record.")
+        else:
+            print(f"Servier trial page skipped: {servier_err}")
     if not trials:
         print("Open trials refresh found nothing. Keeping the previous file.")
         return
@@ -1485,9 +1813,163 @@ def refresh_open_trials() -> None:
     print(f"Wrote {len(trials)} open trials → {TRIALS_OUT}")
 
 
+STOCKS_OUT = ROOT / "data" / "stocks.json"
+# Public companies on the Who's working page. Stooq is tried first.
+# Yahoo's chart endpoint is the fallback when Stooq does not return CSV.
+STOCK_SYMBOLS = [
+    {"id": "BHVN", "stooq": "bhvn.us", "yahoo": "BHVN", "exchange": "NYSE", "currency": "USD"},
+    {"id": "BIIB", "stooq": "biib.us", "yahoo": "BIIB", "exchange": "NasdaqGS", "currency": "USD"},
+    {"id": "SRPT", "stooq": "srpt.us", "yahoo": "SRPT", "exchange": "NasdaqGS", "currency": "USD"},
+    {"id": "4978.T", "stooq": "4978.jp", "yahoo": "4978.T", "exchange": "Tokyo", "currency": "JPY"},
+]
+
+
+def load_previous_stocks() -> dict:
+    if not STOCKS_OUT.exists():
+        return {}
+    try:
+        payload = json.loads(STOCKS_OUT.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def round_price(value: float, currency: str) -> float:
+    if currency == "JPY":
+        return round(value, 1) if abs(value - round(value)) >= 0.05 else float(round(value))
+    return round(value, 2)
+
+
+def quote_from_closes(closes: list[tuple[str, float]], currency: str) -> dict | None:
+    usable = [(day, price) for day, price in closes if price is not None and price > 0]
+    if len(usable) < 2:
+        return None
+    prev_day, previous = usable[-2]
+    day, close = usable[-1]
+    change = (close - previous) / previous * 100
+    return {
+        "close": round_price(close, currency),
+        "previous_close": round_price(previous, currency),
+        "change_percent": round(change, 2),
+        "as_of": day,
+        "previous_as_of": prev_day,
+    }
+
+
+def parse_stooq_csv(raw: bytes, currency: str) -> dict | None:
+    text = raw.decode("utf-8", "replace").strip()
+    if not text or text.lstrip().startswith("<") or "javascript" in text[:400].lower():
+        return None
+    closes: list[tuple[str, float]] = []
+    for line in text.splitlines():
+        parts = [part.strip() for part in line.split(",")]
+        if len(parts) < 5 or not re.match(r"\d{4}-\d{2}-\d{2}", parts[0]):
+            continue
+        try:
+            closes.append((parts[0], float(parts[4])))
+        except ValueError:
+            continue
+    return quote_from_closes(closes, currency)
+
+
+def parse_yahoo_chart(raw: bytes, fallback_exchange: str, fallback_currency: str) -> dict | None:
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+        result = (payload.get("chart") or {}).get("result") or []
+        if not result:
+            return None
+        row = result[0]
+        meta = row.get("meta") or {}
+        timestamps = row.get("timestamp") or []
+        quote = ((row.get("indicators") or {}).get("quote") or [{}])[0]
+        closes_raw = quote.get("close") or []
+    except (UnicodeDecodeError, json.JSONDecodeError, IndexError, TypeError):
+        return None
+    closes: list[tuple[str, float]] = []
+    for stamp, price in zip(timestamps, closes_raw):
+        if price is None:
+            continue
+        day = datetime.fromtimestamp(int(stamp), timezone.utc).date().isoformat()
+        try:
+            closes.append((day, float(price)))
+        except (TypeError, ValueError):
+            continue
+    currency = str(meta.get("currency") or fallback_currency)
+    parsed = quote_from_closes(closes, currency)
+    if not parsed:
+        return None
+    parsed["exchange"] = str(meta.get("fullExchangeName") or fallback_exchange)
+    parsed["currency"] = currency
+    parsed["source"] = "yahoo-chart"
+    return parsed
+
+
+def fetch_stock_quote(spec: dict) -> tuple[dict | None, str | None]:
+    stooq_url = "https://stooq.com/q/d/l/?s=" + urllib.parse.quote(spec["stooq"]) + "&i=d"
+    raw, err = fetch_url(stooq_url, headers={"User-Agent": BROWSER_UA, "Accept": "text/csv,*/*"})
+    parsed = parse_stooq_csv(raw, spec["currency"]) if raw else None
+    if parsed:
+        parsed["exchange"] = spec["exchange"]
+        parsed["currency"] = spec["currency"]
+        parsed["source"] = "stooq"
+        parsed["symbol"] = spec["id"]
+        return parsed, None
+    yahoo_url = (
+        "https://query1.finance.yahoo.com/v8/finance/chart/"
+        + urllib.parse.quote(spec["yahoo"])
+        + "?interval=1d&range=1mo"
+    )
+    raw, yahoo_err = fetch_url(
+        yahoo_url,
+        headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+    )
+    parsed = parse_yahoo_chart(raw, spec["exchange"], spec["currency"]) if raw else None
+    if parsed:
+        parsed["symbol"] = spec["id"]
+        return parsed, None
+    return None, yahoo_err or err or "no daily closes"
+
+
+def refresh_stocks() -> None:
+    """Write data/stocks.json. A symbol that fails keeps its last good quote."""
+    STOCKS_OUT.parent.mkdir(parents=True, exist_ok=True)
+    previous = load_previous_stocks()
+    quotes = dict(previous.get("quotes") or {})
+    errors: list[str] = []
+    refreshed = 0
+    for spec in STOCK_SYMBOLS:
+        quote, err = fetch_stock_quote(spec)
+        if quote:
+            quotes[spec["id"]] = quote
+            refreshed += 1
+            print(
+                f"  {spec['id']} {quote['close']} {quote['currency']} "
+                f"({quote['change_percent']:+.2f}%) as of {quote['as_of']} via {quote['source']}"
+            )
+        else:
+            errors.append(f"{spec['id']}: {err}")
+            if spec["id"] in quotes:
+                print(f"  {spec['id']} failed ({err}). Kept the previous quote.")
+            else:
+                print(f"  {spec['id']} failed ({err}).")
+        time.sleep(0.2)
+    if refreshed == 0 and previous.get("quotes"):
+        print(f"Stock refresh failed. Keeping last good {STOCKS_OUT.name}.")
+        return
+    payload = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "disclaimer": "Delayed last close from a public daily price history. Not investment advice.",
+        "quotes": quotes,
+        "errors": errors,
+    }
+    STOCKS_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Wrote {len(quotes)} stock quotes → {STOCKS_OUT}")
+
+
 def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     refresh_open_trials()
+    refresh_stocks()
     feed_status: list[dict] = []
     collected: list[dict] = []
 
@@ -1509,6 +1991,12 @@ def main() -> int:
     if not collected:
         if previous:
             print(f"No articles collected. Keeping last good {OUT} ({len(previous)} articles).")
+            annotate_access(previous)
+            kept = json.loads(OUT.read_text(encoding="utf-8"))
+            if isinstance(kept, dict):
+                kept["articles"] = previous
+                kept["access_updated"] = datetime.now(timezone.utc).isoformat()
+                write_ledger(kept)
             return 0
         write_ledger(
             {
@@ -1524,6 +2012,7 @@ def main() -> int:
         return 0
 
     selected = cap_history(merge_articles(previous, collected))
+    annotate_access(selected)
     dated = [article["date"] for article in selected if article.get("date")]
     payload = {
         "site": "Ataxin-3",

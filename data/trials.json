@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T01:43:10.098078+00:00",
+  "updated": "2026-10-17T02:36:09.796531+00:00",
   "query": "SCA3 OR Machado-Joseph OR ATXN3, interventional, recruiting or not yet recruiting",
   "sources": [
     {
@@ -10,12 +10,12 @@
     },
     {
       "id": "servier-eu",
-      "ok": true,
-      "error": null,
-      "items": 1
+      "ok": false,
+      "error": "EU CTIS lists this trial as Ended, end date 2026-09-11",
+      "items": 0
     }
   ],
-  "trial_count": 6,
+  "trial_count": 5,
   "trials": [
     {
       "id": "NCT05822908",
@@ -174,87 +174,6 @@
       ],
       "registry_updated": "2025-11-20",
       "source": "ClinicalTrials.gov API v2"
-    },
-    {
-      "id": "EU-CT-2025-525111-17-00",
-      "nct_id": "",
-      "eu_ct": "2025-525111-17-00",
-      "title": "A first-in-human study of S233107 in participants with spinocerebellar ataxia type 3",
-      "sponsor": "Servier",
-      "phase": "Phase 1b/2a",
-      "status": "Not Yet Recruiting",
-      "status_key": "not_yet",
-      "study_type": "Interventional",
-      "ages": "18–65 years",
-      "population": "Symptomatic",
-      "countries": [
-        "Denmark",
-        "France",
-        "Portugal",
-        "Spain"
-      ],
-      "sites": [
-        {
-          "facility": "Righospitalet",
-          "city": "København",
-          "country": "Denmark",
-          "status": "Not Yet Recruiting"
-        },
-        {
-          "facility": "Hopitaux Universitaires Pitie Salpetriere",
-          "city": "Paris",
-          "country": "France",
-          "status": "Not Yet Recruiting"
-        },
-        {
-          "facility": "Unidade Local De Saude De Coimbra E.P.E.",
-          "city": "Coimbra",
-          "country": "Portugal",
-          "status": "Not Yet Recruiting"
-        },
-        {
-          "facility": "Unidade Local De Saude De Santo Antonio E.P.E.",
-          "city": "Porto",
-          "country": "Portugal",
-          "status": "Not Yet Recruiting"
-        },
-        {
-          "facility": "Hospital Universitario Marques De Valdecilla",
-          "city": "Santander",
-          "country": "Spain",
-          "status": "Not Yet Recruiting"
-        },
-        {
-          "facility": "Hospital Universitario Ramon Y Cajal",
-          "city": "Madrid",
-          "country": "Spain",
-          "status": "Not Yet Recruiting"
-        },
-        {
-          "facility": "Hospital Clinic De Barcelona",
-          "city": "Barcelona",
-          "country": "Spain",
-          "status": "Not Yet Recruiting"
-        }
-      ],
-      "interventions": [
-        "Drug: S233107",
-        "Drug: Placebo"
-      ],
-      "summary": "Servier’s page describes a randomized, placebo-controlled, multiple-ascending-dose study of S233107 given into the spinal fluid, followed by an open-label extension. The drug is described as designed to reduce the faulty ataxin-3 protein. Inclusion on the page: a genetic diagnosis of SCA3, age 18 to 65, and the ability to walk without support. Healthy volunteers are not accepted. The page’s age field also lists 18 to 64 years. The sponsor page says more centres in the US and Japan will be added soon.",
-      "eligibility": "Inclusion, as published on the sponsor page: confirmed diagnosis of SCA3 by genetic test; adult aged 18 to 65 years; able to walk without support. Exclusion: other types of brain disorders, major reduced kidney function, or a history or presence of significant suicide risk. The page does not describe a premanifest group.",
-      "links": [
-        {
-          "label": "Servier trial page",
-          "url": "https://clinicaltrials.servier.com/trial/a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/"
-        },
-        {
-          "label": "EU CTIS",
-          "url": "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00"
-        }
-      ],
-      "registry_updated": "",
-      "source": "Servier public trial page; EU CT 2025-525111-17-00"
     },
     {
       "id": "NCT07752095",

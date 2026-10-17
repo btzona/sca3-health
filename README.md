@@ -9,7 +9,7 @@ Headlines and excerpts stay with their publishers. Each card links out. The site
 Pages beside the ledger:
 
 - [About SCA3](about.html) — a plain-language introduction, checked against GeneReviews and the papers cited on that page.
-- [Open trials](trials.html) — interventional SCA3 studies listed as recruiting or not yet recruiting, plus Servier’s EU trial. `fetch.py` refreshes `data/trials.json` on the daily run.
+- [Open trials](trials.html) — interventional SCA3 studies a registry still lists as recruiting or not yet recruiting. `fetch.py` refreshes `data/trials.json` on the daily run and leaves Servier’s S233107 off while the public CTIS page lists that trial as end of trial on 11 September 2026.
 - [Pipeline](pipeline.html) — therapy programs by stage, from the 5 October 2026 review.
 - [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 5 October 2026.
 - [For families at risk](families.html) — inheritance, testing, pregnancy, and talking with children.
@@ -67,6 +67,7 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `about.html` | What SCA3 is |
 | `trials.html` | Open interventional trials |
 | `pipeline.html` | Therapy board, reviewed 5 October 2026 |
+| `working.html` | Companies and organizations working on SCA3, with delayed stock closes for the public ones |
 | `stand.html` | Where care and trials stand, as of 5 October 2026 |
 | `families.html` | For families at risk |
 | `glossary.html` | Term definitions |
@@ -76,9 +77,10 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `img/cajal-purkinje.webp` | Small brand mark, Santiago Ramón y Cajal, circa 1900, public domain |
 | `js/app.js` | Loads the ledger, filters, month groups, load more, summaries |
 | `js/trials.js` | Renders `data/trials.json` |
-| `fetch.py` | Source fetch, merge, cap, and open-trial refresh. Not deployed. |
-| `data/articles.json` | Article ledger |
+| `fetch.py` | Source fetch, merge, cap, open-trial refresh, and stock closes. Not deployed. |
+| `data/articles.json` | Article ledger, including free-full-text and free-abstract links |
 | `data/trials.json` | Open interventional trials |
+| `data/stocks.json` | Delayed last closes for the public companies on Who’s working |
 | `data/summaries.json` | Hand-written plain-language notes, matched by link |
 | `data/glossary.json` | Terms used for the dotted links |
 
