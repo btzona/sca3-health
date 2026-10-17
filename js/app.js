@@ -138,13 +138,14 @@
 
   function familyHtml(article) {
     if (!article.family_line) return "";
-    return `<p class="family-line">${italicizeGenes(article.family_line)}</p>
-      <p class="family-note">Automated summary from the abstract. Not medical advice.</p>`;
+    return `<p class="family-kicker">What this means</p>
+      <p class="family-line">${italicizeGenes(article.family_line)}</p>
+      <p class="family-note">From the kind of study. It is not a result, and it is not a promise.</p>`;
   }
 
   function cardHtml(article) {
     const tags = article.tags || [];
-    const evidence = article.evidence || "Other";
+    const evidence = article.evidence || "Research paper";
     const extra = tags.length
       ? `<p class="tag-row">${tags
           .map((tag) => `<span class="badge" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`)
@@ -225,7 +226,7 @@
   }
 
   async function load() {
-    setStatus("Loading ledger…");
+    setStatus("Loading the research list…");
     try {
       const [res, summaryRes] = await Promise.all([
         fetch("data/articles.json", { cache: "no-store" }),
@@ -255,7 +256,7 @@
       console.error(err);
       setStatus("Could not load data/articles.json. Run python3 fetch.py, then reload.", "error");
       grid.innerHTML =
-        '<div class="empty" role="alert">The ledger file is missing. Refresh it with <code>python3 fetch.py</code>.</div>';
+        '<div class="empty" role="alert">The research list could not be loaded. Refresh it with <code>python3 fetch.py</code>.</div>';
     }
   }
 
@@ -269,7 +270,7 @@
   });
 
   let timer = null;
-  searchInput.addEventListener("input", () => {
+  if (searchInput) searchInput.addEventListener("input", () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       query = searchInput.value.trim().toLowerCase();

@@ -2017,14 +2017,39 @@ HYPE_RE = re.compile(
     re.I,
 )
 EVIDENCE_LABELS = (
-    "Review",
-    "Human trial",
-    "Human observational study",
+    "Review of past research",
+    "Treatment trial in people",
+    "Study in people",
     "Animal study",
-    "Cell/lab study",
-    "Preprint (not peer-reviewed)",
-    "Other",
+    "Lab study (cells)",
+    "Early, not yet peer-reviewed",
+    "Research paper",
+    "News",
 )
+
+FRIENDLY_EVIDENCE = {
+    "Review": "Review of past research",
+    "Human trial": "Treatment trial in people",
+    "Human observational study": "Study in people",
+    "Animal study": "Animal study",
+    "Cell/lab study": "Lab study (cells)",
+    "Preprint (not peer-reviewed)": "Early, not yet peer-reviewed",
+    "Other": "Research paper",
+    "News": "News",
+}
+
+# What the kind of study means for a family. Research papers stay blank:
+# a raw result sentence is not a meaning, and guessing one would add a claim.
+FAMILY_MEANING = {
+    "Review of past research": "This gathers earlier research. It is not a new test of a treatment in people.",
+    "Treatment trial in people": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works.",
+    "Study in people": "This looks at people living with the disease. It does not test whether a new treatment works.",
+    "Animal study": "This was studied in animals, not in people. It does not mean a treatment is ready for a family.",
+    "Lab study (cells)": "This was studied in cells in a lab, not in people. It does not mean a treatment is ready.",
+    "Early, not yet peer-reviewed": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer.",
+    "Research paper": "",
+    "News": "",
+}
 
 
 def as_list(value) -> list:
@@ -2178,35 +2203,23 @@ def family_line_from_text(text: str) -> str:
     return best
 
 
+def present_evidence(raw: str) -> str:
+    if raw in EVIDENCE_LABELS:
+        return raw
+    return FRIENDLY_EVIDENCE.get(raw, "Research paper")
+
+
 def apply_reading(article: dict, record: dict | None, *, failed: bool) -> None:
-    label, via = classify_evidence(article, None if failed and not record else record)
-    previous = article.get("evidence") or ""
-    if failed and not record and previous in EVIDENCE_LABELS and previous != "Other" and via == "unclear":
+    raw, via = classify_evidence(article, None if failed and not record else record)
+    label = present_evidence(raw)
+    previous = present_evidence(article.get("evidence") or "")
+    if failed and not record and previous in EVIDENCE_LABELS and previous != "Research paper" and via == "unclear":
         label, via = previous, article.get("evidence_via") or "kept"
+    if (article.get("kind") or "") == "news":
+        label, via = "News", "kind"
     article["evidence"] = label
     article["evidence_via"] = via
-    kind = article.get("kind") or ""
-    if kind not in {"paper", "preprint"}:
-        article["family_line"] = ""
-        return
-    abstract = ""
-    if isinstance(record, dict):
-        abstract = str(record.get("abstractText") or "")
-    if not abstract:
-        summary = str(article.get("summary") or "").strip()
-        source = str(article.get("source") or "").strip()
-        if summary and summary != source:
-            abstract = summary
-    line = family_line_from_text(abstract)
-    source = str(article.get("source") or "")
-    if line and source and (line[:48].lower() in source.lower() or source[:48].lower() in line.lower()):
-        line = ""
-    if line:
-        article["family_line"] = line
-    elif failed and article.get("family_line"):
-        return
-    else:
-        article["family_line"] = ""
+    article["family_line"] = FAMILY_MEANING.get(label, "")
 
 
 def pretty_day(value: str) -> str:
@@ -2401,9 +2414,14 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
             continue
         keys = set(canonical_keys(article))
         is_new = not (keys & known) if had_previous else False
-        evidence = article.get("evidence") or "Other"
+        evidence = present_evidence(article.get("evidence") or "")
         tags = article.get("tags") or []
-        notable = is_new or evidence in {"Review", "Human trial", "Human observational study"} or any(
+        notable = is_new or evidence in {
+            "Review of past research",
+            "Treatment trial in people",
+            "Study in people",
+            "Early, not yet peer-reviewed",
+        } or any(
             tag in tags for tag in ("Clinical trial", "Therapy/ASO", "Gene therapy", "Review")
         )
         if not notable:
@@ -2415,6 +2433,7 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
                 "date": article.get("date") or "",
                 "source": article.get("source") or "",
                 "evidence": evidence,
+                "family_line": article.get("family_line") or "",
                 "new_since_refresh": is_new,
             }
         )
@@ -2428,7 +2447,8 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
                     "link": article.get("link") or "",
                     "date": article.get("date") or "",
                     "source": article.get("source") or "",
-                    "evidence": article.get("evidence") or "Other",
+                    "evidence": present_evidence(article.get("evidence") or ""),
+                    "family_line": article.get("family_line") or "",
                     "new_since_refresh": False,
                 }
             )

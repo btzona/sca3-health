@@ -12,32 +12,36 @@
       "link": "https://doi.org/10.1002/acn3.70555",
       "date": "2026-10-13T12:00:00+00:00",
       "source": "Annals of Clinical and Translational Neurology",
-      "evidence": "Other",
-      "new_since_refresh": false
+      "evidence": "Research paper",
+      "new_since_refresh": false,
+      "family_line": ""
     },
     {
       "title": "Rare diseases, body, and stigma: a comparative analysis of people living with berardinelli syndrome and Machado-Joseph disease in Brazil",
       "link": "https://doi.org/10.1007/s12687-026-00950-3",
       "date": "2026-10-08T12:00:00+00:00",
       "source": "Journal of community genetics",
-      "evidence": "Other",
-      "new_since_refresh": false
+      "evidence": "Research paper",
+      "new_since_refresh": false,
+      "family_line": ""
     },
     {
       "title": "Autophagosome-tethering compounds selectively lower mutant ataxin-3 in preclinical models of spinocerebellar ataxia type 3",
       "link": "https://doi.org/10.64898/2026.10.02.756117",
       "date": "2026-10-04T12:00:00+00:00",
       "source": "bioRxiv",
-      "evidence": "Preprint (not peer-reviewed)",
-      "new_since_refresh": false
+      "evidence": "Early, not yet peer-reviewed",
+      "new_since_refresh": false,
+      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
     },
     {
       "title": "A Wearable Sensor-Based Quantitative Gait System for Biomarkers Exploring in Spinocerebellar Ataxia Type 3",
       "link": "https://doi.org/10.1109/jsen.2026.3726075",
       "date": "2026-10-01T12:00:00+00:00",
       "source": "IEEE Sensors Journal",
-      "evidence": "Other",
-      "new_since_refresh": false
+      "evidence": "Research paper",
+      "new_since_refresh": false,
+      "family_line": ""
     }
   ]
 }

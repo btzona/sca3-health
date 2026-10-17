@@ -30,7 +30,7 @@
         return `<aside class="means">
           <p class="means-kicker">What this means</p>
           <p>${escapeHtml(item.summary)}</p>
-          <p class="means-note">A plain-language summary of the registry text. It adds no outside claims.</p>
+          <p class="means-note">In ordinary words, from the study’s own text.</p>
         </aside>`;
       }
     }
@@ -58,21 +58,21 @@
       )
       .join("");
     const eligibility = trial.eligibility
-      ? `<details class="criteria"><summary>Eligibility text from the registry</summary><p>${escapeHtml(trial.eligibility)}</p></details>`
+      ? `<details class="criteria"><summary>Who the study says can take part</summary><p>${escapeHtml(trial.eligibility)}</p></details>`
       : "";
     return `<article class="card trial-card">
       <div class="trial-top">
-        <span class="pill ${escapeHtml(trial.status_key || "")}">${escapeHtml(trial.status || "")}</span>
+        <span class="pill ${escapeHtml(trial.status_key || "")}">${escapeHtml(window.AtaxinVoice ? AtaxinVoice.pillLabel(trial.status_key, trial.status) : trial.status || "")}</span>
         <span class="source">${escapeHtml(trial.phase || "")}</span>
       </div>
       <h3><a href="${escapeHtml(primary.url)}" rel="noopener noreferrer">${escapeHtml(trial.title || "")}</a></h3>
       <p class="excerpt">${escapeHtml(trial.summary || "")}</p>
       ${meansHtml(links, summaries)}
       <dl class="fact-grid">
-        <div><dt>Ages</dt><dd>${escapeHtml(trial.ages || "See registry")}</dd></div>
-        <div><dt>Who can enroll</dt><dd>${escapeHtml(trial.population || "See registry")}</dd></div>
-        <div><dt>Sponsor</dt><dd>${escapeHtml(trial.sponsor || "See registry")}</dd></div>
-        <div><dt>Record</dt><dd>${escapeHtml(trial.nct_id || trial.eu_ct || trial.id || "")}</dd></div>
+        <div><dt>Age</dt><dd>${escapeHtml(trial.ages || "See the study page")}</dd></div>
+        <div><dt>Who it’s for</dt><dd>${escapeHtml(trial.population || "See the study page")}</dd></div>
+        <div><dt>Who is running it</dt><dd>${escapeHtml(trial.sponsor || "See the study page")}</dd></div>
+        <div><dt>Study number</dt><dd>${escapeHtml(trial.nct_id || trial.eu_ct || trial.id || "")}</dd></div>
       </dl>
       <p class="meta-line">${countries || '<span class="pill">Sites not listed</span>'} <span class="pill population">${escapeHtml(trial.study_type || "Interventional")}</span></p>
       ${sites ? `<ul class="sites">${sites}</ul>` : ""}
@@ -103,11 +103,11 @@
         ? when.toLocaleString("en-US", { timeZone: "America/Phoenix", dateStyle: "medium", timeStyle: "short" })
         : "the last successful refresh";
       if (statusEl) {
-        statusEl.textContent = `${trials.length} interventional studies listed as recruiting or not yet recruiting · refreshed ${stamp}`;
+        statusEl.textContent = `${trials.length} ${trials.length === 1 ? "study is" : "studies are"} enrolling or about to start. Refreshed ${stamp}.`;
       }
       root.innerHTML = trials.length
         ? trials.map((trial) => card(trial, summaries)).join("")
-        : '<div class="empty">No open interventional studies were in the last successful refresh.</div>';
+        : '<div class="empty">No open studies were in the last refresh.</div>';
       if (window.AtaxinGlossary) AtaxinGlossary.link(root);
     })
     .catch(() => {
