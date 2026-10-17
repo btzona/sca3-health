@@ -226,7 +226,7 @@
   }
 
   async function load() {
-    setStatus("Loading ledger…");
+    setStatus("Loading the research list…");
     try {
       const [res, summaryRes] = await Promise.all([
         fetch("data/articles.json", { cache: "no-store" }),
@@ -256,7 +256,7 @@
       console.error(err);
       setStatus("Could not load data/articles.json. Run python3 fetch.py, then reload.", "error");
       grid.innerHTML =
-        '<div class="empty" role="alert">The ledger file is missing. Refresh it with <code>python3 fetch.py</code>.</div>';
+        '<div class="empty" role="alert">The research list could not be loaded. Refresh it with <code>python3 fetch.py</code>.</div>';
     }
   }
 
@@ -270,7 +270,7 @@
   });
 
   let timer = null;
-  searchInput.addEventListener("input", () => {
+  if (searchInput) searchInput.addEventListener("input", () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       query = searchInput.value.trim().toLowerCase();

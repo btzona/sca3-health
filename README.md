@@ -6,7 +6,9 @@ Ataxin-3 is a public ledger of research and news on spinocerebellar ataxia type 
 
 Headlines and excerpts stay with their publishers. Each card links out. The site is not medical advice.
 
-Pages beside the ledger:
+The home page welcomes families and points them to a place to start. The research list lives on its own page.
+
+Pages:
 
 - [About SCA3](about.html) — a plain-language introduction, checked against GeneReviews and the papers cited on that page.
 - [Open trials](trials.html) — interventional SCA3 studies a registry still lists as recruiting or not yet recruiting. `fetch.py` refreshes `data/trials.json` on the daily run and leaves Servier’s S233107 off while the public CTIS page lists that trial as end of trial on 11 September 2026.
@@ -63,7 +65,8 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 
 | Path | Role |
 |------|------|
-| `index.html` | Status board, family link, then the ledger |
+| `index.html` | Welcome, the no-approval banner, three starting points, and the latest items |
+| `research.html` | Where things stand, filters, and the full research list |
 | `about.html` | What SCA3 is |
 | `trials.html` | Open interventional trials |
 | `pipeline.html` | Therapy board, reviewed 5 October 2026 |
@@ -76,8 +79,10 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `fonts/` | Self-hosted Manrope and Fraunces (SIL Open Font License) |
 | `img/mark.svg` | Header and favicon. A small CAG-helix mark drawn for this site |
 | `img/cajal-purkinje.webp` | Drawing used on the social card |
-| `js/app.js` | Loads the ledger, evidence labels, family lines, filters, month groups |
-| `js/board.js` | Home status board, in plain language |
+| `js/app.js` | Loads the research list, evidence labels, family lines, filters, month groups |
+| `js/home.js` | Latest plain-language items on the home page |
+| `js/board.js` | Where-things-stand board on the research page |
+| `sitemap.xml` | Public page list for the live site |
 | `js/registry.js` | “Checked against” marks from `data/registry.json` |
 | `js/trials.js` | Renders `data/trials.json` |
 | `fetch.py` | Source fetch, evidence labels, family lines, registry checks, open trials, and stock closes. Not deployed. |
@@ -96,4 +101,4 @@ Europe PMC and Crossref supply the journal record. bioRxiv and medRxiv are queri
 
 ## Design
 
-Deep navy, a teal accent, and a cool paper background. Manrope for text, Fraunces for the large titles. The header mark is an original CAG-helix drawing. The ledger is a single editorial list: an evidence label colors the left rule, the family line is italic, and the source and badges sit in small type. The Cajal drawing remains the social-card image. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.
+Deep navy, a teal accent, and a cool paper background. Manrope for text, Fraunces for the large titles. The header mark is an original CAG-helix drawing. The home page uses the Cajal drawing faintly behind the welcome line. The research list is a single editorial list: an evidence label colors the left rule, the family line is italic, and the source and badges sit in small type. The Cajal drawing remains the social-card image. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.
