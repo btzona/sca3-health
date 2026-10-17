@@ -11,6 +11,7 @@
   const pageSize = 12;
 
   let data = null;
+  let summaries = new Map();
   let filter = "all";
   let query = "";
   let visibleCount = pageSize;
@@ -105,24 +106,53 @@
     return blob.includes(query);
   }
 
+  function normalizeLink(url) {
+    try {
+      const parsed = new URL(url);
+      parsed.hash = "";
+      let path = parsed.pathname.replace(/\/$/, "");
+      return `${parsed.hostname.replace(/^www\./, "")}${path}`.toLowerCase();
+    } catch {
+      return String(url || "").trim().toLowerCase();
+    }
+  }
+
+  function meansHtml(link) {
+    const item = summaries.get(normalizeLink(link));
+    if (!item || !item.summary) return "";
+    return `<aside class="means">
+      <p class="means-kicker">What this means</p>
+      <p>${escapeHtml(item.summary)}</p>
+      <p class="means-note">A plain-language summary of the source text. It adds no outside claims.</p>
+    </aside>`;
+  }
+
   function cardHtml(article) {
     const tags = article.tags || [];
     const primary = tags[0] || "Research";
     const rest = tags.slice(1);
     const extra = rest.length
       ? `<p class="tag-row">${rest
-          .map((tag) => `<span class="badge muted">${escapeHtml(tag)}</span>`)
+          .map((tag) => `<span class="badge" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`)
           .join("")}</p>`
       : "";
+    const share =
+      article.link && window.AtaxinShare
+        ? AtaxinShare.html(article.link, article.title || "Ataxin-3", {
+            groupLabel: "Share this article",
+          })
+        : "";
     return `
 <article class="card">
   <div class="card-top">
-    <span class="badge">${escapeHtml(primary)}</span>
+    <span class="badge" data-tag="${escapeHtml(primary)}">${escapeHtml(primary)}</span>
     <span class="source">${escapeHtml(article.source || "")}</span>
   </div>
   <h3><a href="${escapeHtml(article.link)}" rel="noopener noreferrer">${italicizeGenes(article.title)}</a></h3>
   <p class="excerpt">${italicizeGenes(article.summary)}</p>
+  ${meansHtml(article.link)}
   ${extra}
+  ${share}
   <div class="card-foot">
     <time class="date" datetime="${escapeHtml(article.date || "")}">${formatDate(article.date)}</time>
     <a class="outlink" href="${escapeHtml(article.link)}" rel="noopener noreferrer">Original</a>
@@ -165,6 +195,8 @@
         )
         .join("") + more;
 
+    if (window.AtaxinGlossary) AtaxinGlossary.link(grid);
+
     const moreBtn = document.getElementById("load-more");
     if (moreBtn) {
       moreBtn.addEventListener("click", () => {
@@ -179,9 +211,20 @@
   async function load() {
     setStatus("Loading ledger…");
     try {
-      const res = await fetch("data/articles.json", { cache: "no-store" });
+      const [res, summaryRes] = await Promise.all([
+        fetch("data/articles.json", { cache: "no-store" }),
+        fetch("data/summaries.json", { cache: "no-store" }).catch(() => null),
+      ]);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       data = await res.json();
+      if (summaryRes && summaryRes.ok) {
+        const packed = await summaryRes.json();
+        summaries = new Map(
+          (packed.items || [])
+            .filter((item) => item.link && item.summary)
+            .map((item) => [normalizeLink(item.link), item])
+        );
+      }
       updatedEl.textContent = formatUpdated(data.updated);
       const dated = (data.articles || [])
         .map((article) => article.date)

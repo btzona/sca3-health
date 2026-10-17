@@ -1,0 +1,370 @@
+{
+  "updated": "2026-10-17T01:43:10.098078+00:00",
+  "query": "SCA3 OR Machado-Joseph OR ATXN3, interventional, recruiting or not yet recruiting",
+  "sources": [
+    {
+      "id": "clinicaltrials",
+      "ok": true,
+      "error": null,
+      "items": 5
+    },
+    {
+      "id": "servier-eu",
+      "ok": true,
+      "error": null,
+      "items": 1
+    }
+  ],
+  "trial_count": 6,
+  "trials": [
+    {
+      "id": "NCT05822908",
+      "nct_id": "NCT05822908",
+      "eu_ct": "",
+      "title": "A Safety and Pharmacokinetics Trial of VO659 in SCA1, SCA3 and HD",
+      "sponsor": "Vico Therapeutics B. V.",
+      "phase": "Phase 1/2",
+      "status": "Recruiting",
+      "status_key": "recruiting",
+      "study_type": "Interventional",
+      "ages": "25–60 years",
+      "population": "Symptomatic",
+      "countries": [
+        "Denmark",
+        "France",
+        "Germany",
+        "Israel",
+        "Netherlands",
+        "United Kingdom"
+      ],
+      "sites": [
+        {
+          "facility": "Rigshospitalet",
+          "city": "Copenhagen",
+          "country": "Denmark",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Centre Hospitalier Universitaire dÁngers",
+          "city": "Angers",
+          "country": "France",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "CHU Gui de Chauliac Montpellier- Expert Center of Neurogenetic diseases, Department of Neurology",
+          "city": "Montpellier",
+          "country": "France",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Universtiry Hospitals Pitie Salpetriere - Charles foix - Paris",
+          "city": "Paris",
+          "country": "France",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Katholisches Klinikum Bochum",
+          "city": "Bochum",
+          "country": "Germany",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Deutsches Zentrum fur Neurodegenerative Erkrankungen (DZNE)",
+          "city": "Bonn",
+          "country": "Germany",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Universitatsklinikum Essen - Neurologie",
+          "city": "Essen",
+          "country": "Germany",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Universitatsklinikum Tübingen",
+          "city": "Tübingen",
+          "country": "Germany",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Meir Medical Center",
+          "city": "Kfar Saba",
+          "country": "Israel",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Sourmansky Medical Center",
+          "city": "Tel Aviv",
+          "country": "Israel",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "Leiden University Medical Center LUMC",
+          "city": "Leiden",
+          "country": "Netherlands",
+          "status": "Active Not Recruiting"
+        },
+        {
+          "facility": "Radbout University Medical Centre",
+          "city": "Nijmegen",
+          "country": "Netherlands",
+          "status": "Active Not Recruiting"
+        },
+        {
+          "facility": "University College London Hospitals NHS Foundation",
+          "city": "London",
+          "country": "United Kingdom",
+          "status": "Recruiting"
+        },
+        {
+          "facility": "John Radcliffe Hospital",
+          "city": "Oxford",
+          "country": "United Kingdom",
+          "status": "Recruiting"
+        }
+      ],
+      "interventions": [
+        "Drug: VO659"
+      ],
+      "summary": "The goal of this first-in-human clinical trial is to assess the safety and tolerability of four doses of a new study drug called VO659 in people with genetic disorders called spinocerebellar ataxia type 1, type 3 or Huntington's disease. Another aim is to determine the concentrations of the study drug in the cerebral spinal fluid and blood after single and multiple doses. Study drug will be administered by lumbar intrathecal bolus injections.",
+      "eligibility": "Main Inclusion Criteria: * Provide written informed consent (signed and dated). Patients should be assessed for their ability to give informed consent using the Evaluation to Sign Consent tool. * Is ≥25 and ≤60 years of age inclusive, of any gender, at the time of signing the informed consent. * Have SCA1, SCA3 or HD meeting one of the following criteria: 1. SCA1 and SCA3: mild to moderate disease with a Scale for Assessment and Rating of Ataxia (SARA) score of ≥3 and ≤18 2. HD: early manifest, Stage I disease with a Total Functional Capacity (TFC) Score of ≥11 and ≤13 and a Unified Huntington's Disease Rating Scale (UHDRS) Diagnostic Confidence Level (DCL) of 4. * Have genetically confirmed disease, defined by increased cytosine, adenine, and guanine (CAG) repeat length in the disease-causing allele by direct DNA testing. For each indication the requirements are: 1. SCA1: ≥41 contiguous, uninterrupted CAG repeats in the ATXN1 gene 2. SCA3: ≥61 repeats in the ATXN3 gene 3. HD: ≥40 CAG repeats in the HTT gene. * Please note there will be additional inclusion criteria Main Exclusion Criteria: * Have any condition that would prevent participation in trial assessments. * Have one or more pathogenic mutation(s) in another polyQ disease gene, i.e., ATXN2, CACNA1A, ATXN7, TBP, AR, and ATN1, plus either ATXN3 and HTT (for patients with SCA1), ATXN1 and HTT (for participants with SCA3), or ATXN1 and ATXN3 (for participants with HD), in addition to the disease-causing mutation in the ATXN1 (patients with SCA1), ATXN3 (patients with SCA3) or HTT (patients with HD) gene. * Have clinical diagnosis of moderate or severe chronic migraines or history of the post-lumbar-puncture headache of moderate or severe intensity requiring hospitalisation or blood patch. * Have a brain, spinal or systemic disorder that would interfere with the LP process, CSF circulation, or safety assessments. * Have history of bleeding diathesis or coagulopathy, platelet count less than the lower limit of normal unless stable and assessed by the investigator and the Medical Monitor to be not clinically significant. * Have uncompensated cardiovascular disorder, any past or present cardiac arrhythmia, QTcF values on screening ECG of \\>470 ms, familial history of long QT syndrome or sudden unexpected death. * Have a history of attempted suicide, suicidal ideation with a plan that required hospital admission and/or change in level of care within 12 months prior to screening. * Have medical, psychiatric, or other conditions that, in the judgement of the investigator, may compromise the patient's ability to understand the patient information sheet, to give informed consent, to comply with all trial requirements, or to complete the trial. * Prior treatment with an antisense oligonucleotide (including siRNA). * Pregnant or breast-feeding (lactating) women or women who plan to become pregnant or breast-feed during the trial. * Unable to undergo and tolerate MRI scans. * Please note there will be additional exclusion criteria",
+      "links": [
+        {
+          "label": "ClinicalTrials.gov",
+          "url": "https://clinicaltrials.gov/study/NCT05822908"
+        }
+      ],
+      "registry_updated": "2026-08-19",
+      "source": "ClinicalTrials.gov API v2"
+    },
+    {
+      "id": "NCT07019558",
+      "nct_id": "NCT07019558",
+      "eu_ct": "",
+      "title": "Ophthalmological Disorders in Dominant Spinal-cerebellar Ataxias",
+      "sponsor": "University Hospital, Montpellier",
+      "phase": "Phase not listed",
+      "status": "Recruiting",
+      "status_key": "recruiting",
+      "study_type": "Interventional",
+      "ages": "18–80 years",
+      "population": "Symptomatic and premanifest",
+      "countries": [
+        "France"
+      ],
+      "sites": [
+        {
+          "facility": "CHU Montpellier - Hôpital Gui de Chauliac",
+          "city": "Montpellier",
+          "country": "France",
+          "status": "Recruiting"
+        }
+      ],
+      "interventions": [
+        "Other: Neurological assessment",
+        "Diagnostic Test: Ophthalmological assessment"
+      ],
+      "summary": "Spinocerebellar ataxias (SCA) are rare genetic neurological disorders. The most common forms are SCA1, SCA2 and SCA3. Another more recently identified cause of ataxia is SCA27B. These are progressive, incapacitating pathologies, with adult onset (generally between 30 and 60 years of age) and progressive involvement. They are characterized by gait instability (ataxia), coordination disorders (dysmetria) and speech disorders (dysarthria). A complex disorder may also be present, with impaired ocular motility, double vision (diplopia) and difficulties with eye movements (ophthalmoplegia). In clinical practice, investigators have observed patients with advanced forms of SCA1 or SCA3 reporting a progressive decline in visual acuity. Other recent scientific observations confirm the possible presence of additional ophthalmological damage to the retina or optic nerve in SCA1, SCA2 and SCA3 pathologies. This study is a cross-sectional study, including subjects with SCA1, SCA2 and SCA3 at different stages of the disease, including the presymptomatic stage, with a complete and systematic study of visual damage. The same study will be applied to subjects with SCA27B in order to study the presence or absence of visual impairment, and possibly compare it with those of patients with polyglutamine-expanded SCA.",
+      "eligibility": "Inclusion Criteria: * Age between 18 and 80, * Presence of pathological expansion in ATXN1 (\\> or equal to 39 CAG), ATXN2 (\\> or equal to 33 CAG) or ATXN3 (\\> or equal to 45 CAG) genes, responsible respectively for SCA1, SCA2 or SCA3 or a pathological expansion (\\>250 GAA) in the FGF14 gene responsible for SCA27B pathology, * Sujet symptomatic (SARA greater than or equal to 4) or presymptomatic (SARA \\ 20 mmHg, \"cup to disc\" ratio \\> 0. 5, or severe refractive errors * Subjects with extremely severe neurological impairment, with a significant impact on the ability to perform most ophthalmological examinations; for example in patients for whom sitting, even with back support and cannot be maintained. The possibility of including subjects with a severe form will be evaluated on a case-by-case basis, according to the opinion of the principal investigator and the ophthalmologist. * General exclusion criteria relating to regulations: * Failure to obtain consent (adults, non-emancipated minors, persons not in a position to give consent, research carried out in emergency situations, etc.), * Participants who have reached the maximum amount of compensation for their participation inresearch, * Non-affiliation with a social security scheme, * Persons placed under court protection, * Person taking part in research.",
+      "links": [
+        {
+          "label": "ClinicalTrials.gov",
+          "url": "https://clinicaltrials.gov/study/NCT07019558"
+        }
+      ],
+      "registry_updated": "2025-11-20",
+      "source": "ClinicalTrials.gov API v2"
+    },
+    {
+      "id": "EU-CT-2025-525111-17-00",
+      "nct_id": "",
+      "eu_ct": "2025-525111-17-00",
+      "title": "A first-in-human study of S233107 in participants with spinocerebellar ataxia type 3",
+      "sponsor": "Servier",
+      "phase": "Phase 1b/2a",
+      "status": "Not Yet Recruiting",
+      "status_key": "not_yet",
+      "study_type": "Interventional",
+      "ages": "18–65 years",
+      "population": "Symptomatic",
+      "countries": [
+        "Denmark",
+        "France",
+        "Portugal",
+        "Spain"
+      ],
+      "sites": [
+        {
+          "facility": "Righospitalet",
+          "city": "København",
+          "country": "Denmark",
+          "status": "Not Yet Recruiting"
+        },
+        {
+          "facility": "Hopitaux Universitaires Pitie Salpetriere",
+          "city": "Paris",
+          "country": "France",
+          "status": "Not Yet Recruiting"
+        },
+        {
+          "facility": "Unidade Local De Saude De Coimbra E.P.E.",
+          "city": "Coimbra",
+          "country": "Portugal",
+          "status": "Not Yet Recruiting"
+        },
+        {
+          "facility": "Unidade Local De Saude De Santo Antonio E.P.E.",
+          "city": "Porto",
+          "country": "Portugal",
+          "status": "Not Yet Recruiting"
+        },
+        {
+          "facility": "Hospital Universitario Marques De Valdecilla",
+          "city": "Santander",
+          "country": "Spain",
+          "status": "Not Yet Recruiting"
+        },
+        {
+          "facility": "Hospital Universitario Ramon Y Cajal",
+          "city": "Madrid",
+          "country": "Spain",
+          "status": "Not Yet Recruiting"
+        },
+        {
+          "facility": "Hospital Clinic De Barcelona",
+          "city": "Barcelona",
+          "country": "Spain",
+          "status": "Not Yet Recruiting"
+        }
+      ],
+      "interventions": [
+        "Drug: S233107",
+        "Drug: Placebo"
+      ],
+      "summary": "Servier’s page describes a randomized, placebo-controlled, multiple-ascending-dose study of S233107 given into the spinal fluid, followed by an open-label extension. The drug is described as designed to reduce the faulty ataxin-3 protein. Inclusion on the page: a genetic diagnosis of SCA3, age 18 to 65, and the ability to walk without support. Healthy volunteers are not accepted. The page’s age field also lists 18 to 64 years. The sponsor page says more centres in the US and Japan will be added soon.",
+      "eligibility": "Inclusion, as published on the sponsor page: confirmed diagnosis of SCA3 by genetic test; adult aged 18 to 65 years; able to walk without support. Exclusion: other types of brain disorders, major reduced kidney function, or a history or presence of significant suicide risk. The page does not describe a premanifest group.",
+      "links": [
+        {
+          "label": "Servier trial page",
+          "url": "https://clinicaltrials.servier.com/trial/a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/"
+        },
+        {
+          "label": "EU CTIS",
+          "url": "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00"
+        }
+      ],
+      "registry_updated": "",
+      "source": "Servier public trial page; EU CT 2025-525111-17-00"
+    },
+    {
+      "id": "NCT07752095",
+      "nct_id": "NCT07752095",
+      "eu_ct": "",
+      "title": "Cerebellar DBS in SCA1 and SCA3 Study",
+      "sponsor": "Gordon H. Baltuch",
+      "phase": "Phase not listed",
+      "status": "Not Yet Recruiting",
+      "status_key": "not_yet",
+      "study_type": "Interventional",
+      "ages": "18–60 years",
+      "population": "Symptomatic",
+      "countries": [
+        "United States"
+      ],
+      "sites": [
+        {
+          "facility": "Columbia University Irving Medical Center",
+          "city": "New York",
+          "country": "United States",
+          "status": "See registry"
+        },
+        {
+          "facility": "Cleveland Clinic",
+          "city": "Cleveland",
+          "country": "United States",
+          "status": "See registry"
+        }
+      ],
+      "interventions": [
+        "Device: UG3NS140720 Deep Brain Stimulation System"
+      ],
+      "summary": "The purpose of this study is to evaluate the safety and feasibility of deep brain stimulation (DBS) in the deep cerebellar nuclei (DCN) in patients with Spinocerebellar Ataxia (SCA) types 1 and 3. Primary Objective: The incidence and nature of treatment-related adverse events across the entire study, including serious treatment-related adverse events such as intracerebral hemorrhage, infection, and serious or unanticipated adverse device effects (SADEs and UADEs). Secondary/Exploratory Objectives: * Evaluation of the effect of Dentate Nucleus (DN) - Deep Brain Stimulation (DBS). Ataxia severity will be quantified using the Scale of Assessment and Rating of Ataxia (SARA), Patient-Reported Outcome Measure of Ataxia (PROM-Ataxia), and kinematics. * To characterize electrophysiological activity across the cerebellothalamocorticomuscular (CTCM) network at rest and during motor behaviors. * To examine how DN-DBS modulates oscillatory activity and coupling across the CTCM circuit in relation to improvements in controlling ataxia.",
+      "eligibility": "Inclusion Criteria: * Subject is aged \\>= 18 years and =\\ = 11. * Subject has genetic confirmation of pathological repeat expansions in ATXN1 (for SCA1, repeat size \\>= 40) and ATXN3 (for SCA3, repeat size \\>= 56). * Subject has been on a stable and optimized standard of care (SoC) regimen for at least 3 months prior to Screening (including physical therapy) and continues to exhibit signs of cerebellar ataxia. * Subject has a minimum 6th grade reading level, as determined by the Rapid Estimate of Adult Literacy in Medicine (REALM) scale. * Subject is able and willing to give informed consent and attend all study visits. * Subject is available for all follow-up visits during the length of the study. Exclusion Criteria: * Subject is unable to provide informed consent. * Subject has presence of overt tremor, dystonia, and/or parkinsonism, which are atypical features and could be suggestive of prominent extra-cerebellar circuit involvement that may not respond well to cerebellar DBS. * Subject is wheelchair dependent and may be too progressed to complete gait assessments. * Subject is unable to stop anticoagulation or platelet anti-aggregation therapy for study procedures. * Subject has a Montreal Cognitive Assessment (MoCA) score =\\ = 3 on the Columbia Suicide Severity Rating Scale (C-SSRS). * Patients who are not able to read, speak and/or understand English.",
+      "links": [
+        {
+          "label": "ClinicalTrials.gov",
+          "url": "https://clinicaltrials.gov/study/NCT07752095"
+        }
+      ],
+      "registry_updated": "2026-08-07",
+      "source": "ClinicalTrials.gov API v2"
+    },
+    {
+      "id": "NCT07743866",
+      "nct_id": "NCT07743866",
+      "eu_ct": "",
+      "title": "Optimizing Parameters of Transcranial Temporal Interference Stimulation for Spinocerebellar Ataxia Type 3",
+      "sponsor": "First Affiliated Hospital of Fujian Medical University",
+      "phase": "Phase not listed",
+      "status": "Not Yet Recruiting",
+      "status_key": "not_yet",
+      "study_type": "Interventional",
+      "ages": "18–75 years",
+      "population": "Symptomatic",
+      "countries": [
+        "China"
+      ],
+      "sites": [
+        {
+          "facility": "Department of Rehabilitation Medicine, The First Affiliated Hospital of Fujian Medical University",
+          "city": "Fuzhou",
+          "country": "China",
+          "status": "See registry"
+        }
+      ],
+      "interventions": [
+        "Device: Transcranial Temporal Interference Stimulation (tTIS)"
+      ],
+      "summary": "The purpose of this research study is to identify the optimal biological dose for tTIS that targets DN in SCA3 while achieving the best possible balance between therapeutic efficacy and safety.",
+      "eligibility": "Inclusion Criteria: 1. A physician-diagnosed SCA3 according to diagnostic criteria, with definite clinical symptoms and confirmed genetic testing; 2. Age 18-75 years; 3. Baseline total score of SARA: 8-30 points (inclusive); SARA gait function subscore: 2-6 points (inclusive); 4. Willing to participate and provide informed consent; 5. Have a reliable caregiver available; 6. No severe cognitive impairment that would preclude reliable reporting of adverse events or efficacy during treatment. Exclusion Criteria: 1. History of seizures or convulsions, or a seizure within 6 months prior to enrolment; 2. History of severe traumatic brain injury or intracranial neurosurgery; 3. Presence of cardiac pacemakers, cochlear implants, intracranial implanted electronic devices, or other MRI-contraindicated ferromagnetic implants; 4. Severe cognitive impairment (Mini-Mental State Examination \\[MMSE\\] score ≤ 9) or severe visual, auditory, or speech dysfunction preventing cooperation with scale assessments and study procedures; 5. Pregnant or lactating women, or women of childbearing age not using reliable contraception; 6. Previous neuromodulation treatment (e.g., rTMS or tDCS) within the past year; 7. Skin breakdown or inflammation at the electrode placement site, or known allergy to conductive gel or electrode patch adhesives; 8. Currently participating in other interventional clinical trials, or planning to participate in other trials that might affect the outcome assessment of this study during the study period.",
+      "links": [
+        {
+          "label": "ClinicalTrials.gov",
+          "url": "https://clinicaltrials.gov/study/NCT07743866"
+        }
+      ],
+      "registry_updated": "2026-09-01",
+      "source": "ClinicalTrials.gov API v2"
+    },
+    {
+      "id": "NCT03378414",
+      "nct_id": "NCT03378414",
+      "eu_ct": "",
+      "title": "Umbilical Cord Mesenchymal Stem Cells Therapy (19#iSCLife®-SA) for Patients With Spinocerebellar Ataxia",
+      "sponsor": "Sclnow Biotechnology Co., Ltd.",
+      "phase": "Phase 2",
+      "status": "Not Yet Recruiting",
+      "status_key": "not_yet",
+      "study_type": "Interventional",
+      "ages": "16–60 years",
+      "population": "Symptomatic",
+      "countries": [],
+      "sites": [],
+      "interventions": [
+        "Procedure: Intravenous infusion",
+        "Procedure: Intrathecal injection",
+        "Biological: umbilical cord mesenchymal stem cell"
+      ],
+      "summary": "The purpose of this study is verify the safety and efficacy of Human Umbilical Cord Mesenchymal Stem Cells (UC-MSC) therapy for patients with Spinocerebellar Ataxia, and in addition, explore the possible mechanisms of UC-MSC therapy in Spinocerebellar Ataxia.",
+      "eligibility": "Inclusion Criteria: * Clinical and genomic test diagnoses as spinocerebellar ataxias (SCA) (include SCA 1, SCA 2, SCA 3, SCA 6), SARA (Scale for Assessment and Rating of Ataxia) score is 2-5, can complete 8-meter walking test（8MW） * Do not receive stem cells treatment in 6 months * Participants sign the consent form based on the experiment process and statement Exclusion Criteria: * Cardiac, renal, hepatic insufficiency; total bilirubin is 1.5 times higher than normal value, aspartate transaminase（AST）or alanine aminotransferase（ALT）is 2.5 times higher than normal value * Hemogram: total white blood cells \\<3.0 \\* 10\\^9 cells/L, blood platelet \\<75 \\* 10\\^9/L, hemoglobin \\<100g/L * pneumonia, or severe infection * With severe allergic history * Brain organic disorder, like brain tumor * Serum with HIV, syphilis antibody positive * Severe mental disease, cognitive disorder patients * Other severe system or organ organic disease * Pregnant, breast feeding, or planning pregnant women * Participate other clinical experiments in 3 months * With some other conditions that doctor propose not to participate",
+      "links": [
+        {
+          "label": "ClinicalTrials.gov",
+          "url": "https://clinicaltrials.gov/study/NCT03378414"
+        }
+      ],
+      "registry_updated": "2026-04-23",
+      "source": "ClinicalTrials.gov API v2"
+    }
+  ]
+}

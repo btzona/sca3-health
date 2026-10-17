@@ -1,0 +1,100 @@
+{
+  "terms": [
+    {
+      "id": "natural-history",
+      "title": "Natural history study",
+      "pattern": "\\bnatural[- ]history(?:\\s+stud(?:y|ies)|\\s+cohorts?)?\\b",
+      "tip": "A study that follows people over time without testing a drug, to see how the disease changes. Later trials use that record."
+    },
+    {
+      "id": "predictive-testing",
+      "title": "Predictive testing",
+      "pattern": "\\bpredictive (?:genetic )?testing\\b",
+      "tip": "A gene test in a person who has no symptoms, to learn whether they inherited an expansion."
+    },
+    {
+      "id": "autosomal-dominant",
+      "title": "Autosomal dominant",
+      "pattern": "\\bautosomal dominant\\b",
+      "tip": "One expanded copy is enough. Each child of a carrier has a 50% chance of inheriting it."
+    },
+    {
+      "id": "cag-repeat",
+      "title": "CAG repeat",
+      "pattern": "\\bCAG repeats?\\b",
+      "tip": "A run of the DNA letters C, A, and G. In ATXN3, an expanded run causes SCA3."
+    },
+    {
+      "id": "machado-joseph",
+      "title": "Machado-Joseph disease",
+      "pattern": "\\bMachado-Joseph(?:\\s+disease)?\\b",
+      "tip": "Another name for SCA3, from families described in the 1970s."
+    },
+    {
+      "id": "premanifest",
+      "title": "Premanifest",
+      "pattern": "\\bpre-?manifest\\b|\\bpre-?symptomatic\\b|\\bpre-?ataxic\\b",
+      "tip": "A person who carries the expansion and does not yet have ataxia. Papers also say presymptomatic or pre-ataxic."
+    },
+    {
+      "id": "intrathecal",
+      "title": "Intrathecal",
+      "pattern": "\\bintrathecal(?:ly)?\\b",
+      "tip": "Given into the fluid around the spinal cord."
+    },
+    {
+      "id": "biomarker",
+      "title": "Biomarker",
+      "pattern": "\\bbiomarkers?\\b",
+      "tip": "A measurable sign, in a scan, blood, or spinal fluid, used to track a disease. It is not itself a treatment."
+    },
+    {
+      "id": "neurofilament",
+      "title": "NfL",
+      "pattern": "\\bNfL\\b|\\bneurofilament light(?:\\s+chain)?\\b",
+      "tip": "Neurofilament light chain, a protein measured in blood or spinal fluid and studied as a marker of nerve injury."
+    },
+    {
+      "id": "anticipation",
+      "title": "Anticipation",
+      "pattern": "\\banticipation\\b",
+      "tip": "The repeat often grows when it is passed on, which can mean earlier symptoms in the next generation. It is not a rule for any one child."
+    },
+    {
+      "id": "pgt-m",
+      "title": "PGT-M",
+      "pattern": "\\bPGT-M\\b",
+      "tip": "Preimplantation genetic testing for a single-gene condition. Embryos from IVF can be tested for the familial expansion."
+    },
+    {
+      "id": "ataxin-3",
+      "title": "Ataxin-3",
+      "pattern": "\\bataxin-3\\b",
+      "tip": "The protein made by ATXN3. An expanded CAG repeat changes that protein."
+    },
+    {
+      "id": "penetrance",
+      "title": "Penetrance",
+      "pattern": "\\bpenetrance\\b|\\bfull-penetrance\\b",
+      "tip": "The chance that someone with a disease-causing genotype will develop the disease. The lower edge of full penetrance in SCA3 is not perfectly sharp."
+    },
+    {
+      "id": "sca3",
+      "title": "SCA3",
+      "pattern": "\\bSCA3\\b",
+      "tip": "Spinocerebellar ataxia type 3, also called Machado-Joseph disease, caused by an expanded CAG repeat in ATXN3."
+    },
+    {
+      "id": "aso",
+      "title": "ASO",
+      "pattern": "\\bASOs?\\b",
+      "tip": "Antisense oligonucleotide: a short synthetic strand designed to bind a specific RNA."
+    },
+    {
+      "id": "sara",
+      "title": "SARA",
+      "pattern": "\\bSARA\\b",
+      "tip": "Scale for the Assessment and Rating of Ataxia. A clinician’s score of ataxia signs. Higher means more ataxia."
+    }
+  ]
+}
