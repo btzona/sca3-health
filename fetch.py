@@ -696,31 +696,40 @@ def annotate_access(articles: list[dict]) -> dict[str, int]:
         time.sleep(0.08)
 
     counts = {"full": 0, "abstract": 0, "closed": 0, "kept": 0}
+    evidence_counts: dict[str, int] = {}
     for article in articles:
         doi = extract_doi(article.get("link") or "") or ""
         looked_up = bool(doi)
         failed = doi in unpay_failed or doi in xref_failed or doi in epmc_failed
+        record = epmc.get(doi) if doi else None
         # A preprint still gets a full-text badge when the lookups fail.
         if looked_up and failed and not is_server_preprint(article) and doi not in epmc and doi not in unpay and doi not in xref:
             if article.get("access") in {"full", "abstract", "closed"}:
                 counts["kept"] += 1
+            apply_reading(article, None, failed=True)
+            evidence_counts[article.get("evidence") or "Other"] = evidence_counts.get(article.get("evidence") or "Other", 0) + 1
             continue
         if not looked_up and not is_server_preprint(article):
             level, url, via = "closed", "", ""
         else:
             level, url, via = decide_access(
                 article,
-                epmc=epmc.get(doi) if doi else None,
+                epmc=record,
                 unpay=unpay.get(doi) if doi in unpay else None,
                 xref=xref.get(doi) if doi in xref else None,
             )
             if looked_up and failed and level == "closed" and article.get("access") in {"full", "abstract"}:
                 counts["kept"] += 1
+                apply_reading(article, record, failed=True)
+                evidence_counts[article.get("evidence") or "Other"] = evidence_counts.get(article.get("evidence") or "Other", 0) + 1
                 continue
         article["access"] = level
         article["access_url"] = url
         article["access_via"] = via
         counts[level] = counts.get(level, 0) + 1
+        apply_reading(article, record, failed=bool(doi) and doi in epmc_failed and not record)
+        evidence_counts[article.get("evidence") or "Other"] = evidence_counts.get(article.get("evidence") or "Other", 0) + 1
+    print("Evidence labels: " + ", ".join(f"{count} {label}" for label, count in sorted(evidence_counts.items())))
     print(
         "Access badges: "
         f"{counts['full']} free full text, {counts['abstract']} free abstract, "
@@ -1599,6 +1608,9 @@ def study_to_trial(study: dict) -> dict | None:
             }
         ],
         "registry_updated": updated,
+        "checked_registry": "ClinicalTrials.gov",
+        "checked_date": updated,
+        "checked_label": checked_label("ClinicalTrials.gov", updated),
         "source": "ClinicalTrials.gov API v2",
     }
 
@@ -1966,9 +1978,525 @@ def refresh_stocks() -> None:
     print(f"Wrote {len(quotes)} stock quotes → {STOCKS_OUT}")
 
 
+REVIEW_PUB_RE = re.compile(r"\breview\b|meta-analysis", re.I)
+TRIAL_PUB_RE = re.compile(
+    r"clinical trial|randomized controlled|controlled clinical|clinical study|"
+    r"pragmatic clinical|adaptive clinical|equivalence trial",
+    re.I,
+)
+OBS_PUB_RE = re.compile(r"observational study", re.I)
+ANIMAL_RE = re.compile(
+    r"\b(mouse|mice|murine|rats?|drosophila|zebrafish|macaque|c\.?\s*elegans|knock-?in)\b",
+    re.I,
+)
+CELL_RE = re.compile(
+    r"\b(in vitro|cell lines?|fibroblasts?|iPSCs?|induced pluripotent|organoids?|"
+    r"HEK293|cultured neurons|primary neurons)\b",
+    re.I,
+)
+OBS_RE = re.compile(r"\b(cohort|cross-sectional|case-control|observational|natural history)\b", re.I)
+HUMAN_RE = re.compile(r"\b(patients?|participants?|people with|subjects)\b", re.I)
+TRIAL_WORD_RE = re.compile(r"\b(randomi[sz]ed|placebo-controlled|phase\s*[0-4]|clinical trial)\b", re.I)
+REVIEW_TITLE_RE = re.compile(
+    r"\b(systematic review|meta-analysis|literature review|narrative review|scoping review)\b|"
+    r"^\s*(a\s+)?review\b",
+    re.I,
+)
+RESULT_RE = re.compile(
+    r"\b(found|showed|shown|suggests?|(?<!-)associated|observed|concludes?|concluded|"
+    r"indicates?|indicated|reported|(?<!-)reduced|(?<!-)increased|identified|demonstrated)\b",
+    re.I,
+)
+METHODS_RE = re.compile(
+    r"^(background|methods|objective|objectives|aim|purpose)\b|"
+    r"\b(we (describe|present|aimed|sought|investigated|conducted|tested|measured|quantified|performed|used)|here we)\b",
+    re.I,
+)
+HYPE_RE = re.compile(
+    r"\b(breakthrough|revolutionary|game[- ]changing|miracle|cures?|promising|exciting|first-ever)\b",
+    re.I,
+)
+EVIDENCE_LABELS = (
+    "Review",
+    "Human trial",
+    "Human observational study",
+    "Animal study",
+    "Cell/lab study",
+    "Preprint (not peer-reviewed)",
+    "Other",
+)
+
+
+def as_list(value) -> list:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
+
+
+def epmc_pub_types(record: dict | None) -> list[str]:
+    if not isinstance(record, dict):
+        return []
+    block = record.get("pubTypeList") or {}
+    if not isinstance(block, dict):
+        return []
+    return [str(item).strip() for item in as_list(block.get("pubType")) if str(item).strip()]
+
+
+def epmc_mesh(record: dict | None) -> list[str]:
+    if not isinstance(record, dict):
+        return []
+    block = record.get("meshHeadingList") or {}
+    if not isinstance(block, dict):
+        return []
+    terms: list[str] = []
+    for head in as_list(block.get("meshHeading")):
+        if isinstance(head, dict):
+            name = str(head.get("descriptorName") or "").strip()
+        else:
+            name = str(head).strip()
+        if name:
+            terms.append(name)
+    return terms
+
+
+def classify_evidence(article: dict, record: dict | None = None) -> tuple[str, str]:
+    """Pick one evidence label. Unclear items stay Other."""
+    kind = article.get("kind") or ""
+    if kind == "news":
+        return "Other", "kind"
+    if kind == "preprint" or is_server_preprint(article):
+        return "Preprint (not peer-reviewed)", "kind"
+    pub = " ".join(epmc_pub_types(record))
+    mesh = [term.lower() for term in epmc_mesh(record)]
+    if record and re.search(r"preprint", pub, re.I):
+        return "Preprint (not peer-reviewed)", "europepmc-pubtype"
+    if record and REVIEW_PUB_RE.search(pub):
+        return "Review", "europepmc-pubtype"
+    if kind == "trial":
+        if re.search(r"natural history|individuals at risk|at-risk|prospective cohort", title_blob(article), re.I):
+            return "Human observational study", "kind"
+        return "Human trial", "kind"
+    if record and TRIAL_PUB_RE.search(pub) and "protocol" not in pub.lower():
+        return "Human trial", "europepmc-pubtype"
+    if record and OBS_PUB_RE.search(pub):
+        return "Human observational study", "europepmc-pubtype"
+    mesh_animal = any(term in {"animals", "mice", "rats", "drosophila", "zebrafish"} for term in mesh)
+    mesh_human = "humans" in mesh
+    if mesh_animal and not mesh_human:
+        return "Animal study", "mesh"
+    title = article.get("title") or ""
+    summary = article.get("summary") or ""
+    blob = f"{title}. {summary}"
+    if mesh_human and not mesh_animal and TRIAL_WORD_RE.search(blob) and not ANIMAL_RE.search(title):
+        return "Human trial", "mesh"
+    if mesh_human and not mesh_animal and OBS_RE.search(blob) and not ANIMAL_RE.search(title):
+        return "Human observational study", "mesh"
+    if ANIMAL_RE.search(title) and HUMAN_RE.search(title):
+        return "Other", "unclear"
+    if (
+        HUMAN_RE.search(title)
+        and not ANIMAL_RE.search(title)
+        and not CELL_RE.search(title)
+        and re.search(r"cohort|pilot study|cross-sectional|case-control|observational|natural history|\bMRI\b|correlat|biomarker", title, re.I)
+    ):
+        return "Human observational study", "keywords"
+    if ANIMAL_RE.search(title) and CELL_RE.search(title):
+        return "Other", "unclear"
+    reviewish = bool(REVIEW_TITLE_RE.search(title))
+    animalish = bool(ANIMAL_RE.search(title) or (ANIMAL_RE.search(summary) and not HUMAN_RE.search(title)))
+    cellish = bool(CELL_RE.search(title) or (CELL_RE.search(summary) and not HUMAN_RE.search(title)))
+    trialish = bool(TRIAL_WORD_RE.search(title) and HUMAN_RE.search(blob) and not animalish)
+    obsish = bool(OBS_RE.search(blob) and HUMAN_RE.search(blob) and not animalish and not trialish)
+    signals = [
+        name
+        for name, flag in (
+            ("Review", reviewish),
+            ("Human trial", trialish),
+            ("Human observational study", obsish),
+            ("Animal study", animalish and not cellish),
+            ("Cell/lab study", cellish and not animalish),
+        )
+        if flag
+    ]
+    if len(signals) == 1:
+        return signals[0], "keywords"
+    return "Other", "unclear"
+
+
+def title_blob(article: dict) -> str:
+    return f"{article.get('title') or ''} {article.get('summary') or ''}"
+
+
+def family_line_from_text(text: str) -> str:
+    """One cautious sentence taken from an abstract. No abstract means no line."""
+    raw = strip_html(text or "")
+    raw = re.sub(r"^(abstract|summary)\b[:\s-]*", "", raw, flags=re.I)
+    raw = re.sub(
+        r"\b(Background|Objective|Objectives|Methods|Results|Conclusions|Purpose)\s*[:\-]\s*",
+        "",
+        raw,
+        flags=re.I,
+    )
+    raw = re.sub(r"\s+", " ", raw).strip()
+    if len(raw) < 80:
+        return ""
+    sentences: list[str] = []
+    for part in re.split(r"(?<=[.!?])\s+", raw):
+        sentence = HYPE_RE.sub("", part)
+        sentence = re.sub(r"\s+", " ", sentence).strip(" ;,-")
+        sentence = re.sub(r"\s+([,.;:])", r"\1", sentence)
+        if len(sentence) < 40:
+            continue
+        if sentence.lower().startswith(("http", "doi", "copyright")):
+            continue
+        sentences.append(sentence)
+    if not sentences:
+        return ""
+
+    def rank(sentence: str) -> int:
+        score = 0
+        if RESULT_RE.search(sentence):
+            score += 3
+        if METHODS_RE.search(sentence):
+            score -= 2
+        return score
+
+    best = max(enumerate(sentences), key=lambda pair: (rank(pair[1]), pair[0]))[1]
+    if rank(best) < 1 or len(best.split()) < 8:
+        return ""
+    if len(best) > 220:
+        cut = best[:217]
+        if " " in cut:
+            cut = cut.rsplit(" ", 1)[0]
+        best = cut.rstrip(",;:") + "…"
+    if len(best) < 40:
+        return ""
+    if best[-1] not in ".!?…":
+        best += "."
+    return best
+
+
+def apply_reading(article: dict, record: dict | None, *, failed: bool) -> None:
+    label, via = classify_evidence(article, None if failed and not record else record)
+    previous = article.get("evidence") or ""
+    if failed and not record and previous in EVIDENCE_LABELS and previous != "Other" and via == "unclear":
+        label, via = previous, article.get("evidence_via") or "kept"
+    article["evidence"] = label
+    article["evidence_via"] = via
+    kind = article.get("kind") or ""
+    if kind not in {"paper", "preprint"}:
+        article["family_line"] = ""
+        return
+    abstract = ""
+    if isinstance(record, dict):
+        abstract = str(record.get("abstractText") or "")
+    if not abstract:
+        summary = str(article.get("summary") or "").strip()
+        source = str(article.get("source") or "").strip()
+        if summary and summary != source:
+            abstract = summary
+    line = family_line_from_text(abstract)
+    source = str(article.get("source") or "")
+    if line and source and (line[:48].lower() in source.lower() or source[:48].lower() in line.lower()):
+        line = ""
+    if line:
+        article["family_line"] = line
+    elif failed and article.get("family_line"):
+        return
+    else:
+        article["family_line"] = ""
+
+
+def pretty_day(value: str) -> str:
+    text = (value or "")[:10]
+    try:
+        found = datetime.strptime(text, "%Y-%m-%d")
+    except ValueError:
+        return ""
+    return f"{found.day} {found.strftime('%b')} {found.year}"
+
+
+def checked_label(registry: str, record_date: str) -> str:
+    day = pretty_day(record_date)
+    if day:
+        return f"Checked against {registry}, {day}"
+    return f"Checked against {registry}"
+
+
+REGISTRY_OUT = ROOT / "data" / "registry.json"
+CHANGES_OUT = ROOT / "data" / "changes.json"
+REGISTRY_NCTS = (
+    "NCT05822908",
+    "NCT03378414",
+    "NCT03701399",
+    "NCT05160558",
+    "NCT07743866",
+    "NCT07752095",
+    "NCT07019558",
+)
+
+
+def load_json_file(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def ctgov_study_record(nct: str) -> tuple[dict | None, str | None]:
+    url = f"https://clinicaltrials.gov/api/v2/studies/{nct}"
+    raw, err = fetch_url(url, headers={"Accept": "application/json", "User-Agent": USER_AGENT})
+    if err or not raw:
+        return None, err or "empty ClinicalTrials.gov study"
+    head = raw[:120].lstrip().lower()
+    if head.startswith(b"<!doctype") or head.startswith(b"<html"):
+        return None, "ClinicalTrials.gov returned HTML"
+    try:
+        study = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        return None, f"parse: {exc}"
+    proto = study.get("protocolSection") or {}
+    status = proto.get("statusModule") or {}
+    overall = str(status.get("overallStatus") or "").strip()
+    updated = str((status.get("lastUpdatePostDateStruct") or {}).get("date") or "")
+    if not overall:
+        return None, "ClinicalTrials.gov study had no overall status"
+    return {
+        "id": nct,
+        "registry": "ClinicalTrials.gov",
+        "status": human_status(overall),
+        "record_date": updated,
+        "label": checked_label("ClinicalTrials.gov", updated),
+        "url": f"https://clinicaltrials.gov/study/{nct}",
+    }, None
+
+
+def ctis_study_record() -> tuple[dict | None, str | None]:
+    raw, err = fetch_url(
+        EU_CT_API,
+        headers={"User-Agent": BROWSER_UA, "Accept": "application/json"},
+    )
+    if err or not raw:
+        return None, err or "empty EU CTIS response"
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        return None, f"EU CTIS parse: {exc}"
+    status = str(payload.get("ctStatus") or "").strip()
+    if not status:
+        return None, "EU CTIS response had no trial status"
+    published = str(payload.get("publishDate") or "")
+    end = str(payload.get("endDateEU") or "")
+    shown = human_status(status)
+    if status.lower() == "ended" and end:
+        end_day = pretty_day(end)
+        shown = f"Ended, end of trial {end_day}" if end_day else "Ended"
+    return {
+        "id": "2025-525111-17-00",
+        "registry": "EU CTIS",
+        "status": shown,
+        "record_date": published[:10],
+        "label": checked_label("EU CTIS", published),
+        "url": EU_CT_URL,
+    }, None
+
+
+def refresh_registry() -> None:
+    """Write data/registry.json from ClinicalTrials.gov v2 and the public CTIS record."""
+    REGISTRY_OUT.parent.mkdir(parents=True, exist_ok=True)
+    previous = load_json_file(REGISTRY_OUT).get("records") or {}
+    if not isinstance(previous, dict):
+        previous = {}
+    records = dict(previous)
+    errors: list[str] = []
+    for nct in REGISTRY_NCTS:
+        record, err = ctgov_study_record(nct)
+        if record:
+            records[nct] = record
+            print(f"  {nct} {record['status']} ({record['label']})")
+        else:
+            errors.append(f"{nct}: {err}")
+            if nct in records:
+                print(f"  {nct} failed ({err}). Kept the previous registry record.")
+            else:
+                print(f"  {nct} failed ({err}).")
+        time.sleep(0.15)
+    record, err = ctis_study_record()
+    if record:
+        records[record["id"]] = record
+        print(f"  {record['id']} {record['status']} ({record['label']})")
+    else:
+        errors.append(f"2025-525111-17-00: {err}")
+        if "2025-525111-17-00" in records:
+            print(f"  CTIS failed ({err}). Kept the previous registry record.")
+        else:
+            print(f"  CTIS failed ({err}).")
+    payload = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "records": records,
+        "errors": errors,
+    }
+    REGISTRY_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    apply_registry_to_open_trials(records)
+    print(f"Wrote {len(records)} registry records → {REGISTRY_OUT}")
+
+
+def apply_registry_to_open_trials(records: dict) -> None:
+    payload = load_json_file(TRIALS_OUT)
+    trials = payload.get("trials")
+    if not isinstance(trials, list):
+        return
+    kept: list[dict] = []
+    for trial in trials:
+        if not isinstance(trial, dict):
+            continue
+        nct = str(trial.get("nct_id") or "")
+        record = records.get(nct) if nct else None
+        if not record:
+            kept.append(trial)
+            continue
+        trial["checked_registry"] = record.get("registry") or "ClinicalTrials.gov"
+        trial["checked_date"] = record.get("record_date") or ""
+        trial["checked_label"] = record.get("label") or checked_label("ClinicalTrials.gov", "")
+        status = str(record.get("status") or "")
+        lowered = status.lower()
+        if lowered == "recruiting":
+            trial["status"] = status
+            trial["status_key"] = "recruiting"
+            kept.append(trial)
+        elif "not yet recruiting" in lowered:
+            trial["status"] = status
+            trial["status_key"] = "not_yet"
+            kept.append(trial)
+        else:
+            print(f"Open trials dropped {nct}: ClinicalTrials.gov status is {status}.")
+    payload["trials"] = kept
+    payload["trial_count"] = len(kept)
+    TRIALS_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def load_trials() -> list[dict]:
+    trials = load_json_file(TRIALS_OUT).get("trials") or []
+    if not isinstance(trials, list):
+        return []
+    return [item for item in trials if isinstance(item, dict)]
+
+
+def write_changes(previous_articles: list[dict], articles: list[dict], previous_trials: list[dict]) -> None:
+    """What changed this month, diffed against the previous ledger when one exists."""
+    month = f"{TODAY.year:04d}-{TODAY.month:02d}"
+    month_label = f"{TODAY.strftime('%B')} {TODAY.year}"
+    had_previous = bool(previous_articles or previous_trials)
+    known: set[str] = set()
+    for article in previous_articles:
+        known.update(canonical_keys(article))
+    papers: list[dict] = []
+    for article in articles:
+        if str(article.get("date") or "")[:7] != month:
+            continue
+        keys = set(canonical_keys(article))
+        is_new = not (keys & known) if had_previous else False
+        evidence = article.get("evidence") or "Other"
+        tags = article.get("tags") or []
+        notable = is_new or evidence in {"Review", "Human trial", "Human observational study"} or any(
+            tag in tags for tag in ("Clinical trial", "Therapy/ASO", "Gene therapy", "Review")
+        )
+        if not notable:
+            continue
+        papers.append(
+            {
+                "title": article.get("title") or "",
+                "link": article.get("link") or "",
+                "date": article.get("date") or "",
+                "source": article.get("source") or "",
+                "evidence": evidence,
+                "new_since_refresh": is_new,
+            }
+        )
+    if not papers:
+        for article in articles:
+            if str(article.get("date") or "")[:7] != month:
+                continue
+            papers.append(
+                {
+                    "title": article.get("title") or "",
+                    "link": article.get("link") or "",
+                    "date": article.get("date") or "",
+                    "source": article.get("source") or "",
+                    "evidence": article.get("evidence") or "Other",
+                    "new_since_refresh": False,
+                }
+            )
+    papers.sort(key=lambda item: item.get("date") or "", reverse=True)
+    papers.sort(key=lambda item: not item["new_since_refresh"])
+    papers = papers[:6]
+    previous_map = {str(trial.get("nct_id") or trial.get("id") or ""): trial for trial in previous_trials}
+    current = load_trials()
+    current_map = {str(trial.get("nct_id") or trial.get("id") or ""): trial for trial in current}
+    new_trials = []
+    status_changes = []
+    removed_trials = []
+    for key, trial in current_map.items():
+        if not key:
+            continue
+        old = previous_map.get(key)
+        if old is None:
+            if had_previous:
+                new_trials.append(
+                    {"id": key, "title": trial.get("title") or "", "status": trial.get("status") or ""}
+                )
+        elif (old.get("status") or "") != (trial.get("status") or ""):
+            status_changes.append(
+                {
+                    "id": key,
+                    "title": trial.get("title") or "",
+                    "from": old.get("status") or "",
+                    "to": trial.get("status") or "",
+                }
+            )
+    for key, trial in previous_map.items():
+        if key and key not in current_map:
+            removed_trials.append(
+                {
+                    "id": key,
+                    "title": trial.get("title") or "",
+                    "from": trial.get("status") or "",
+                    "to": "No longer on the open-trial list",
+                }
+            )
+    payload = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "month": month,
+        "label": month_label,
+        "basis": (
+            "Compared with the ledger and open-trial list saved before this refresh. Papers are limited to this month."
+            if had_previous
+            else "No earlier ledger was available to diff. Papers are items dated this month."
+        ),
+        "new_trials": new_trials,
+        "status_changes": status_changes,
+        "removed_trials": removed_trials,
+        "papers": papers,
+    }
+    CHANGES_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(
+        f"Changes for {month_label}: {len(new_trials)} new trials, "
+        f"{len(status_changes)} status changes, {len(removed_trials)} left the open list, "
+        f"{len(papers)} papers."
+    )
+
+
 def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
+    previous_articles = load_previous_articles()
+    previous_trials = load_trials()
     refresh_open_trials()
+    refresh_registry()
     refresh_stocks()
     feed_status: list[dict] = []
     collected: list[dict] = []
@@ -1997,6 +2525,7 @@ def main() -> int:
                 kept["articles"] = previous
                 kept["access_updated"] = datetime.now(timezone.utc).isoformat()
                 write_ledger(kept)
+            write_changes(previous_articles, previous, previous_trials)
             return 0
         write_ledger(
             {
@@ -2023,6 +2552,7 @@ def main() -> int:
         "articles": selected,
     }
     write_ledger(payload)
+    write_changes(previous_articles, selected, previous_trials)
     span = f"{min(dated)[:10]} → {max(dated)[:10]}" if dated else "undated"
     print(f"\nWrote {len(selected)} articles ({span}) → {OUT}")
     return 0

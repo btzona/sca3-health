@@ -1,7 +1,7 @@
 {
   "site": "Ataxin-3",
   "subtitle": "A public ledger of SCA3 and Machado-Joseph research",
-  "updated": "2026-10-16T17:42:59.714355+00:00",
+  "updated": "2026-10-17T10:05:55.937629+00:00",
   "article_count": 102,
   "feeds": [
     {
@@ -86,8 +86,8 @@
     {
       "id": "prnewswire",
       "name": "PR Newswire",
-      "ok": true,
-      "items": 0
+      "ok": false,
+      "error": "HTTPError: HTTP Error 404: Not Found"
     }
   ],
   "articles": [
@@ -106,7 +106,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13660296/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "ecaf6c379e1651b9",
@@ -122,7 +125,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13646224/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "d555ffe93d465ce2",
@@ -138,7 +144,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.64898/2026.10.02.756117",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "Oral dosing achieved nanomolar cerebellar exposure and showed no overt liver, kidney, or glial toxicity over 28 days."
     },
     {
       "id": "fa9ea80013d2171d",
@@ -155,7 +164,10 @@
       "kind": "paper",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "3818f933c9107588",
@@ -171,7 +183,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/smll.75802",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "A reduced 21-metabolite panel retained discriminatory performance, with AUCs of 0.901 and 0.932, respectively."
     },
     {
       "id": "5764e9585cf10607",
@@ -187,7 +202,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1186/s12883-026-05420-4",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Human observational study",
+      "evidence_via": "keywords",
+      "family_line": ""
     },
     {
       "id": "891b49cae1c2da9e",
@@ -203,7 +221,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13627293/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Although large and consistent disease-specific patterns of microexon-associated junction usage were not observed, our findings suggest that microexon regulation in neurodegeneration may involve subtle and…"
     },
     {
       "id": "c0abe2aa25ddcfa3",
@@ -219,7 +240,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.51126/revsalus.v8isupiii.48079",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "83766f4afc864179",
@@ -235,7 +259,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/mds.70499",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "NBP administration showed preliminary evidence of clinical benefit in SCA3."
     },
     {
       "id": "7fff72266cf4ce79",
@@ -251,7 +278,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.21203/rs.3.rs-10732082/v1",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "In peripheral blood, exploratory analysis suggests that methylation changes are limited and do not mirror those observed in the brain."
     },
     {
       "id": "c926614d2d61d560",
@@ -267,7 +297,10 @@
       "kind": "news",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "d0f30104b94ba2b5",
@@ -283,7 +316,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13617979/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "Proteomic profiling of brain lysates from male and female wild-type and CMVMJD135 mice identified mitochondrial alterations and altered oxidative phosphorylation-associated protein abundance as major shared features…"
     },
     {
       "id": "01f833125509d4e9",
@@ -299,7 +335,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.2139/ssrn.5394702",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Significant correlations were identified between COP variables, such as the eyes closed, left side sway velocity (EC-L velocity) SD, and clinical scores (r > 0.4)."
     },
     {
       "id": "36822dbdb075c503",
@@ -315,7 +354,10 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human trial",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "4a50be2c1eb603e8",
@@ -332,7 +374,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1159/crn/abyag006",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "c6760ae70889109d",
@@ -348,7 +393,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13544303/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Collectively, our findings indicate that Importin-8 may exert its protective effect by modulating NF-kb/p65 and Argonaute-2 proteins, also previously linked to MJD, standing as a therapeutic target to delay disease…"
     },
     {
       "id": "11a358a11d1bc1db",
@@ -364,7 +412,10 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human observational study",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "8f8f61851292ecf6",
@@ -381,7 +432,10 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human trial",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "557df5260c6b7fc1",
@@ -399,7 +453,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13527938/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Review",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": ""
     },
     {
       "id": "610855d74f5d8302",
@@ -415,7 +472,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42594559",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Lower DTI-ALPS index was associated with greater clinical severity (r = -0.208, p Conclusion Reduced DTI-ALPS index emerged predominantly during SCA3 symptomatic stage and was associated with greater severity…"
     },
     {
       "id": "568e0577b1ca45db",
@@ -431,7 +491,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.64898/2026.08.07.743629",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "Ficd -/- SCA3 mice exhibit significantly reduced levels of nuclear ATXN3 in vulnerable brain regions, while Ficd +/+ littermates show an increased burden of AMPylated BiP in the spinal cord, identifying aberrant…"
     },
     {
       "id": "80b0384e5dd5652c",
@@ -447,7 +510,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1186/s13023-026-04402-6",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "5e80158a29f90298",
@@ -463,7 +529,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1002/mds.70465",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Conclusion The modest somatic expansion of the mATXN3 CAG repeat observed in PCs is likely not responsible for their loss in individuals with SCA3."
     },
     {
       "id": "eb2f6da7d80737cd",
@@ -479,7 +548,10 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human trial",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "48ccffab1222441a",
@@ -495,7 +567,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13487206/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "Its effects were associated with activation of Nrf2-related antioxidant responses, p62 upregulation, and selected improvements in mitochondrial phenotypes."
     },
     {
       "id": "f90e2f32c8df8604",
@@ -511,7 +586,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://link.springer.com/content/pdf/10.1007/s12035-026-06080-8.pdf",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "3a2f381503489b75",
@@ -528,7 +606,10 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human observational study",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "f26a495b703ec85d",
@@ -544,7 +625,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1002/ana.78317",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "In contrast, KO mice showed normal peripheral nerve function, implicating toxic gain-of-function from mutant ATXN3 as the causative driver."
     },
     {
       "id": "7542675332fef971",
@@ -560,7 +644,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42501193",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Human observational study",
+      "evidence_via": "keywords",
+      "family_line": "Our study revealed distinct patterns of spontaneous brain activity associated with cognitive impairment in SCA3."
     },
     {
       "id": "55bb2ef1410fe2d2",
@@ -576,7 +663,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13415171/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "NMR profiling identified flavonoids, cinnamaldehyde, and cinnamic acid as key ATX3-interacting molecules, supporting their contribution to the anti-amyloidogenic activity of the extract."
     },
     {
       "id": "01c44ff9f46c9b40",
@@ -593,7 +683,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42439334",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Human observational study",
+      "evidence_via": "keywords",
+      "family_line": "These changes are associated with disease severity and show potential for distinguishing patients from controls, supporting their possible utility as biomarkers."
     },
     {
       "id": "382ff8c994e2f0c7",
@@ -609,7 +702,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ijstemcell.com/journal/download_pdf.php?doi=10.15283/ijsc25141",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "Based on these findings, we conclude that ADMSC enhance motor function in SCA3 mice by reducing neuroinflammation, demyelination and aggregated mutant ataxin-3 protein levels in Purkinje cells."
     },
     {
       "id": "60ef5e908d7f62bb",
@@ -625,7 +721,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13392492/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "a85b79eec143191e",
@@ -641,7 +740,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42386068",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Animal study",
+      "evidence_via": "mesh",
+      "family_line": "Plasma insulin was elevated in 84Q mice, whereas cerebellar Ins2 and Igf1 transcripts were reduced, consistent with an insulin-related dysregulation signature."
     },
     {
       "id": "266d2eab4b461c38",
@@ -657,7 +759,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13334373/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "The correlations between SC abnormalities and clinical metrics, coupled with the modulatory effects of TMS, suggest that network-based metrics can serve as biomarkers and guide the development of personalized…"
     },
     {
       "id": "109a7bbe66ed1962",
@@ -673,7 +778,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13423774/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Review",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": "Clinical features, including preserved tendon reflexes and widespread denervation observed on electromyography, support the diagnosis of concomitant sporadic ALS."
     },
     {
       "id": "d2dee916c1e4760a",
@@ -689,7 +797,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42381263",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "While CSF levels were higher in symptomatic patients at baseline, they showed a significant longitudinal decline."
     },
     {
       "id": "b9247501c3658fd3",
@@ -705,7 +816,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.64898/2026.06.24.734389",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "Furthermore, feature weight analysis identified atrophy of the right lobule VIIB as a critical predictor of clinical severity in Biotype 2."
     },
     {
       "id": "d98a101f5476e9d3",
@@ -721,23 +835,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42374825",
-      "access_via": "europepmc"
-    },
-    {
-      "id": "d1b4a1be12f5b16a",
-      "title": "REPROCELL Submits Application for Manufacturing and Marketing Approval in Japan for Stem Cell Therapy Stemchymal® for Spinocerebellar Ataxia (SCA3 and SCA6)",
-      "link": "https://www.newswire.ca/news-releases/reprocell-submits-application-for-manufacturing-and-marketing-approval-in-japan-for-stem-cell-therapy-stemchymal-r-for-spinocerebellar-ataxia-sca3-and-sca6--854882445.html",
-      "summary": "REPROCELL Submits Application for Manufacturing and Marketing Approval in Japan for Stem Cell Therapy Stemchymal® for Spinocerebellar Ataxia (SCA3 and SCA6) PR Newswire Canada",
-      "source": "PR Newswire Canada",
-      "source_id": "google-news",
-      "date": "2026-06-24T07:00:00+00:00",
-      "tags": [
-        "Therapy/ASO"
-      ],
-      "kind": "news",
-      "access": "closed",
-      "access_url": "",
-      "access_via": ""
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "7c88c0afbdb63fd2",
@@ -754,7 +855,29 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human trial",
+      "evidence_via": "kind",
+      "family_line": ""
+    },
+    {
+      "id": "d1b4a1be12f5b16a",
+      "title": "REPROCELL Submits Application for Manufacturing and Marketing Approval in Japan for Stem Cell Therapy Stemchymal® for Spinocerebellar Ataxia (SCA3 and SCA6)",
+      "link": "https://www.newswire.ca/news-releases/reprocell-submits-application-for-manufacturing-and-marketing-approval-in-japan-for-stem-cell-therapy-stemchymal-r-for-spinocerebellar-ataxia-sca3-and-sca6--854882445.html",
+      "summary": "REPROCELL Submits Application for Manufacturing and Marketing Approval in Japan for Stem Cell Therapy Stemchymal® for Spinocerebellar Ataxia (SCA3 and SCA6) PR Newswire Canada",
+      "source": "PR Newswire Canada",
+      "source_id": "google-news",
+      "date": "2026-06-24T07:00:00+00:00",
+      "tags": [
+        "Therapy/ASO"
+      ],
+      "kind": "news",
+      "access": "closed",
+      "access_url": "",
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "e23071fe4953dcd0",
@@ -771,7 +894,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13543455/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Human observational study",
+      "evidence_via": "mesh",
+      "family_line": "No detectable association between rs1801582 genotype and age at onset was identified among G/G and G/C carriers in this Japanese cohort."
     },
     {
       "id": "53f282bd77269e52",
@@ -787,7 +913,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13330521/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "73157c98bf962d60",
@@ -804,7 +933,10 @@
       "kind": "paper",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "23c31119ac84e561",
@@ -821,7 +953,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13394087/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "We measured neurochemical concentrations in the cerebellum, pons, and putamen, and assessed their within- and between-site reproducibility and associations with clinician- and patient-reported outcomes."
     },
     {
       "id": "999043d8fc9f640e",
@@ -837,7 +972,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.nbd.2026.107474",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "The reduction in fT3/fT4 ratio was detectable in pre-ataxic carriers and was associated with subsequent SARA worsening in the longitudinal cohort."
     },
     {
       "id": "3a83735a4ad49504",
@@ -853,7 +991,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13541599/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Overall, AM administration was associated with modest within-treatment biomarker changes in NfL and insulin, although the adjusted between-treatment difference in NfL was not statistically significant."
     },
     {
       "id": "728c3ed4f1d2a371",
@@ -869,7 +1010,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42253155",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "Systemic administration of RVG-exosomes carrying miR-370 inhibitors led to increased DNAJB1 expression, reduced mutant ATXN3 aggregation, improved neuronal survival, and restored motor coordination in SCA3 mice."
     },
     {
       "id": "992b9fbf38f98be0",
@@ -885,7 +1029,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13215304/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "f1f32b42c30e4eec",
@@ -901,7 +1048,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42191105",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "These results indicate that SCA3 involves a breakdown in both network segregation and integration."
     },
     {
       "id": "cde2f8033319c106",
@@ -917,7 +1067,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42183960",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Animal study",
+      "evidence_via": "mesh",
+      "family_line": "While both iTBS and cTBS increased Iba-1-positive cells (P < 0.05 and P < 0.05, respectively, vs."
     },
     {
       "id": "6a34fa6af38e6086",
@@ -934,7 +1087,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13649910/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Review",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": "In summary, impaired VOR-gains (qHIT), GEN, horizontal PEM-gain decreases, dysmetric saccades, and SWJ were most frequently reported and therefore seem most suitable as potential disease markers."
     },
     {
       "id": "acb8843659ccbc8d",
@@ -950,7 +1106,10 @@
       "kind": "paper",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "af3d0a52e29be2f2",
@@ -966,7 +1125,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13518284/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Reduced cerebrocerebellar volumetric covariance is observed in SCA3 participants versus controls."
     },
     {
       "id": "db5b043162af7daf",
@@ -982,7 +1144,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42087344",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Conclusions SCA3 exhibits dyslipidemia with elevated LDL-C and reduced HDL-C, partially masked by BMI."
     },
     {
       "id": "0d59c4fa77d6899d",
@@ -998,7 +1163,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42083341",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Body mass index, coffee consumption, alcohol consumption, as well as other assessed variables, were not associated with AAO or SARA scores."
     },
     {
       "id": "5cee582020f4a48c",
@@ -1014,7 +1182,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13137668/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "ebee15fa1ab74c56",
@@ -1030,7 +1201,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/42069099",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Review",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": "Furthermore, the context-dependent roles of JOSD2 beyond cancer emphasized, with reported pathogenic or protective functions in cardiovascular disorders and inflammatory bowel disease."
     },
     {
       "id": "bfdd60d15b56f6cc",
@@ -1046,7 +1220,10 @@
       "kind": "trial",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Human trial",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "f507ca1bd0bd1237",
@@ -1062,7 +1239,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13387968/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Conclusions Our findings demonstrate that glymphatic function is impaired, particularly in the presymptomatic stage of SCA3, and this impairment is associated with disability, neurodegeneration, and demyelination."
     },
     {
       "id": "e1a2f0f13dd42f91",
@@ -1078,7 +1258,10 @@
       "kind": "news",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "fc71c7985b64ea89",
@@ -1094,7 +1277,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13188680/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Additionally, diplopia is associated with the severity of ataxia, necessitating intensive focus and interventions in the care of SCA3 patients."
     },
     {
       "id": "33e103625bca76c2",
@@ -1110,7 +1296,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13224077/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "cc05830452b2589f",
@@ -1126,7 +1315,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13080496/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Results Our results showed that the NAA/Cr and Cho/Cr ratios in all three brain regions were significantly correlated with higher Barthel Index scores (r = 0.66), indicating a link between neuronal integrity…"
     },
     {
       "id": "99c38cfe34512940",
@@ -1142,7 +1334,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12998449/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "NfL levels significantly increased in non-converters and ataxic SCA3 (1.06 ± 0.33 pg/ml/year, P = 0.002 and 0.57 ± 0.21 pg/ml/year, P = 0.01, respectively) but not in controls and ataxic SCA1 (0.31 ± 0.26 pg/ml/year…"
     },
     {
       "id": "42eeb7c619f4cbbc",
@@ -1158,7 +1353,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1002/mds.70271",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "Conclusions The findings indicate that modulating CARHSP1 and possible other SG components may provide a molecular target for therapeutics in SCA3, emphasizing the role of SG in polyQ disorders."
     },
     {
       "id": "2f9a62a7052b9d11",
@@ -1174,7 +1372,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13090235/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "No significant associations were found between SSEP abnormalities and demographic, clinical, imaging, or genetic variables in either group."
     },
     {
       "id": "605eb208ad7cb70c",
@@ -1191,7 +1392,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13288182/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "db9e62f4f9900451",
@@ -1207,7 +1411,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13085427/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "CONCLUSION: SCA3 is associated with early, subclinical pulmonary dysfunction that worsens with disease progression."
     },
     {
       "id": "0b918fa98b31bdab",
@@ -1223,7 +1430,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.npep.2026.102605",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Review",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": "In humans, limited studies found that intranasal administration of NPY in saline was well tolerated and showed promise for PTSD or depression at highest dose administered."
     },
     {
       "id": "476ad7bae5eaea93",
@@ -1239,7 +1449,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13010821/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "The comparison of (CAG)n interruption patterns of the different paralogs in several primates elucidates the process leading to the currently observed pure long tracts in human ATXN3, responsible for disease when…"
     },
     {
       "id": "76e5001fc3d6b94a",
@@ -1256,7 +1469,10 @@
       "kind": "news",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "02b971f9832c9e8c",
@@ -1272,7 +1488,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12922401/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Gastrodin treatment showed no cytotoxicity, significantly suppressed ataxin-3-77Q aggregate accumulation (p < 0.01), increased soluble ataxin-3 levels, enhanced cellular antioxidant capacity and selectively…"
     },
     {
       "id": "0eae4b48d7c52583",
@@ -1288,7 +1507,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/41701293",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Our results showed that SCA3 cells exhibited significantly reduced viability and increased thermolability."
     },
     {
       "id": "b09aebeea30ddd90",
@@ -1304,7 +1526,10 @@
       "kind": "paper",
       "access": "closed",
       "access_url": "",
-      "access_via": ""
+      "access_via": "",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "79981f5785c8d3a1",
@@ -1320,7 +1545,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/41707444",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "No such effects were observed in the sham group."
     },
     {
       "id": "c9af2fed5d5978c2",
@@ -1336,7 +1564,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.jstage.jst.go.jp/article/internalmedicine/advpub/0/advpub_6851-25/_pdf",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "d5ebb7c5a137e8ce",
@@ -1353,7 +1584,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13358550/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Human observational study",
+      "evidence_via": "mesh",
+      "family_line": "Interpretation The estimated sample sizes to detect a 50% reduction in progression with 80% power using the pons volume as primary outcome measure indicate the feasibility of preventive trials (n = 73 per arm in a…"
     },
     {
       "id": "dc726472898776c5",
@@ -1369,7 +1603,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12933716/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Notably, patients in the lowest insulin tertile (<3.65 µIU/ml) showed significantly higher IGFBP1 and NfL levels compared with the remaining groups, thus suggesting that the insulin/IGFBP1/NfL axis was associated…"
     },
     {
       "id": "45cc72e3016b85a0",
@@ -1385,7 +1622,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/41690140",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "87d1dced37861d4b",
@@ -1401,7 +1641,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12928606/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Integrated analysis of the case and a review of the literature indicated that the extreme CAG expansion in ATXN3 (77 repeats) is the primary determinant of the remarkably early onset in this patient."
     },
     {
       "id": "48e25e9198037060",
@@ -1418,7 +1661,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.nbd.2026.107301",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Human observational study",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": ""
     },
     {
       "id": "505e47cdb145e232",
@@ -1427,14 +1673,17 @@
       "summary": "Spinocerebellar ataxia type 3 (SCA3) is a progressive inherited neurodegenerative disorder characterized by impaired coordination and balance due to cerebellar ataxia. Currently, there are no Food and Drug Administration (FDA)-approved drugs or curative treatments for SCA3. This study aimed to uncover the potential…",
       "source": "Scientific reports",
       "source_id": "europepmc",
-      "date": "2026-02-05T12:00:00+00:00",
+      "date": "2026-02-05T08:00:00+00:00",
       "tags": [
         "Research"
       ],
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12923746/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway enrichment analysis identified the MAPK signaling pathway (hsa04010) as a key mechanism involving 33 critical proteins, including AKT1…"
     },
     {
       "id": "fb48e825213650f0",
@@ -1450,7 +1699,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.64898/2026.01.31.703043",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "MJD mice exhibit increased vessel coverage, increased BBB permeability, and altered TJ and AJ expression and subcellular localization."
     },
     {
       "id": "18aac99f2140f133",
@@ -1467,7 +1719,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.jare.2026.02.031",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Results TCF4 showed no direct effect on AO but significantly modulated the ATXN3-AO relationship."
     },
     {
       "id": "4048a202295d7511",
@@ -1483,7 +1738,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.3724/j.pibb.2026.0006",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "046c947f75bb1476",
@@ -1500,7 +1758,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/41854058",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Apolipoprotein E (APOE) haplotypes are associated with the risk of numerous, especially degenerative, diseases."
     },
     {
       "id": "541e14916debecf8",
@@ -1516,7 +1777,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/febs.70426",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Cell/lab study",
+      "evidence_via": "keywords",
+      "family_line": "Although our study focuses on in vitro investigation, it suggests that redox dysregulation in cells could promote pathogenic aggregation of Atx3, reinforcing the link between cellular redox balance and polyglutamine…"
     },
     {
       "id": "dc105069df8a9c3e",
@@ -1532,7 +1796,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.64898/2026.01.26.26344891",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "Furthermore, it will be important to determine whether the observed association with age at onset is driven primarily by increased levels of the expanded protein, leading to enhanced protein toxicity, or by toxic…"
     },
     {
       "id": "d4ebf1164510c444",
@@ -1548,7 +1815,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.17576/mh.2026.2101.25",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": ""
     },
     {
       "id": "8a59905a1b88e3f8",
@@ -1564,7 +1834,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.64898/2026.01.22.701070",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": "Our findings indicate that serum CORT levels in SCA3 mice begin to rise between 26 to 30 weeks of age, with no impairment in the physiological response to acute stress."
     },
     {
       "id": "50bef6d37b3d030f",
@@ -1580,7 +1853,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13358552/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Human observational study",
+      "evidence_via": "europepmc-pubtype",
+      "family_line": "Over a median follow-up of 411 days, SARA home showed higher sensitivity to change than conventional SARA (SRM: 0.67 vs."
     },
     {
       "id": "f1c04720209bc581",
@@ -1596,7 +1872,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/mds.70195",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Combined retinal functional and structural parameters demonstrated superior diagnostic accuracy in SCA3."
     },
     {
       "id": "bbfff5c870abcc78",
@@ -1612,7 +1891,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12846992/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "In addition, we observed aberrant RNA splicing changes in KI mice, particularly in oligodendrocyte signature genes."
     },
     {
       "id": "176d4ab361085bf8",
@@ -1628,7 +1910,10 @@
       "kind": "paper",
       "access": "abstract",
       "access_url": "https://europepmc.org/article/MED/41504997",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Distinct imaging signatures of SCA2 and SCA3 suggest divergent pathophysiologies."
     },
     {
       "id": "a453bdb0dd470630",
@@ -1644,7 +1929,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12779735/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Conclusion Clinical features of peripheral and autonomic nervous system degeneration are very common in SCA3, may already be observed in pre-ataxic individuals, and independently contribute to patient-reported…"
     },
     {
       "id": "90891c43efc51903",
@@ -1660,7 +1948,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13158246/",
-      "access_via": "europepmc"
+      "access_via": "europepmc",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": "Our findings suggest that calpain overactivity may be an early disease phenotype that contributes to neurodegeneration in transgenic CMVMJD135 mice modelling MJD, and that calpeptin warrants further investigation as…"
     },
     {
       "id": "0520548cb573b6d4",
@@ -1676,7 +1967,10 @@
       "kind": "preprint",
       "access": "full",
       "access_url": "https://doi.org/10.2139/ssrn.6801787",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Preprint (not peer-reviewed)",
+      "evidence_via": "kind",
+      "family_line": ""
     },
     {
       "id": "15f4f5e326071d2b",
@@ -1692,7 +1986,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.clinph.2025.2111405",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "Significance This study identified clinical and anatomical factors that affect cerebellar tDCS-induced field strength in individuals with the most common type of dominantly inherited ataxia worldwide."
     },
     {
       "id": "57423dd01acde72b",
@@ -1708,7 +2005,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.nsa.2026.106975",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Animal study",
+      "evidence_via": "keywords",
+      "family_line": ""
     },
     {
       "id": "dc03c41c5839e637",
@@ -1725,7 +2025,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.2139/ssrn.5275915",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Human observational study",
+      "evidence_via": "keywords",
+      "family_line": "Step width is identified as a sensitive biomarker for SCA3 screening."
     },
     {
       "id": "dcfdaaeb301b9b14",
@@ -1741,8 +2044,10 @@
       "kind": "paper",
       "access": "full",
       "access_url": "https://doi.org/10.1016/j.nbd.2025.107232",
-      "access_via": "unpaywall"
+      "access_via": "unpaywall",
+      "evidence": "Other",
+      "evidence_via": "unclear",
+      "family_line": "The mean DTI-ALPS index showed negative correlations with the Scale for the Assessment and Rating of Ataxia (SARA) scores and International Cooperative Ataxia Rating Scale (ICARS) scores."
     }
-  ],
-  "access_updated": "2026-10-17T02:44:07.101316+00:00"
+  ]
 }

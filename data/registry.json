@@ -1,0 +1,70 @@
+{
+  "updated": "2026-10-17T10:03:00.272511+00:00",
+  "records": {
+    "NCT05822908": {
+      "id": "NCT05822908",
+      "registry": "ClinicalTrials.gov",
+      "status": "Recruiting",
+      "record_date": "2026-08-19",
+      "label": "Checked against ClinicalTrials.gov, 19 Aug 2026",
+      "url": "https://clinicaltrials.gov/study/NCT05822908"
+    },
+    "NCT03378414": {
+      "id": "NCT03378414",
+      "registry": "ClinicalTrials.gov",
+      "status": "Not Yet Recruiting",
+      "record_date": "2026-04-23",
+      "label": "Checked against ClinicalTrials.gov, 23 Apr 2026",
+      "url": "https://clinicaltrials.gov/study/NCT03378414"
+    },
+    "NCT03701399": {
+      "id": "NCT03701399",
+      "registry": "ClinicalTrials.gov",
+      "status": "Active Not Recruiting",
+      "record_date": "2026-06-24",
+      "label": "Checked against ClinicalTrials.gov, 24 Jun 2026",
+      "url": "https://clinicaltrials.gov/study/NCT03701399"
+    },
+    "NCT05160558": {
+      "id": "NCT05160558",
+      "registry": "ClinicalTrials.gov",
+      "status": "Terminated",
+      "record_date": "2023-08-04",
+      "label": "Checked against ClinicalTrials.gov, 4 Aug 2023",
+      "url": "https://clinicaltrials.gov/study/NCT05160558"
+    },
+    "NCT07743866": {
+      "id": "NCT07743866",
+      "registry": "ClinicalTrials.gov",
+      "status": "Not Yet Recruiting",
+      "record_date": "2026-09-01",
+      "label": "Checked against ClinicalTrials.gov, 1 Sep 2026",
+      "url": "https://clinicaltrials.gov/study/NCT07743866"
+    },
+    "NCT07752095": {
+      "id": "NCT07752095",
+      "registry": "ClinicalTrials.gov",
+      "status": "Not Yet Recruiting",
+      "record_date": "2026-08-07",
+      "label": "Checked against ClinicalTrials.gov, 7 Aug 2026",
+      "url": "https://clinicaltrials.gov/study/NCT07752095"
+    },
+    "NCT07019558": {
+      "id": "NCT07019558",
+      "registry": "ClinicalTrials.gov",
+      "status": "Recruiting",
+      "record_date": "2025-11-20",
+      "label": "Checked against ClinicalTrials.gov, 20 Nov 2025",
+      "url": "https://clinicaltrials.gov/study/NCT07019558"
+    },
+    "2025-525111-17-00": {
+      "id": "2025-525111-17-00",
+      "registry": "EU CTIS",
+      "status": "Ended, end of trial 11 Sep 2026",
+      "record_date": "2026-09-25",
+      "label": "Checked against EU CTIS, 25 Sep 2026",
+      "url": "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00"
+    }
+  },
+  "errors": []
+}

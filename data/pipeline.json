@@ -1,0 +1,20 @@
+{
+  "reviewed": "2026-10-05",
+  "note": "These are the programs on the pipeline page. A registry status is added from the latest ClinicalTrials.gov or EU CTIS record when this page has a record number. No approved SCA3 drug is listed.",
+  "closest": [
+    {
+      "name": "Stemchymal",
+      "stage": "Regulatory review",
+      "summary": "A marketing application was submitted in Japan on 24 June 2026 for donor mesenchymal stromal cells in SCA3 and SCA6. That filing is not an approval.",
+      "registry_id": "",
+      "href": "pipeline.html"
+    },
+    {
+      "name": "VO659",
+      "stage": "Phase 1/2a",
+      "summary": "An antisense oligonucleotide given into the spinal fluid, for adults with SCA1, SCA3, or Huntington disease.",
+      "registry_id": "NCT05822908",
+      "href": "https://clinicaltrials.gov/study/NCT05822908"
+    }
+  ]
+}

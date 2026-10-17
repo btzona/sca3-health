@@ -38,14 +38,14 @@
       content="Ink drawing by Santiago Ramón y Cajal of a Purkinje neuron from the human cerebellum, beside the title Ataxin-3."
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f33'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%2314988f'/%3E%3C/svg%3E" />
+    <link rel="icon" href="img/mark.svg" type="image/svg+xml" />
   </head>
   <body data-glossary>
     <a class="skip-link" href="#main">Skip to articles</a>
     <header class="site-header">
       <div class="wrap bar">
         <a class="brand" href="./">
-          <img class="mark" src="img/cajal-purkinje.webp" width="605" height="860" alt="" />
+          <img class="mark" src="img/mark.svg" width="64" height="64" alt="" />
           <span class="brand-name">Ataxin-3</span>
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -108,6 +108,16 @@
     </div>
 
     <div class="wrap">
+      <section class="stand-board" id="where" aria-labelledby="where-title">
+        <p class="eyebrow">This month</p>
+        <h2 id="where-title">Where things stand</h2>
+        <div id="board-root"><p class="board-note">Loading the status board…</p></div>
+      </section>
+      <a class="family-home" href="families.html">
+        <p class="eyebrow">For families at risk</p>
+        <strong>Counseling, studies before symptoms, and testing of children</strong>
+        <span>A plain page on inheritance, NAF’s virtual counseling offer, and two studies that include people who do not yet have ataxia. Predictive testing of minors is generally deferred to adulthood.</span>
+      </a>
       <div class="toolbar" role="region" aria-label="Filters">
         <div class="filters" role="group" aria-label="Article filters">
           <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
@@ -139,7 +149,7 @@
         <div>
           <p><strong>Ataxin-3</strong> lists public research and news about SCA3 / Machado-Joseph disease / <em>ATXN3</em>. Each card links to the original. Nothing here is medical advice.</p>
           <p class="credit">
-            Mark: Santiago Ramón y Cajal, a Purkinje neuron from the human cerebellum, circa 1900.
+            Social image: Santiago Ramón y Cajal, a Purkinje neuron from the human cerebellum, circa 1900.
             Public domain, via
             <a href="https://commons.wikimedia.org/wiki/File:Cajal_-_a_purkinje_neuron_from_the_human_cerebellum.jpg" rel="noopener noreferrer">Wikimedia Commons</a>.
           </p>
@@ -159,6 +169,7 @@
     <script src="js/nav.js" defer></script>
     <script src="js/share.js" defer></script>
     <script src="js/glossary.js" defer></script>
+    <script src="js/board.js" defer></script>
     <script src="js/app.js" defer></script>
   </body>
 </html>

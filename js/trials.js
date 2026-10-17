@@ -78,6 +78,7 @@
       ${sites ? `<ul class="sites">${sites}</ul>` : ""}
       ${eligibility}
       <div class="trial-links">${linkHtml}</div>
+      ${trial.checked_label ? `<p class="checked">${escapeHtml(trial.checked_label)}</p>` : ""}
       ${share}
     </article>`;
   }
