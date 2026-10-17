@@ -114,6 +114,12 @@
           .map((tag) => `<span class="badge muted">${escapeHtml(tag)}</span>`)
           .join("")}</p>`
       : "";
+    const share =
+      article.link && window.AtaxinShare
+        ? AtaxinShare.html(article.link, article.title || "Ataxin-3", {
+            groupLabel: "Share this article",
+          })
+        : "";
     return `
 <article class="card">
   <div class="card-top">
@@ -123,6 +129,7 @@
   <h3><a href="${escapeHtml(article.link)}" rel="noopener noreferrer">${italicizeGenes(article.title)}</a></h3>
   <p class="excerpt">${italicizeGenes(article.summary)}</p>
   ${extra}
+  ${share}
   <div class="card-foot">
     <time class="date" datetime="${escapeHtml(article.date || "")}">${formatDate(article.date)}</time>
     <a class="outlink" href="${escapeHtml(article.link)}" rel="noopener noreferrer">Original</a>
