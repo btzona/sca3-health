@@ -1,0 +1,53 @@
+{
+  "about": "Plain-language notes for significant items. Each note is written only from that item's abstract or registry text and adds no outside claims. Match on link. To cover another paper, add an object to items. Items with no entry show no note. This file is maintained by hand; the daily fetch does not call a model.",
+  "items": [
+    {
+      "link": "https://clinicaltrials.gov/study/NCT05822908",
+      "summary": "This is an early study of a drug called VO659 in adults with SCA1, SCA3, or Huntington disease. The registry says the aims are safety, tolerability, and how much of the drug reaches the blood and spinal fluid. It is listed as recruiting, for ages 25 to 60, and the SCA3 criteria ask for mild to moderate ataxia (a SARA score of 3 to 18)."
+    },
+    {
+      "link": "https://clinicaltrials.servier.com/trial/a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/",
+      "summary": "Servier’s page describes S233107 as a drug designed to lower faulty ataxin-3, given into the spinal fluid, in a placebo-controlled first-in-human study. The page lists it as not yet recruiting. People who can take part have a genetic diagnosis of SCA3, are 18 to 65, and can walk without support. The page does not report results."
+    },
+    {
+      "link": "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00",
+      "summary": "Servier’s page describes S233107 as a drug designed to lower faulty ataxin-3, given into the spinal fluid, in a placebo-controlled first-in-human study. The page lists it as not yet recruiting. People who can take part have a genetic diagnosis of SCA3, are 18 to 65, and can walk without support. The page does not report results."
+    },
+    {
+      "link": "https://clinicaltrials.gov/study/NCT07743866",
+      "summary": "The registry describes a study that plans to look for a dose of transcranial temporal interference stimulation in people with diagnosed SCA3 who already have symptoms. It is listed as not yet recruiting, at one site in China, for ages 18 to 75 with a SARA score of 8 to 30. No results are posted in that record."
+    },
+    {
+      "link": "https://clinicaltrials.gov/study/NCT07752095",
+      "summary": "The registry describes a study of deep brain stimulation in the deep cerebellar nuclei for people with SCA1 or SCA3 and moderate ataxia. It is listed as not yet recruiting, at two sites in the United States, for ages 18 to 60 with a SARA score of at least 11. The stated purpose is safety and feasibility."
+    },
+    {
+      "link": "https://clinicaltrials.gov/study/NCT03378414",
+      "summary": "The registry describes a Phase 2 study of umbilical cord mesenchymal stem cells for people with SCA1, SCA2, SCA3, or SCA6. It is listed as not yet recruiting, for ages 16 to 60 with a SARA score of 2 to 5, and no sites are listed. The record states an aim to study safety and efficacy. It does not report results."
+    },
+    {
+      "link": "https://clinicaltrials.gov/study/NCT07019558",
+      "summary": "This recruiting study in France measures eye and balance-reflex findings in people with SCA1, SCA2, SCA3, or SCA27B. The criteria include both people with a SARA score of 4 or higher and people with a score below 4. It is an eye study, not a drug treatment."
+    },
+    {
+      "link": "https://doi.org/10.1002/mds.70499",
+      "summary": "In this 12-month randomized trial, 116 people with SCA3 received oral DL-3-n-butylphthalide or placebo. The abstract reports a difference in SARA and in the Spinocerebellar Ataxia Functional Index favoring the drug group, no serious adverse events in either group, and calls the finding preliminary. The abstract does not say the drug is approved."
+    },
+    {
+      "link": "https://doi.org/10.1093/brain/awaf408",
+      "summary": "READISCA followed people with SCA1 or SCA3, including people who did not yet have ataxia, and measured clinical scores, MRI, and blood neurofilament light each year. In SCA3, 12 of 38 people who started without ataxia developed it during follow-up, and those who did had higher neurofilament light at the start. The study was set up to find measures that predict onset and worsening."
+    },
+    {
+      "link": "https://doi.org/10.3389/fneur.2026.1921210",
+      "summary": "This review compares clinical scales, MRI, fluid tests such as neurofilament light, genetic measures, and wearable gait measures for forecasting progression in cerebellar ataxias, including SCA3. It reports that SARA is less sensitive at the very start and the late stage, while imaging, blood neurofilament light, and gait sensors can change earlier. The authors say no one measure fits every trial, and that combinations chosen for the stage of disease are more useful."
+    },
+    {
+      "link": "https://doi.org/10.1002/acn3.70443",
+      "summary": "This study repeated MR spectroscopy of the cerebellum, pons, and putamen in people with early SCA2 or SCA3 and in controls, at four sites and two kinds of scanner. Several measured chemicals differed from controls, and some differed between SCA2 and SCA3. The ratio of N-acetylaspartate to creatine had the strongest link with clinical scores, and for SCA3 that link was stronger in the pons."
+    },
+    {
+      "link": "https://doi.org/10.1007/s12311-026-02021-2",
+      "summary": "This systematic review gathered 30 studies of measured eye movements and vestibular tests in 432 people with SCA3, 64 of whom did not yet have symptoms. The abnormalities reported most often were a reduced vestibulo-ocular reflex, gaze-evoked nystagmus, reduced pursuit, inaccurate saccades, and square-wave jerks. The review presents those as the measures most often proposed for tracking the disease."
+    }
+  ]
+}

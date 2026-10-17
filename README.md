@@ -6,10 +6,17 @@ Ataxin-3 is a public ledger of research and news on spinocerebellar ataxia type 
 
 Headlines and excerpts stay with their publishers. Each card links out. The site is not medical advice.
 
-Two pages sit beside the ledger:
+Pages beside the ledger:
 
 - [About SCA3](about.html) — a plain-language introduction, checked against GeneReviews and the papers cited on that page.
+- [Open trials](trials.html) — interventional SCA3 studies listed as recruiting or not yet recruiting, plus Servier’s EU trial. `fetch.py` refreshes `data/trials.json` on the daily run.
+- [Pipeline](pipeline.html) — therapy programs by stage, from the 5 October 2026 review.
 - [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 5 October 2026.
+- [For families at risk](families.html) — inheritance, testing, pregnancy, and talking with children.
+- [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
+- [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
+
+Plain-language “What this means” notes live in `data/summaries.json`. Each note is written from that item’s abstract or registry text. The daily job does not generate them. Add an object to cover another paper.
 
 ## Daily refresh
 
@@ -58,12 +65,22 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 |------|------|
 | `index.html` | Ledger, with a short note from Bryan Timmins |
 | `about.html` | What SCA3 is |
+| `trials.html` | Open interventional trials |
+| `pipeline.html` | Therapy board, reviewed 5 October 2026 |
 | `stand.html` | Where care and trials stand, as of 5 October 2026 |
-| `css/style.css` | Journal styling, including small screens |
-| `img/cajal-purkinje.webp` | Header drawing, Santiago Ramón y Cajal, circa 1900, public domain |
-| `js/app.js` | Loads `data/articles.json`, filters, month groups, load more |
-| `fetch.py` | Source fetch, merge, and cap. Not deployed. |
-| `data/articles.json` | Article ledger. The site reads this file in the browser. |
+| `families.html` | For families at risk |
+| `glossary.html` | Term definitions |
+| `resources.html` | Organizations, clinics, registries |
+| `css/style.css` | Layout, including small screens |
+| `fonts/` | Self-hosted Manrope and Fraunces (SIL Open Font License) |
+| `img/cajal-purkinje.webp` | Small brand mark, Santiago Ramón y Cajal, circa 1900, public domain |
+| `js/app.js` | Loads the ledger, filters, month groups, load more, summaries |
+| `js/trials.js` | Renders `data/trials.json` |
+| `fetch.py` | Source fetch, merge, cap, and open-trial refresh. Not deployed. |
+| `data/articles.json` | Article ledger |
+| `data/trials.json` | Open interventional trials |
+| `data/summaries.json` | Hand-written plain-language notes, matched by link |
+| `data/glossary.json` | Terms used for the dotted links |
 
 ## Sources
 
@@ -71,4 +88,4 @@ Europe PMC and Crossref supply the journal record. bioRxiv and medRxiv are queri
 
 ## Design
 
-Warm paper, ink, a muted green-gray accent. Serif titles, a plain sans for body text, mono for the catalog metadata. The header carries a small public-domain drawing of a cerebellar Purkinje neuron. The footer repeats the credit and the license.
+Deep navy, a teal accent, and white cards on a cool paper background. Manrope for text, Fraunces for the large titles. The Cajal drawing is a small round mark beside the name. The footer repeats the credit and the license. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.

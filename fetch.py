@@ -1175,8 +1175,319 @@ def collect_source(status: list[dict], source_id: str, name: str, fn) -> list[di
     return articles
 
 
+TRIALS_OUT = ROOT / "data" / "trials.json"
+SERVIER_URL = (
+    "https://clinicaltrials.servier.com/trial/"
+    "a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/"
+)
+EU_CT_URL = "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00"
+OPEN_STATUSES = {"RECRUITING", "NOT_YET_RECRUITING"}
+
+
+def human_status(raw: str) -> str:
+    return (raw or "").replace("_", " ").strip().title() or "See registry"
+
+
+def phase_label(phases: list) -> str:
+    nums: list[str] = []
+    for phase in phases or []:
+        text = str(phase or "").upper()
+        if text in {"", "NA", "N/A"}:
+            continue
+        nums.append(text.replace("PHASE", "").strip())
+    if not nums:
+        return "Phase not listed"
+    return "Phase " + "/".join(nums)
+
+
+def age_label(minimum: str, maximum: str) -> str:
+    def clean(value: str) -> str:
+        value = (value or "").strip()
+        value = re.sub(r"\s*years?$", "", value, flags=re.I).strip()
+        return value
+
+    low, high = clean(minimum), clean(maximum)
+    if low and high:
+        return f"{low}–{high} years"
+    if low:
+        return f"{low} years and older"
+    if high:
+        return f"Up to {high} years"
+    return "Age not listed"
+
+
+def population_label(criteria: str) -> str:
+    # Read the inclusion block. Exclusion lines often name the groups a trial refuses.
+    inclusion = re.split(r"exclusion criteria", criteria or "", maxsplit=1, flags=re.I)[0]
+    pre = re.search(
+        r"pre-?symptomatic|pre-?manifest|pre-?ataxic|SARA\s*(?:<|less than)\s*4",
+        inclusion,
+        re.I,
+    )
+    symptomatic = re.search(
+        r"symptomatic|mild to moderate|clinical symptoms|ataxia severity|\bSARA\b|diagnos",
+        inclusion,
+        re.I,
+    )
+    if pre and symptomatic:
+        return "Symptomatic and premanifest"
+    if pre:
+        return "Premanifest"
+    if symptomatic:
+        return "Symptomatic"
+    return "See registry criteria"
+
+
+def sca3_trial_text(title: str, conditions: list, criteria: str) -> bool:
+    # The summary alone is not enough: an unrelated trial can mention SCA3 in passing.
+    blob = " ".join([title, " ".join(conditions or []), criteria or ""])
+    if STRONG_RE.search(blob):
+        return True
+    return bool(ATXN3_RE.search(blob) and ATAXIA_RE.search(blob))
+
+
+def study_to_trial(study: dict) -> dict | None:
+    proto = study.get("protocolSection") or {}
+    ident = proto.get("identificationModule") or {}
+    status = proto.get("statusModule") or {}
+    design = proto.get("designModule") or {}
+    desc = proto.get("descriptionModule") or {}
+    cond = proto.get("conditionsModule") or {}
+    elig = proto.get("eligibilityModule") or {}
+    contacts = proto.get("contactsLocationsModule") or {}
+    sponsor = (proto.get("sponsorCollaboratorsModule") or {}).get("leadSponsor") or {}
+    arms = proto.get("armsInterventionsModule") or {}
+    nct = ident.get("nctId") or ""
+    title = ident.get("briefTitle") or ident.get("officialTitle") or ""
+    conditions = cond.get("conditions") or []
+    summary = desc.get("briefSummary") or ""
+    criteria = elig.get("eligibilityCriteria") or ""
+    overall = status.get("overallStatus") or ""
+    if overall not in OPEN_STATUSES:
+        return None
+    if (design.get("studyType") or "").upper() != "INTERVENTIONAL":
+        return None
+    if not sca3_trial_text(title, conditions, criteria):
+        return None
+    sites = []
+    seen = set()
+    for loc in contacts.get("locations") or []:
+        facility_raw = loc.get("facility")
+        if isinstance(facility_raw, dict):
+            facility = facility_raw.get("name") or ""
+        else:
+            facility = facility_raw or ""
+        city = loc.get("city") or ""
+        country = loc.get("country") or ""
+        key = (facility.lower(), city.lower(), country.lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        sites.append(
+            {
+                "facility": facility,
+                "city": city,
+                "country": country,
+                "status": human_status(loc.get("status") or ""),
+            }
+        )
+    countries = []
+    for site in sites:
+        if site["country"] and site["country"] not in countries:
+            countries.append(site["country"])
+    interventions = []
+    for item in arms.get("interventions") or []:
+        name = (item.get("name") or "").strip()
+        kind = (item.get("type") or "").replace("_", " ").strip().title()
+        if name:
+            interventions.append(f"{kind}: {name}" if kind else name)
+    updated = ((status.get("lastUpdatePostDateStruct") or {}).get("date") or "")
+    return {
+        "id": nct,
+        "nct_id": nct,
+        "eu_ct": "",
+        "title": strip_html(title),
+        "sponsor": sponsor.get("name") or "",
+        "phase": phase_label(design.get("phases") or []),
+        "status": human_status(overall),
+        "status_key": "recruiting" if overall == "RECRUITING" else "not_yet",
+        "study_type": "Interventional",
+        "ages": age_label(elig.get("minimumAge") or "", elig.get("maximumAge") or ""),
+        "population": population_label(criteria),
+        "countries": countries,
+        "sites": sites,
+        "interventions": interventions,
+        "summary": strip_html(summary).strip(),
+        "eligibility": strip_html(criteria).strip(),
+        "links": [
+            {
+                "label": "ClinicalTrials.gov",
+                "url": f"https://clinicaltrials.gov/study/{nct}",
+            }
+        ],
+        "registry_updated": updated,
+        "source": "ClinicalTrials.gov API v2",
+    }
+
+
+def fetch_open_ctgov() -> tuple[list[dict], str | None]:
+    found: list[dict] = []
+    token = None
+    for _ in range(8):
+        params = {
+            "query.term": 'SCA3 OR "Machado-Joseph" OR ATXN3 OR "spinocerebellar ataxia type 3"',
+            "filter.overallStatus": "RECRUITING,NOT_YET_RECRUITING",
+            "pageSize": "100",
+        }
+        if token:
+            params["pageToken"] = token
+        url = "https://clinicaltrials.gov/api/v2/studies?" + urllib.parse.urlencode(params)
+        raw, err = fetch_url(url, headers={"Accept": "application/json"})
+        if err or not raw:
+            return found, err or "empty ClinicalTrials.gov response"
+        head = raw[:120].lstrip().lower()
+        if head.startswith(b"<!doctype") or head.startswith(b"<html"):
+            return found, "ClinicalTrials.gov returned HTML"
+        try:
+            payload = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            return found, f"parse: {exc}"
+        for study in payload.get("studies") or []:
+            trial = study_to_trial(study)
+            if trial:
+                found.append(trial)
+        token = payload.get("nextPageToken")
+        if not token:
+            break
+        time.sleep(0.2)
+    return found, None
+
+
+def fetch_servier_trial() -> tuple[dict | None, str | None]:
+    raw, err = fetch_url(SERVIER_URL, headers={"User-Agent": BROWSER_UA, "Accept": "text/html"})
+    if err or not raw:
+        return None, err or "empty Servier page"
+    text = html.unescape(raw.decode("utf-8", "replace"))
+    if "S233107" not in text or ("NOT_YET_RECRUITING" not in text and "Not yet recruiting" not in text):
+        return None, "Servier page did not contain the expected trial text"
+    sites = []
+    seen = set()
+    for match in re.finditer(
+        r'"name":"(?P<name>(?:\\.|[^"\\])*)","latitude":"[^"]*","longitude":"[^"]*",'
+        r'"city":"(?P<city>(?:\\.|[^"\\])*)","zip":"[^"]*","country":"(?P<country>(?:\\.|[^"\\])*)",'
+        r'"status":"(?P<status>[A-Z_]+)"',
+        text,
+    ):
+        name = json.loads(f'"{match.group("name")}"')
+        city = json.loads(f'"{match.group("city")}"')
+        country = json.loads(f'"{match.group("country")}"')
+        key = (name.lower(), city.lower(), country.lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        sites.append(
+            {
+                "facility": name,
+                "city": city,
+                "country": country,
+                "status": human_status(match.group("status")),
+            }
+        )
+    countries = []
+    for site in sites:
+        if site["country"] not in countries:
+            countries.append(site["country"])
+    status_key = "not_yet" if "Not yet recruiting" in text or "NOT_YET_RECRUITING" in text else "see_registry"
+    status = "Not Yet Recruiting" if status_key == "not_yet" else "See registry"
+    note = ""
+    if "More centres in the US and Japan will be added soon." in text:
+        note = "The sponsor page says more centres in the US and Japan will be added soon."
+    trial = {
+        "id": "EU-CT-2025-525111-17-00",
+        "nct_id": "",
+        "eu_ct": "2025-525111-17-00",
+        "title": "A first-in-human study of S233107 in participants with spinocerebellar ataxia type 3",
+        "sponsor": "Servier",
+        "phase": "Phase 1b/2a",
+        "status": status,
+        "status_key": status_key,
+        "study_type": "Interventional",
+        "ages": "18–65 years",
+        "population": "Symptomatic",
+        "countries": countries,
+        "sites": sites,
+        "interventions": ["Drug: S233107", "Drug: Placebo"],
+        "summary": (
+            "Servier’s page describes a randomized, placebo-controlled, multiple-ascending-dose study "
+            "of S233107 given into the spinal fluid, followed by an open-label extension. "
+            "The drug is described as designed to reduce the faulty ataxin-3 protein. "
+            "Inclusion on the page: a genetic diagnosis of SCA3, age 18 to 65, and the ability to walk without support. "
+            "Healthy volunteers are not accepted. The page’s age field also lists 18 to 64 years."
+            + ((" " + note) if note else "")
+        ),
+        "eligibility": (
+            "Inclusion, as published on the sponsor page: confirmed diagnosis of SCA3 by genetic test; "
+            "adult aged 18 to 65 years; able to walk without support. "
+            "Exclusion: other types of brain disorders, major reduced kidney function, or a history or presence of significant suicide risk. "
+            "The page does not describe a premanifest group."
+        ),
+        "links": [
+            {"label": "Servier trial page", "url": SERVIER_URL},
+            {"label": "EU CTIS", "url": EU_CT_URL},
+        ],
+        "registry_updated": "",
+        "source": "Servier public trial page; EU CT 2025-525111-17-00",
+    }
+    return trial, None
+
+
+def refresh_open_trials() -> None:
+    """Write data/trials.json. A failed source keeps the last good file."""
+    TRIALS_OUT.parent.mkdir(parents=True, exist_ok=True)
+    ctgov, ct_err = fetch_open_ctgov()
+    servier, servier_err = fetch_servier_trial()
+    if ct_err and not ctgov and servier is None:
+        print(f"Open trials refresh skipped ({ct_err}; Servier: {servier_err}). Keeping {TRIALS_OUT.name}.")
+        return
+    trials = list(ctgov)
+    ids = {trial.get("nct_id") for trial in trials}
+    titles = " ".join(trial.get("title") or "" for trial in trials)
+    if servier and "S233107" not in titles and servier["id"] not in ids:
+        trials.append(servier)
+    elif servier is None:
+        print(f"Servier trial page skipped: {servier_err}")
+    if not trials:
+        print("Open trials refresh found nothing. Keeping the previous file.")
+        return
+    order = {"recruiting": 0, "not_yet": 1}
+    trials.sort(key=lambda trial: (order.get(trial.get("status_key"), 9), trial.get("title") or ""))
+    payload = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "query": "SCA3 OR Machado-Joseph OR ATXN3, interventional, recruiting or not yet recruiting",
+        "sources": [
+            {
+                "id": "clinicaltrials",
+                "ok": ct_err is None,
+                "error": ct_err,
+                "items": len(ctgov),
+            },
+            {
+                "id": "servier-eu",
+                "ok": servier is not None,
+                "error": servier_err,
+                "items": 1 if servier else 0,
+            },
+        ],
+        "trial_count": len(trials),
+        "trials": trials,
+    }
+    TRIALS_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"Wrote {len(trials)} open trials → {TRIALS_OUT}")
+
+
 def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
+    refresh_open_trials()
     feed_status: list[dict] = []
     collected: list[dict] = []
 
