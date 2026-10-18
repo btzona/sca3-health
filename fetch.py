@@ -2504,22 +2504,39 @@ SUMMARY_ABOUT = (
     "inside that abstract. A failed call, or a paper with no abstract, leaves no summary."
 )
 SUMMARY_SYSTEM = (
-    "You write one or two plain-language sentences for a parent about one scientific abstract. "
-    "Use only facts stated in the abstract. Name what the study did and what it found, including "
-    "important numbers the abstract states. Explain jargon in ordinary words. "
-    "Do not add context, advice, or caveats the abstract does not state. "
-    "Do not use: may, might, could, suggests, preliminary, promising, not a treatment, "
-    "not medical advice, does not mean, more research, not a promise, not an approval. "
-    "Do not label the kind of study and do not hype. "
+    "You write for a parent, in a warm everyday voice. "
+    "Use one or two short sentences, about 35 words in total. "
+    "Lead with what the study found and why it matters to people with SCA3. "
+    "Use only facts stated in the abstract. Translate jargon into ordinary words "
+    "(for example, say brain chemistry scans, not N-acetylaspartate). "
+    "Use at most one number, and only if it helps a parent understand "
+    "(for example, a few months before symptoms). Leave detailed statistics out. "
+    "Add a second sentence only when the abstract itself supports it. "
+    "Never add hope, a benefit, or a future use the abstract does not state. "
+    "Do not use: may, might, suggests, preliminary, promising, cure, breakthrough, "
+    "not a treatment, not medical advice. "
     "If the abstract does not state a finding, reply with exactly NONE."
 )
 SUMMARY_HEDGE_RE = re.compile(
-    r"\b(?:may|might|could|suggests?|preliminary|promising)\b|"
-    r"not a treatment|not medical|does not mean|more research|not a promise|not an approval|"
-    r"other scientists have not|by itself",
+    r"\b(?:may|might|suggests?|preliminary|promising|cure|breakthrough)\b|"
+    r"not a treatment|not medical|not a promise|not an approval",
     re.I,
 )
 _summary_token_warned = False
+_models_failure_logged = False
+
+
+def log_models_failure(reason: str) -> None:
+    """One visible workflow warning. Cached summaries stay; the paper is left blank."""
+    global _models_failure_logged
+    if _models_failure_logged:
+        return
+    _models_failure_logged = True
+    print(
+        "::warning title=GitHub Models unavailable::"
+        f"{reason} New papers are left without a summary. Cached summaries are unchanged."
+    )
+    print(f"GITHUB MODELS CHECK FAILED: {reason}")
 
 
 def summary_cache_keys(item: dict) -> list[str]:
@@ -2549,11 +2566,16 @@ def accept_model_summary(content: str) -> str | None:
     if not text or text.upper() == "NONE":
         return None
     if SUMMARY_HEDGE_RE.search(text):
-        print("  Summary rejected: hedging language.")
+        print("  Summary rejected: hedging or hype.")
         return None
     sentences = [part for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
-    if len(sentences) < 1 or len(sentences) > 2 or len(text) < 40 or len(text) > 700:
-        print("  Summary rejected: expected one or two factual sentences.")
+    words = text.split()
+    if len(sentences) < 1 or len(sentences) > 2 or not 8 <= len(words) <= 40:
+        print("  Summary rejected: expected one or two short sentences.")
+        return None
+    bare = re.sub(r"(?i)[A-Za-z]+-?\d+\w*", "", text)
+    if len(re.findall(r"\d+(?:\.\d+)?", bare)) > 1:
+        print("  Summary rejected: more than one number.")
         return None
     return text
 
@@ -2564,14 +2586,14 @@ def github_model_summary(title: str, abstract: str) -> str | None:
     token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
     if not token:
         if not _summary_token_warned:
-            print("  Summaries skipped: no GITHUB_TOKEN.")
+            log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
             _summary_token_warned = True
         return None
     body = json.dumps(
         {
             "model": SUMMARY_MODEL,
             "temperature": 0,
-            "max_tokens": 220,
+            "max_tokens": 120,
             "messages": [
                 {"role": "system", "content": SUMMARY_SYSTEM},
                 {"role": "user", "content": f"Title: {title}\n\nAbstract:\n{abstract[:6000]}"},
@@ -2594,19 +2616,19 @@ def github_model_summary(title: str, abstract: str) -> str | None:
             raw = response.read()
             content_type = response.headers.get("Content-Type", "")
     except urllib.error.HTTPError as exc:
-        print(f"  Summary model HTTP {exc.code}.")
+        log_models_failure(f"GitHub Models returned HTTP {exc.code}.")
         return None
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
-        print(f"  Summary model failed: {exc}.")
+        log_models_failure(f"GitHub Models could not be reached ({exc}).")
         return None
     text = raw.decode("utf-8", "replace").strip()
     if not text or text.upper() == "OK" or (not text.startswith("{") and "json" not in content_type.lower()):
-        print("  Summary model returned no completion.")
+        log_models_failure("GitHub Models returned no chat completion.")
         return None
     try:
         payload = json.loads(text)
     except json.JSONDecodeError:
-        print("  Summary model returned non-JSON.")
+        log_models_failure("GitHub Models returned a response that was not JSON.")
         return None
     choices = payload.get("choices") or []
     content = ""
@@ -2755,5 +2777,63 @@ def main() -> int:
     return 0
 
 
+def check_models() -> int:
+    """Ask GitHub Models for one completion. A dead endpoint is logged and does not fail the job."""
+    token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not token:
+        log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
+        return 0
+    body = json.dumps(
+        {
+            "model": SUMMARY_MODEL,
+            "temperature": 0,
+            "max_tokens": 16,
+            "messages": [{"role": "user", "content": "Reply with the single word pong."}],
+        }
+    ).encode("utf-8")
+    request = urllib.request.Request(
+        SUMMARY_URL,
+        data=body,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            raw = response.read()
+            content_type = response.headers.get("Content-Type", "")
+            status = response.status
+    except urllib.error.HTTPError as exc:
+        log_models_failure(f"GitHub Models returned HTTP {exc.code}.")
+        return 0
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        log_models_failure(f"GitHub Models could not be reached ({exc}).")
+        return 0
+    text = raw.decode("utf-8", "replace").strip()
+    if not text.startswith("{") or "json" not in content_type.lower() and not text.startswith("{"):
+        shown = text.replace("\n", " ")[:80] or "(empty)"
+        log_models_failure(
+            f"GitHub Models returned HTTP {status} {content_type or 'unknown type'} body {shown!r}, not a chat completion."
+        )
+        return 0
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        log_models_failure("GitHub Models returned a response that was not JSON.")
+        return 0
+    choices = payload.get("choices") if isinstance(payload, dict) else None
+    if not choices:
+        log_models_failure("GitHub Models returned JSON without a chat completion.")
+        return 0
+    print("GitHub Models check passed: the endpoint returned a chat completion.")
+    return 0
+
+
 if __name__ == "__main__":
+    if "--check-models" in sys.argv:
+        sys.exit(check_models())
     sys.exit(main())

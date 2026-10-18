@@ -18,7 +18,7 @@ Pages:
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
-Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks GitHub Models once for each new paper that has an abstract and is not already cached. The prompt allows only facts from that abstract, with no hype and no hedging. If the model call fails, or the paper has no abstract, that item stays as a title with no summary. The job never writes a generic stand-in sentence.
+Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks GitHub Models once for each new paper that has an abstract and is not already cached. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary. The job never writes a generic stand-in sentence. A broken models endpoint prints `GITHUB MODELS CHECK FAILED` in the workflow log and a warning on the job.
 
 ## Daily refresh
 

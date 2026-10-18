@@ -45,6 +45,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Check GitHub Models
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SCA3_SUMMARY_MODEL: openai/gpt-4.1-mini
+        run: python3 fetch.py --check-models
+
       - name: Refresh the ledger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
