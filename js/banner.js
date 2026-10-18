@@ -81,7 +81,7 @@
       banner.innerHTML = `<div class="wrap">
         <h2>${approvals.length === 1 ? "An approval is now on the record." : "Approvals are now on the record."}</h2>
         ${blocks}
-        <p>Read the source. An approval in one country is not automatically an approval everywhere, and it is not a promise about who it will help.</p>
+        <p>Read the source. An approval in one country is not automatically an approval everywhere.</p>
         <p class="hope-link"><a href="pipeline.html">What's being tested now</a></p>
       </div>`;
     })

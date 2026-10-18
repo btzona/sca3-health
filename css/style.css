@@ -1054,6 +1054,13 @@ summary:focus-visible {
   font-weight: 600;
 }
 
+.fine-print {
+  margin: 0.35rem 0 0.6rem;
+  color: var(--faint);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
 .site-footer {
   border-top: 1px solid var(--line);
   background: white;
