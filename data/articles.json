@@ -147,7 +147,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "fa9ea80013d2171d",
@@ -205,7 +205,7 @@
       "access_via": "unpaywall",
       "evidence": "Study in people",
       "evidence_via": "keywords",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "891b49cae1c2da9e",
@@ -281,7 +281,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "c926614d2d61d560",
@@ -319,7 +319,7 @@
       "access_via": "europepmc",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "01f833125509d4e9",
@@ -357,7 +357,7 @@
       "access_via": "",
       "evidence": "Treatment trial in people",
       "evidence_via": "kind",
-      "family_line": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works."
+      "family_line": ""
     },
     {
       "id": "4a50be2c1eb603e8",
@@ -415,7 +415,7 @@
       "access_via": "",
       "evidence": "Study in people",
       "evidence_via": "kind",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "8f8f61851292ecf6",
@@ -435,7 +435,7 @@
       "access_via": "",
       "evidence": "Treatment trial in people",
       "evidence_via": "kind",
-      "family_line": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works."
+      "family_line": ""
     },
     {
       "id": "557df5260c6b7fc1",
@@ -456,7 +456,7 @@
       "access_via": "europepmc",
       "evidence": "Review of past research",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This gathers earlier research. It is not a new test of a treatment in people."
+      "family_line": ""
     },
     {
       "id": "610855d74f5d8302",
@@ -494,7 +494,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "80b0384e5dd5652c",
@@ -551,7 +551,7 @@
       "access_via": "",
       "evidence": "Treatment trial in people",
       "evidence_via": "kind",
-      "family_line": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works."
+      "family_line": ""
     },
     {
       "id": "48ccffab1222441a",
@@ -570,7 +570,7 @@
       "access_via": "europepmc",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "f90e2f32c8df8604",
@@ -609,7 +609,7 @@
       "access_via": "",
       "evidence": "Study in people",
       "evidence_via": "kind",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "f26a495b703ec85d",
@@ -628,7 +628,7 @@
       "access_via": "unpaywall",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "7542675332fef971",
@@ -647,7 +647,7 @@
       "access_via": "europepmc",
       "evidence": "Study in people",
       "evidence_via": "keywords",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "55bb2ef1410fe2d2",
@@ -686,7 +686,7 @@
       "access_via": "europepmc",
       "evidence": "Study in people",
       "evidence_via": "keywords",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "382ff8c994e2f0c7",
@@ -705,7 +705,7 @@
       "access_via": "unpaywall",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "60ef5e908d7f62bb",
@@ -743,7 +743,7 @@
       "access_via": "europepmc",
       "evidence": "Animal study",
       "evidence_via": "mesh",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "266d2eab4b461c38",
@@ -781,7 +781,7 @@
       "access_via": "europepmc",
       "evidence": "Review of past research",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This gathers earlier research. It is not a new test of a treatment in people."
+      "family_line": ""
     },
     {
       "id": "d2dee916c1e4760a",
@@ -819,7 +819,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "d98a101f5476e9d3",
@@ -858,7 +858,7 @@
       "access_via": "",
       "evidence": "Treatment trial in people",
       "evidence_via": "kind",
-      "family_line": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works."
+      "family_line": ""
     },
     {
       "id": "d1b4a1be12f5b16a",
@@ -897,7 +897,7 @@
       "access_via": "europepmc",
       "evidence": "Study in people",
       "evidence_via": "mesh",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "53f282bd77269e52",
@@ -1013,7 +1013,7 @@
       "access_via": "europepmc",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "992b9fbf38f98be0",
@@ -1070,7 +1070,7 @@
       "access_via": "europepmc",
       "evidence": "Animal study",
       "evidence_via": "mesh",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "6a34fa6af38e6086",
@@ -1090,7 +1090,7 @@
       "access_via": "europepmc",
       "evidence": "Review of past research",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This gathers earlier research. It is not a new test of a treatment in people."
+      "family_line": ""
     },
     {
       "id": "acb8843659ccbc8d",
@@ -1204,7 +1204,7 @@
       "access_via": "europepmc",
       "evidence": "Review of past research",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This gathers earlier research. It is not a new test of a treatment in people."
+      "family_line": ""
     },
     {
       "id": "bfdd60d15b56f6cc",
@@ -1223,7 +1223,7 @@
       "access_via": "",
       "evidence": "Treatment trial in people",
       "evidence_via": "kind",
-      "family_line": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works."
+      "family_line": ""
     },
     {
       "id": "f507ca1bd0bd1237",
@@ -1356,7 +1356,7 @@
       "access_via": "unpaywall",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "2f9a62a7052b9d11",
@@ -1433,7 +1433,7 @@
       "access_via": "unpaywall",
       "evidence": "Review of past research",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This gathers earlier research. It is not a new test of a treatment in people."
+      "family_line": ""
     },
     {
       "id": "476ad7bae5eaea93",
@@ -1587,7 +1587,7 @@
       "access_via": "europepmc",
       "evidence": "Study in people",
       "evidence_via": "mesh",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "dc726472898776c5",
@@ -1664,7 +1664,7 @@
       "access_via": "unpaywall",
       "evidence": "Study in people",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "505e47cdb145e232",
@@ -1702,7 +1702,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "18aac99f2140f133",
@@ -1780,7 +1780,7 @@
       "access_via": "unpaywall",
       "evidence": "Lab study (cells)",
       "evidence_via": "keywords",
-      "family_line": "This was studied in cells in a lab, not in people. It does not mean a treatment is ready."
+      "family_line": ""
     },
     {
       "id": "dc105069df8a9c3e",
@@ -1799,7 +1799,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "d4ebf1164510c444",
@@ -1837,7 +1837,7 @@
       "access_via": "europepmc",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "50bef6d37b3d030f",
@@ -1856,7 +1856,7 @@
       "access_via": "europepmc",
       "evidence": "Study in people",
       "evidence_via": "europepmc-pubtype",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "f1c04720209bc581",
@@ -1951,7 +1951,7 @@
       "access_via": "europepmc",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "0520548cb573b6d4",
@@ -1970,7 +1970,7 @@
       "access_via": "unpaywall",
       "evidence": "Early, not yet peer-reviewed",
       "evidence_via": "kind",
-      "family_line": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer."
+      "family_line": ""
     },
     {
       "id": "15f4f5e326071d2b",
@@ -2008,7 +2008,7 @@
       "access_via": "unpaywall",
       "evidence": "Animal study",
       "evidence_via": "keywords",
-      "family_line": "This was studied in animals, not in people. It does not mean a treatment is ready for a family."
+      "family_line": ""
     },
     {
       "id": "dc03c41c5839e637",
@@ -2028,7 +2028,7 @@
       "access_via": "unpaywall",
       "evidence": "Study in people",
       "evidence_via": "keywords",
-      "family_line": "This looks at people living with the disease. It does not test whether a new treatment works."
+      "family_line": ""
     },
     {
       "id": "dcfdaaeb301b9b14",

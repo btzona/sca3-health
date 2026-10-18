@@ -4,7 +4,7 @@ Ataxin-3 is a public ledger of research and news on spinocerebellar ataxia type 
 
 **Live site:** [https://btzona.github.io/sca3-health/](https://btzona.github.io/sca3-health/)
 
-Headlines and excerpts stay with their publishers. Each card links out. The site is not medical advice.
+Headlines stay with their publishers. Each card links out. A parent-language summary appears when one has been cached from that paper’s abstract.
 
 The home page welcomes families and points them to a place to start. The research list lives on its own page.
 
@@ -18,7 +18,7 @@ Pages:
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
-Plain-language “What this means” notes live in `data/summaries.json`. Each note is written from that item’s abstract or registry text. The daily job does not generate them. Add an object to cover another paper.
+Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks GitHub Models once for each new paper that has an abstract and is not already cached. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary. The job never writes a generic stand-in sentence. A broken models endpoint prints `GITHUB MODELS CHECK FAILED` in the workflow log and a warning on the job.
 
 ## Daily refresh
 
@@ -85,14 +85,14 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `sitemap.xml` | Public page list for the live site |
 | `js/registry.js` | “Checked against” marks from `data/registry.json` |
 | `js/trials.js` | Renders `data/trials.json` |
-| `fetch.py` | Source fetch, evidence labels, family lines, registry checks, open trials, and stock closes. Not deployed. |
-| `data/articles.json` | Article ledger, including evidence labels, family lines, and access links |
+| `fetch.py` | Source fetch, evidence labels, abstract summaries, registry checks, open trials, and stock closes. Not deployed. |
+| `data/articles.json` | Article ledger, including evidence labels and access links |
 | `data/trials.json` | Open interventional trials, with the registry check on each study |
 | `data/pipeline.json` | Pipeline programs, including whether any is approved. The home banner reads this file |
 | `data/registry.json` | ClinicalTrials.gov v2 and EU CTIS statuses read by the daily job |
 | `data/changes.json` | What changed this month, diffed against the previous refresh |
 | `data/stocks.json` | Delayed last closes for the public companies on Who’s working |
-| `data/summaries.json` | Hand-written plain-language notes, matched by link |
+| `data/summaries.json` | Cached plain-language summaries, one per DOI or id |
 | `data/glossary.json` | Terms used for the dotted links |
 
 ## Sources
@@ -101,4 +101,4 @@ Europe PMC and Crossref supply the journal record. bioRxiv and medRxiv are queri
 
 ## Design
 
-Deep navy, a teal accent, and a cool paper background. Manrope for text, Fraunces for the large titles. The header mark is an original CAG-helix drawing. The home page uses the Cajal drawing faintly behind the welcome line. The research list is a single editorial list: an evidence label colors the left rule, the family line is italic, and the source and badges sit in small type. The Cajal drawing remains the social-card image. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.
+Deep navy, a teal accent, and a cool paper background. Manrope for text, Fraunces for the large titles. The header mark is an original CAG-helix drawing. The home page uses the Cajal drawing faintly behind the welcome line. The research list is a single editorial list: an evidence label colors the left rule, a cached summary sits under the title when one exists, and the source and badges sit in small type. The Cajal drawing remains the social-card image. Share links are plain intent URLs and inline icons, with Open Graph and Twitter card tags.

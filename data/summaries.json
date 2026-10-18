@@ -1,53 +1,440 @@
 {
-  "about": "Plain-language notes for significant items. Each note is written only from that item's abstract or registry text and adds no outside claims. Match on link. To cover another paper, add an object to items. Items with no entry show no note. This file is maintained by hand; the daily fetch does not call a model.",
+  "about": "Plain-language summaries cached by DOI or id. The daily refresh asks GitHub Models once per uncached paper that has an abstract, and stores only a reply that stays inside that abstract. A failed call, or a paper with no abstract, leaves no summary.",
   "items": [
     {
+      "id": "NCT05822908",
       "link": "https://clinicaltrials.gov/study/NCT05822908",
       "summary": "This is an early study of a drug called VO659 in adults with SCA1, SCA3, or Huntington disease. The registry says the aims are safety, tolerability, and how much of the drug reaches the blood and spinal fluid. It is listed as recruiting, for ages 25 to 60, and the SCA3 criteria ask for mild to moderate ataxia (a SARA score of 3 to 18)."
     },
     {
+      "id": "S233107",
       "link": "https://clinicaltrials.servier.com/trial/a-first-in-human-study-of-s233107-in-participants-with-spinocerebellar-ataxia-type-3/",
-      "summary": "Servier’s page describes S233107 as a drug designed to lower faulty ataxin-3, given into the spinal fluid, in a placebo-controlled first-in-human study. The page lists it as not yet recruiting. People who can take part have a genetic diagnosis of SCA3, are 18 to 65, and can walk without support. The page does not report results."
+      "summary": "Servier’s page describes S233107 as a drug designed to lower faulty ataxin-3, given into the spinal fluid, in a placebo-controlled first-in-human study. The page lists it as not yet recruiting. People who can take part have a genetic diagnosis of SCA3, are 18 to 65, and can walk without support."
     },
     {
+      "id": "2025-525111-17-00",
       "link": "https://euclinicaltrials.eu/ctis-public/view/2025-525111-17-00",
-      "summary": "The public CTIS page lists 2025-525111-17-00 as end of trial on 11 September 2026. Denmark, France, Spain, and Portugal are each marked Ended, reason Sponsor Decision, and the recruitment start and end columns are blank. The page still shows an estimated recruitment start of 1 September 2026 and an estimated end of 31 October 2030. No results are posted on that page."
+      "summary": "The public CTIS page lists 2025-525111-17-00 as end of trial on 11 September 2026. Denmark, France, Spain, and Portugal are each marked Ended, reason Sponsor Decision, and the recruitment start and end columns are blank. The page still shows an estimated recruitment start of 1 September 2026 and an estimated end of 31 October 2030."
     },
     {
+      "id": "NCT07743866",
       "link": "https://clinicaltrials.gov/study/NCT07743866",
-      "summary": "The registry describes a study that plans to look for a dose of transcranial temporal interference stimulation in people with diagnosed SCA3 who already have symptoms. It is listed as not yet recruiting, at one site in China, for ages 18 to 75 with a SARA score of 8 to 30. No results are posted in that record."
+      "summary": "The registry describes a study that plans to look for a dose of transcranial temporal interference stimulation in people with diagnosed SCA3 who already have symptoms. It is listed as not yet recruiting, at one site in China, for ages 18 to 75 with a SARA score of 8 to 30."
     },
     {
+      "id": "NCT07752095",
       "link": "https://clinicaltrials.gov/study/NCT07752095",
       "summary": "The registry describes a study of deep brain stimulation in the deep cerebellar nuclei for people with SCA1 or SCA3 and moderate ataxia. It is listed as not yet recruiting, at two sites in the United States, for ages 18 to 60 with a SARA score of at least 11. The stated purpose is safety and feasibility."
     },
     {
+      "id": "NCT03378414",
       "link": "https://clinicaltrials.gov/study/NCT03378414",
-      "summary": "The registry describes a Phase 2 study of umbilical cord mesenchymal stem cells for people with SCA1, SCA2, SCA3, or SCA6. It is listed as not yet recruiting, for ages 16 to 60 with a SARA score of 2 to 5, and no sites are listed. The record states an aim to study safety and efficacy. It does not report results."
+      "summary": "The registry describes a Phase 2 study of umbilical cord mesenchymal stem cells for people with SCA1, SCA2, SCA3, or SCA6. It is listed as not yet recruiting, for ages 16 to 60 with a SARA score of 2 to 5, and no sites are listed. The record states an aim to study safety and efficacy."
     },
     {
+      "id": "NCT07019558",
       "link": "https://clinicaltrials.gov/study/NCT07019558",
-      "summary": "This recruiting study in France measures eye and balance-reflex findings in people with SCA1, SCA2, SCA3, or SCA27B. The criteria include both people with a SARA score of 4 or higher and people with a score below 4. It is an eye study, not a drug treatment."
+      "summary": "This recruiting study in France measures eye and balance-reflex findings in people with SCA1, SCA2, SCA3, or SCA27B. The criteria include both people with a SARA score of 4 or higher and people with a score below 4."
     },
     {
+      "id": "10.1002/acn3.70555",
+      "link": "https://doi.org/10.1002/acn3.70555",
+      "summary": "Brain scans picked up changes in the brainstem several months before balance problems began. That could help future trials start treatment earlier."
+    },
+    {
+      "id": "10.1007/s12687-026-00950-3",
+      "link": "https://doi.org/10.1007/s12687-026-00950-3",
+      "summary": "In Brazil, the body changes of Machado-Joseph disease were often judged in moral terms, and that judgment shifted with what families expected of men and women. Patient groups were one way people coped."
+    },
+    {
+      "id": "10.64898/2026.10.02.756117",
+      "link": "https://doi.org/10.64898/2026.10.02.756117",
+      "summary": "Two compounds lowered only the harmful ataxin-3 protein in mice and helped their movement. A month of doses by mouth showed no clear harm to the liver or kidneys."
+    },
+    {
+      "id": "10.1002/smll.75802",
+      "link": "https://doi.org/10.1002/smll.75802",
+      "summary": "A pattern of chemicals in the blood sorted people with SCA3 from others in this study."
+    },
+    {
+      "id": "10.3389/fnmol.2026.1872346",
+      "link": "https://doi.org/10.3389/fnmol.2026.1872346",
+      "summary": "Very short pieces of genes did not show a steady difference in SCA3 brain tissue once the results were checked carefully."
+    },
+    {
+      "id": "10.1002/mds.70499",
       "link": "https://doi.org/10.1002/mds.70499",
-      "summary": "In this 12-month randomized trial, 116 people with SCA3 received oral DL-3-n-butylphthalide or placebo. The abstract reports a difference in SARA and in the Spinocerebellar Ataxia Functional Index favoring the drug group, no serious adverse events in either group, and calls the finding preliminary. The abstract does not say the drug is approved."
+      "summary": "People with SCA3 who took a pill called NBP for a year scored better on balance and daily function than people on a placebo. No serious side effects were reported."
     },
     {
-      "link": "https://doi.org/10.1093/brain/awaf408",
-      "summary": "READISCA followed people with SCA1 or SCA3, including people who did not yet have ataxia, and measured clinical scores, MRI, and blood neurofilament light each year. In SCA3, 12 of 38 people who started without ataxia developed it during follow-up, and those who did had higher neurofilament light at the start. The study was set up to find measures that predict onset and worsening."
+      "id": "10.21203/rs.3.rs-10732082/v1",
+      "link": "https://doi.org/10.21203/rs.3.rs-10732082/v1",
+      "summary": "Chemical tags on DNA in the brains of people with Machado-Joseph disease clustered where nerves get their coating. Blood did not show the same pattern."
     },
     {
+      "id": "10.1242/dmm.052757",
+      "link": "https://doi.org/10.1242/dmm.052757",
+      "summary": "Mice and fish with the SCA3 gene had trouble in the tiny units that power cells, and one part of that machinery was off in most of the tests."
+    },
+    {
+      "id": "10.1111/nyas.70398",
+      "link": "https://doi.org/10.1111/nyas.70398",
+      "summary": "Sensors in shoe insoles tracked sway in people with SCA3, especially with eyes closed, and that sway lined up with how severe the ataxia was."
+    },
+    {
+      "id": "10.1159/crn/abyag006",
+      "link": "https://doi.org/10.1159/crn/abyag006",
+      "summary": "One woman with SCA3 had a better ataxia score for about a year after stem-cell infusions. Her dizziness did not improve, and the mild side effects faded quickly."
+    },
+    {
+      "id": "10.1016/j.isci.2026.116446",
+      "link": "https://doi.org/10.1016/j.isci.2026.116446",
+      "summary": "Turning down a cell-transport protein reduced clumps of harmful ataxin-3 and eased the ataxia in animals."
+    },
+    {
+      "id": "10.3389/fneur.2026.1921210",
       "link": "https://doi.org/10.3389/fneur.2026.1921210",
-      "summary": "This review compares clinical scales, MRI, fluid tests such as neurofilament light, genetic measures, and wearable gait measures for forecasting progression in cerebellar ataxias, including SCA3. It reports that SARA is less sensitive at the very start and the late stage, while imaging, blood neurofilament light, and gait sensors can change earlier. The authors say no one measure fits every trial, and that combinations chosen for the stage of disease are more useful."
+      "summary": "In the progressive ataxias, including SCA3, brain scans and a blood marker of nerve damage change before balance problems. Walking sensors noticed change sooner than clinic scores."
     },
     {
+      "id": "10.1016/j.parkreldis.2026.108937",
+      "link": "https://doi.org/10.1016/j.parkreldis.2026.108937",
+      "summary": "A brain-scan sign of fluid flow around blood vessels dropped once SCA3 symptoms started, and it tracked with faster worsening and a smaller brainstem."
+    },
+    {
+      "id": "10.64898/2026.08.07.743629",
+      "link": "https://doi.org/10.64898/2026.08.07.743629",
+      "summary": "In mice with SCA3, switching off a protein that manages cell stress improved movement and restored the cells that coat nerve fibers."
+    },
+    {
+      "id": "10.1002/mds.70465",
+      "link": "https://doi.org/10.1002/mds.70465",
+      "summary": "The SCA3 gene repeat barely grew in the cerebellum's main output cells, so that growth is probably not why those cells are lost."
+    },
+    {
+      "id": "10.3389/fphar.2026.1872142",
+      "link": "https://doi.org/10.3389/fphar.2026.1872142",
+      "summary": "In lab cells and fruit flies, a drug already used for another ataxia lowered harmful ataxin-3 and helped the flies climb."
+    },
+    {
+      "id": "10.1002/ana.78317",
+      "link": "https://doi.org/10.1002/ana.78317",
+      "summary": "Mice with SCA3 developed nerve damage outside the brain. Silencing the harmful gene only in the nerves that carry feeling eased that damage."
+    },
+    {
+      "id": "10.1007/s12311-026-02061-8",
+      "link": "https://doi.org/10.1007/s12311-026-02061-8",
+      "summary": "People with SCA3 who had trouble thinking showed a different pattern of resting brain activity, and that pattern tracked with their thinking scores."
+    },
+    {
+      "id": "10.3390/molecules31142510",
+      "link": "https://doi.org/10.3390/molecules31142510",
+      "summary": "Compounds from cinnamon buds slowed the clumping of ataxin-3 in the lab and helped worms with SCA3 move and handle stress."
+    },
+    {
+      "id": "10.2174/011570159x460646260630071933",
+      "link": "https://doi.org/10.2174/011570159x460646260630071933",
+      "summary": "Bacteria on the skin differed in people with SCA3, and some of those differences lined up with how severe the ataxia was."
+    },
+    {
+      "id": "10.15283/ijsc25141",
+      "link": "https://doi.org/10.15283/ijsc25141",
+      "summary": "Stem cells from fat improved movement in mice with SCA3 and lowered the harmful protein, brain inflammation, and loss of the coating on nerve fibers."
+    },
+    {
+      "id": "10.1002/ccr3.73182",
+      "link": "https://doi.org/10.1002/ccr3.73182",
+      "summary": "A woman treated for years as if she had a different nerve disease turned out to have Machado-Joseph disease once balance, speech, and eye signs appeared."
+    },
+    {
+      "id": "10.1016/j.brainres.2026.150451",
+      "link": "https://doi.org/10.1016/j.brainres.2026.150451",
+      "summary": "The cerebellum of SCA3 mice showed a broad shift in how cells handle sugar and fat, and insulin in their blood was higher."
+    },
+    {
+      "id": "10.1002/cns.71016",
+      "link": "https://doi.org/10.1002/cns.71016",
+      "summary": "Some brain connections were weaker in people with SCA3 and others were stronger. Magnetic stimulation eased two of the connections that had grown too strong."
+    },
+    {
+      "id": "10.2169/internalmedicine.6369-25",
+      "link": "https://doi.org/10.2169/internalmedicine.6369-25",
+      "summary": "A man with SCA3 later developed the muscle wasting of ALS, a pairing the authors say is rare and easy to miss."
+    },
+    {
+      "id": "10.1002/mds.70411",
+      "link": "https://doi.org/10.1002/mds.70411",
+      "summary": "The harmful ataxin-3 protein showed up in spinal fluid, blood, and urine. In spinal fluid it was higher once symptoms started, then fell over time."
+    },
+    {
+      "id": "10.64898/2026.06.24.734389",
+      "link": "https://doi.org/10.64898/2026.06.24.734389",
+      "summary": "People with more shrinkage in the front of the cerebellum improved more after deep magnetic stimulation than people whose cerebellum was better preserved."
+    },
+    {
+      "id": "10.1002/mds.70402",
+      "link": "https://doi.org/10.1002/mds.70402",
+      "summary": "A deep brain area lost the usual link between its wiring and its activity early in SCA3, and that gap tracked with how severe the movement problems were."
+    },
+    {
+      "id": "10.1186/s12883-026-05101-2",
+      "link": "https://doi.org/10.1186/s12883-026-05101-2",
+      "summary": "A gene change tied to earlier SCA3 in other countries was very rare in a Japanese group, and it did not change the age symptoms started."
+    },
+    {
+      "id": "10.1016/j.omtn.2026.102988",
+      "link": "https://doi.org/10.1016/j.omtn.2026.102988",
+      "summary": "A refined gene-editing method cut out the expanded part of the SCA3 gene in human cells grown in the lab."
+    },
+    {
+      "id": "10.1002/acn3.70443",
       "link": "https://doi.org/10.1002/acn3.70443",
-      "summary": "This study repeated MR spectroscopy of the cerebellum, pons, and putamen in people with early SCA2 or SCA3 and in controls, at four sites and two kinds of scanner. Several measured chemicals differed from controls, and some differed between SCA2 and SCA3. The ratio of N-acetylaspartate to creatine had the strongest link with clinical scores, and for SCA3 that link was stronger in the pons."
+      "summary": "Brain chemistry scans were steady enough to repeat across hospitals, and they tracked how severe the ataxia was in early SCA2 and SCA3."
     },
     {
+      "id": "10.1016/j.nbd.2026.107474",
+      "link": "https://doi.org/10.1016/j.nbd.2026.107474",
+      "summary": "A blood measure of thyroid hormones was already off before balance problems in SCA3, and a lower value went with faster worsening later."
+    },
+    {
+      "id": "10.1016/j.jtcme.2026.06.002",
+      "link": "https://doi.org/10.1016/j.jtcme.2026.06.002",
+      "summary": "In people with SCA3, an herb called astragalus came with a small drop in a nerve-damage blood marker, but the difference from placebo was not clear."
+    },
+    {
+      "id": "10.1096/fj.202601357rr",
+      "link": "https://doi.org/10.1096/fj.202601357rr",
+      "summary": "Tiny packages carried a gene signal into the brains of SCA3 mice, raising a helper protein that cleared harmful ataxin-3 and improved their movement."
+    },
+    {
+      "id": "10.1080/17590914.2026.2662867",
+      "link": "https://doi.org/10.1080/17590914.2026.2662867",
+      "summary": "In lab-grown brain immune cells, expanded ataxin-3 sped the loss of a chloride channel and pushed the cells toward inflammation."
+    },
+    {
+      "id": "10.1016/j.neuroscience.2026.05.027",
+      "link": "https://doi.org/10.1016/j.neuroscience.2026.05.027",
+      "summary": "Links between brain regions were less efficient in people with SCA3, and one spot in the cerebellum tracked with a longer gene repeat and worse movement."
+    },
+    {
+      "id": "10.1007/s12311-026-02027-w",
+      "link": "https://doi.org/10.1007/s12311-026-02027-w",
+      "summary": "Short bursts of magnetic stimulation improved movement in SCA3 mice and lowered harmful ataxin-3 and brain inflammation. A continuous pattern helped less."
+    },
+    {
+      "id": "10.1007/s12311-026-02021-2",
       "link": "https://doi.org/10.1007/s12311-026-02021-2",
-      "summary": "This systematic review gathered 30 studies of measured eye movements and vestibular tests in 432 people with SCA3, 64 of whom did not yet have symptoms. The abnormalities reported most often were a reduced vestibulo-ocular reflex, gaze-evoked nystagmus, reduced pursuit, inaccurate saccades, and square-wave jerks. The review presents those as the measures most often proposed for tracking the disease."
+      "summary": "Across studies, trouble holding the eyes steady was the most common eye finding in SCA3, including in some people before balance problems."
+    },
+    {
+      "id": "10.1002/mds.70349",
+      "link": "https://doi.org/10.1002/mds.70349",
+      "summary": "Shrinkage of the cerebellum and brainstem was the main brain change in SCA3. It grew stronger as ataxia worsened, while the map of where it happened stayed much the same."
+    },
+    {
+      "id": "10.1002/mds.70353",
+      "link": "https://doi.org/10.1002/mds.70353",
+      "summary": "Once ataxia began, people with SCA3 had less of the healthier cholesterol in their blood, and a low body weight had been hiding that change."
+    },
+    {
+      "id": "10.1002/mds.70345",
+      "link": "https://doi.org/10.1002/mds.70345",
+      "summary": "In a large group with SCA3, smoking was linked with earlier symptoms, and tea drinking with milder ataxia. The study cannot say either one changes the disease."
+    },
+    {
+      "id": "10.1186/s40478-026-02305-y",
+      "link": "https://doi.org/10.1186/s40478-026-02305-y",
+      "summary": "A letter says a tiny change in a second ataxia gene affects when SCA3 starts only when it is paired with a medium-length repeat."
+    },
+    {
+      "id": "10.1016/j.cellsig.2026.112568",
+      "link": "https://doi.org/10.1016/j.cellsig.2026.112568",
+      "summary": "This review covers a cleanup enzyme from the same family as ataxin-3. The studies it gathers are mostly about cancer and other illnesses, not people with SCA3."
+    },
+    {
+      "id": "10.1002/mds.70311",
+      "link": "https://doi.org/10.1002/mds.70311",
+      "summary": "The brain's waste-clearing flow was already weaker in SCA3 before balance problems, and weaker still once symptoms and brain shrinkage were further along."
+    },
+    {
+      "id": "10.1186/s12883-026-04848-y",
+      "link": "https://doi.org/10.1186/s12883-026-04848-y",
+      "summary": "Double vision was common in SCA3 and went along with more severe ataxia. Trouble seeing raised the chance of it."
+    },
+    {
+      "id": "10.1016/j.neurot.2026.e00928",
+      "link": "https://doi.org/10.1016/j.neurot.2026.e00928",
+      "summary": "A helper protein called Rad23b made harmful ataxin-3 clumps worse by jamming the cell's waste disposer. Turning it down reduced the clumps and cell death."
+    },
+    {
+      "id": "10.1002/mgg3.70197",
+      "link": "https://doi.org/10.1002/mgg3.70197",
+      "summary": "Brain chemistry in the cerebellum lined up with how well people with SCA3 managed everyday tasks like dressing and eating."
+    },
+    {
+      "id": "10.1093/brain/awaf408",
+      "link": "https://doi.org/10.1093/brain/awaf408",
+      "summary": "People who went on to develop ataxia had more nerve-damage protein in the blood and were more depressed. Faster worsening tracked with disability and a brain-chemistry measure."
+    },
+    {
+      "id": "10.1002/mds.70271",
+      "link": "https://doi.org/10.1002/mds.70271",
+      "summary": "Turning down a stress-response protein in SCA3 mice reduced harmful clumps and improved their movement."
+    },
+    {
+      "id": "10.1007/s12311-026-01998-0",
+      "link": "https://doi.org/10.1007/s12311-026-01998-0",
+      "summary": "Nerve-signal tests were abnormal in most people with SCA3, while people with a different ataxia, SCA10, usually tested normal."
+    },
+    {
+      "id": "10.1016/j.biomaterials.2026.124119",
+      "link": "https://doi.org/10.1016/j.biomaterials.2026.124119",
+      "summary": "Tiny cell packages carried a gene editor into SCA3 stem cells and into two animal models, and switched off the disease gene there."
+    },
+    {
+      "id": "10.1186/s13023-026-04306-5",
+      "link": "https://doi.org/10.1186/s13023-026-04306-5",
+      "summary": "Many people with SCA3 had early, quiet lung changes that grew worse as the ataxia did. The small airways showed signs of ongoing inflammation."
+    },
+    {
+      "id": "10.1016/j.npep.2026.102605",
+      "link": "https://doi.org/10.1016/j.npep.2026.102605",
+      "summary": "A review links a brain chemical called NPY to Machado-Joseph disease, but the human studies it describes are about stress and depression, not a test in SCA3."
+    },
+    {
+      "id": "10.1093/gbe/evag047",
+      "link": "https://doi.org/10.1093/gbe/evag047",
+      "summary": "Related copies of the ataxin-3 gene have stayed similar across primates, and one copy still looks able to do part of the same job."
+    },
+    {
+      "id": "10.1186/s13023-025-04089-1",
+      "link": "https://doi.org/10.1186/s13023-025-04089-1",
+      "summary": "In lab cells, a plant compound called gastrodin reduced clumps of harmful ataxin-3 and was not toxic to the cells."
+    },
+    {
+      "id": "10.1007/s12035-026-05726-x",
+      "link": "https://doi.org/10.1007/s12035-026-05726-x",
+      "summary": "SCA3 models handled heat stress poorly because a helper protein called CHIP was depleted. Putting CHIP back eased several of those changes."
+    },
+    {
+      "id": "10.1016/j.clinph.2026.2111699",
+      "link": "https://doi.org/10.1016/j.clinph.2026.2111699",
+      "summary": "Magnetic stimulation of the cerebellum changed brain-wave patterns in people with SCA3, and those patterns lined up with later improvement. A pretend treatment did not."
+    },
+    {
+      "id": "10.1002/acn3.70325",
+      "link": "https://doi.org/10.1002/acn3.70325",
+      "summary": "The pons, part of the brainstem, changed on scans more readily than clinic scores in early SCA1 and SCA3. That could let a future trial enroll fewer people."
+    },
+    {
+      "id": "10.3892/etm.2026.13100",
+      "link": "https://doi.org/10.3892/etm.2026.13100",
+      "summary": "A blood protein tied to insulin was higher in people with SCA3 and lined up with worse ataxia and a nerve-damage marker."
+    },
+    {
+      "id": "10.1016/j.parkreldis.2026.108236",
+      "link": "https://doi.org/10.1016/j.parkreldis.2026.108236",
+      "summary": "Ordinary blood tests, including sugar, cholesterol, and liver enzymes, differed in people with SCA3 and lined up with the gene and the symptoms."
+    },
+    {
+      "id": "10.3389/fgene.2026.1723599",
+      "link": "https://doi.org/10.3389/fgene.2026.1723599",
+      "summary": "A girl developed balance and speech trouble in childhood, with a very long SCA3 repeat plus a change in the Huntington gene."
+    },
+    {
+      "id": "10.1016/j.nbd.2026.107301",
+      "link": "https://doi.org/10.1016/j.nbd.2026.107301",
+      "summary": "Trouble with thinking showed up after balance problems began and worsened alongside the ataxia, especially for people with less schooling."
+    },
+    {
+      "id": "10.1038/s41598-025-30652-8",
+      "link": "https://doi.org/10.1038/s41598-025-30652-8",
+      "summary": "A computer screen pointed to crocin, a saffron compound, as a tight fit for two proteins tied to SCA3. Nobody was treated in this study."
+    },
+    {
+      "id": "10.64898/2026.01.31.703043",
+      "link": "https://doi.org/10.64898/2026.01.31.703043",
+      "summary": "Stem cells partly repaired leaky blood vessels in the brains of Machado-Joseph mice and improved their walking."
+    },
+    {
+      "id": "10.1016/j.jare.2026.02.031",
+      "link": "https://doi.org/10.1016/j.jare.2026.02.031",
+      "summary": "A repeat in another gene, TCF4, did not set the age SCA3 starts on its own. Longer versions made the SCA3 repeat's effect on that age stronger."
+    },
+    {
+      "id": "10.1093/hmg/ddag016",
+      "link": "https://doi.org/10.1093/hmg/ddag016",
+      "summary": "A rare double copy of an Alzheimer's risk gene was linked with SCA3 starting about six years sooner in people from Brazil. More common versions were not."
+    },
+    {
+      "id": "10.1111/febs.70426",
+      "link": "https://doi.org/10.1111/febs.70426",
+      "summary": "In a dish, ataxin-3 clumped more when its chemical surroundings were oxidized, and a reduced state held that clumping back."
+    },
+    {
+      "id": "10.64898/2026.01.26.26344891",
+      "link": "https://doi.org/10.64898/2026.01.26.26344891",
+      "summary": "In families from the Azores, the ancestral SCA3 line changed which copy of the gene was more active in the blood, the expanded one or the healthy one."
+    },
+    {
+      "id": "10.17576/mh.2026.2101.25",
+      "link": "https://doi.org/10.17576/mh.2026.2101.25",
+      "summary": "People with SCA3 had weaker links between a thinking area of the cerebellum and the brain network used for focus and planning."
+    },
+    {
+      "id": "10.64898/2026.01.22.701070",
+      "link": "https://doi.org/10.64898/2026.01.22.701070",
+      "summary": "SCA3 mice made more of a stress hormone late in the disease. Stress did not leave a lasting mark on how their movement worsened."
+    },
+    {
+      "id": "10.1002/acn3.70316",
+      "link": "https://doi.org/10.1002/acn3.70316",
+      "summary": "A video version of the ataxia score, recorded at home over a few days, picked up change better than the score done in clinic."
+    },
+    {
+      "id": "10.1002/mds.70195",
+      "link": "https://doi.org/10.1002/mds.70195",
+      "summary": "The retina worked less well and looked thinner in people with SCA3, and those eye changes lined up with ataxia and with thinking scores."
+    },
+    {
+      "id": "10.3389/fncel.2025.1735225",
+      "link": "https://doi.org/10.3389/fncel.2025.1735225",
+      "summary": "Gene activity in the spinal cord of SCA3 mice changed early, from the harmful protein rather than from losing the normal one."
+    },
+    {
+      "id": "10.1007/s12311-025-01951-7",
+      "link": "https://doi.org/10.1007/s12311-025-01951-7",
+      "summary": "People with SCA2 or SCA3 had larger fluid spaces around blood vessels and more free water in the brain's wiring. Another waste-clearance measure did not differ."
+    },
+    {
+      "id": "10.1007/s00415-025-13588-x",
+      "link": "https://doi.org/10.1007/s00415-025-13588-x",
+      "summary": "Cramps, nerve pain, and body symptoms like those were common in SCA3 even before balance problems, and they added to how hard daily life felt."
+    },
+    {
+      "id": "10.1093/hmg/ddaf196",
+      "link": "https://doi.org/10.1093/hmg/ddaf196",
+      "summary": "A protein-cutting enzyme was already overactive in young SCA3 mice. A short course of a blocker improved symptoms in the males."
+    },
+    {
+      "id": "10.2139/ssrn.6801787",
+      "link": "https://doi.org/10.2139/ssrn.6801787",
+      "summary": "Brains of people with SCA3 looked older than their years, and that gap lined up with worse ataxia and an earlier start."
+    },
+    {
+      "id": "10.1016/j.clinph.2025.2111405",
+      "link": "https://doi.org/10.1016/j.clinph.2025.2111405",
+      "summary": "A model of brain stimulation in SCA3 found the current at the cerebellum depended on skull shape, how severe the ataxia was, and where the electrodes sat."
+    },
+    {
+      "id": "10.1016/j.gaitpost.2025.110019",
+      "link": "https://doi.org/10.1016/j.gaitpost.2025.110019",
+      "summary": "People with SCA3 took wider, shorter steps, and a simple camera picked that up. Step width was the clearest sign."
+    },
+    {
+      "id": "10.1016/j.nbd.2025.107232",
+      "link": "https://doi.org/10.1016/j.nbd.2025.107232",
+      "summary": "A scan of the brain's waste-clearing flow was lower in SCA3 than in healthy people, and lower again once ataxia had started."
     }
   ]
 }

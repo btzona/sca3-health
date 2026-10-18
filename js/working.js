@@ -42,7 +42,7 @@
     delta.textContent = signed ? "Daily change " + signed : "Daily change not available";
     var asOf = document.createElement("p");
     asOf.className = "stock-note";
-    asOf.textContent = "Last close as of " + formatDay(quote.as_of) + ". Delayed. Not investment advice.";
+    asOf.textContent = "Last close as of " + formatDay(quote.as_of) + ". Delayed.";
     slot.appendChild(price);
     slot.appendChild(delta);
     slot.appendChild(asOf);

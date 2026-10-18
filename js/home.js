@@ -14,46 +14,70 @@
 
   function formatDay(iso) {
     if (!iso) return "";
-    const date = new Date(iso);
+    const raw = String(iso);
+    const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(raw);
+    const date = new Date(dateOnly ? `${raw}T12:00:00Z` : raw);
     if (Number.isNaN(date.getTime())) return "";
     try {
       return new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Phoenix",
+        timeZone: dateOnly ? "UTC" : "America/Phoenix",
         month: "long",
         day: "numeric",
         year: "numeric",
       }).format(date);
     } catch {
-      return String(iso).slice(0, 10);
+      return raw.slice(0, 10);
     }
   }
 
-  function plainSentence(article) {
-    if (article.family_line) return article.family_line;
-    const tags = article.tags || [];
-    const evidence = article.evidence || "";
-    if (evidence === "News") return "A news story about SCA3 was added.";
-    if (tags.includes("Clinical trial") || tags.includes("Therapy/ASO") || tags.includes("Gene therapy")) {
-      return "A paper about a treatment study was added. A study is not an approval, and it does not mean the treatment works.";
-    }
-    if (tags.includes("Biomarkers") || tags.includes("Natural history")) {
-      return "A new paper looks at how the disease shows up, or how to measure it. It is not a treatment.";
-    }
-    if (tags.includes("Care/Rehab")) {
-      return "A new paper looks at movement or day-to-day life. It is not a treatment.";
-    }
-    if (tags.includes("Genetics/Reproduction")) {
-      return "A new paper looks at the gene or at family planning. It is not a treatment you can ask for.";
-    }
-    return "A new research paper was added. It does not, by itself, say a treatment works.";
+  function doiFrom(text) {
+    const match = String(text || "").match(/10\.\d{4,9}\/[^\s"'<>]+/i);
+    if (!match) return "";
+    return match[0].replace(/[.,);]+$/, "").toLowerCase();
   }
 
-  fetch("data/articles.json", { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) throw new Error("missing articles");
-      return response.json();
-    })
-    .then((payload) => {
+  function normalizeLink(url) {
+    try {
+      const parsed = new URL(url);
+      parsed.hash = "";
+      return `${parsed.hostname.replace(/^www\./, "")}${parsed.pathname.replace(/\/$/, "")}`.toLowerCase();
+    } catch {
+      return String(url || "").trim().toLowerCase();
+    }
+  }
+
+  function indexSummaries(payload) {
+    const byId = new Map();
+    const byLink = new Map();
+    for (const item of payload.items || []) {
+      const text = String(item.summary || "").trim();
+      if (!text) continue;
+      const id = String(item.id || "").trim().toLowerCase();
+      const doi = doiFrom(item.link) || doiFrom(id);
+      if (id) byId.set(id, text);
+      if (doi) byId.set(doi, text);
+      if (item.link) byLink.set(normalizeLink(item.link), text);
+    }
+    return { byId, byLink };
+  }
+
+  function summaryFor(article, index) {
+    const doi = doiFrom(article.link) || doiFrom(article.id);
+    if (doi && index.byId.has(doi)) return index.byId.get(doi);
+    const id = String(article.id || "").trim().toLowerCase();
+    if (id && index.byId.has(id)) return index.byId.get(id);
+    return index.byLink.get(normalizeLink(article.link)) || "";
+  }
+
+  Promise.all([
+    fetch("data/articles.json", { cache: "no-store" }),
+    fetch("data/summaries.json", { cache: "no-store" }).catch(() => null),
+  ])
+    .then(async ([articlesRes, summaryRes]) => {
+      if (!articlesRes.ok) throw new Error("missing articles");
+      const payload = await articlesRes.json();
+      const index =
+        summaryRes && summaryRes.ok ? indexSummaries(await summaryRes.json()) : { byId: new Map(), byLink: new Map() };
       const latest = (payload.articles || [])
         .filter((article) => article && article.title && article.link)
         .slice()
@@ -67,8 +91,10 @@
         .map((article) => {
           const when = formatDay(article.date);
           const source = [article.source, when].filter(Boolean).join(" · ");
+          const summary = summaryFor(article, index);
+          const line = summary ? `<p class="new-line">${escapeHtml(summary)}</p>` : "";
           return `<li>
-            <p class="new-line">${escapeHtml(plainSentence(article))}</p>
+            ${line}
             <p class="new-source"><a href="${escapeHtml(article.link)}" rel="noopener noreferrer">${escapeHtml(article.title)}</a>${source ? ` <span>${escapeHtml(source)}</span>` : ""}</p>
           </li>`;
         })

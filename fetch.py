@@ -1970,7 +1970,7 @@ def refresh_stocks() -> None:
         return
     payload = {
         "updated": datetime.now(timezone.utc).isoformat(),
-        "disclaimer": "Delayed last close from a public daily price history. Not investment advice.",
+        "disclaimer": "Delayed last close from a public daily price history.",
         "quotes": quotes,
         "errors": errors,
     }
@@ -2037,20 +2037,6 @@ FRIENDLY_EVIDENCE = {
     "Other": "Research paper",
     "News": "News",
 }
-
-# What the kind of study means for a family. Research papers stay blank:
-# a raw result sentence is not a meaning, and guessing one would add a claim.
-FAMILY_MEANING = {
-    "Review of past research": "This gathers earlier research. It is not a new test of a treatment in people.",
-    "Treatment trial in people": "This is a study of a treatment in people. Being in a study is not an approval, and it does not mean the treatment works.",
-    "Study in people": "This looks at people living with the disease. It does not test whether a new treatment works.",
-    "Animal study": "This was studied in animals, not in people. It does not mean a treatment is ready for a family.",
-    "Lab study (cells)": "This was studied in cells in a lab, not in people. It does not mean a treatment is ready.",
-    "Early, not yet peer-reviewed": "Other scientists have not checked this yet. It is an early report, not a treatment a doctor can offer.",
-    "Research paper": "",
-    "News": "",
-}
-
 
 def as_list(value) -> list:
     if value is None:
@@ -2219,7 +2205,7 @@ def apply_reading(article: dict, record: dict | None, *, failed: bool) -> None:
         label, via = "News", "kind"
     article["evidence"] = label
     article["evidence_via"] = via
-    article["family_line"] = FAMILY_MEANING.get(label, "")
+    article["family_line"] = ""
 
 
 def pretty_day(value: str) -> str:
@@ -2433,7 +2419,6 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
                 "date": article.get("date") or "",
                 "source": article.get("source") or "",
                 "evidence": evidence,
-                "family_line": article.get("family_line") or "",
                 "new_since_refresh": is_new,
             }
         )
@@ -2448,7 +2433,6 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
                     "date": article.get("date") or "",
                     "source": article.get("source") or "",
                     "evidence": present_evidence(article.get("evidence") or ""),
-                    "family_line": article.get("family_line") or "",
                     "new_since_refresh": False,
                 }
             )
@@ -2511,6 +2495,219 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
     )
 
 
+SUMMARIES_OUT = ROOT / "data" / "summaries.json"
+SUMMARY_MODEL = os.environ.get("SCA3_SUMMARY_MODEL", "openai/gpt-4.1-mini")
+SUMMARY_URL = os.environ.get("SCA3_SUMMARY_URL", "https://models.github.ai/inference/chat/completions")
+SUMMARY_ABOUT = (
+    "Plain-language summaries cached by DOI or id. The daily refresh asks GitHub Models "
+    "once per uncached paper that has an abstract, and stores only a reply that stays "
+    "inside that abstract. A failed call, or a paper with no abstract, leaves no summary."
+)
+SUMMARY_SYSTEM = (
+    "You write for a parent, in a warm everyday voice. "
+    "Use one or two short sentences, about 35 words in total. "
+    "Lead with what the study found and why it matters to people with SCA3. "
+    "Use only facts stated in the abstract. Translate jargon into ordinary words "
+    "(for example, say brain chemistry scans, not N-acetylaspartate). "
+    "Use at most one number, and only if it helps a parent understand "
+    "(for example, a few months before symptoms). Leave detailed statistics out. "
+    "Add a second sentence only when the abstract itself supports it. "
+    "Never add hope, a benefit, or a future use the abstract does not state. "
+    "Do not use: may, might, suggests, preliminary, promising, cure, breakthrough, "
+    "not a treatment, not medical advice. "
+    "If the abstract does not state a finding, reply with exactly NONE."
+)
+SUMMARY_HEDGE_RE = re.compile(
+    r"\b(?:may|might|suggests?|preliminary|promising|cure|breakthrough)\b|"
+    r"not a treatment|not medical|not a promise|not an approval",
+    re.I,
+)
+_summary_token_warned = False
+_models_failure_logged = False
+
+
+def log_models_failure(reason: str) -> None:
+    """One visible workflow warning. Cached summaries stay; the paper is left blank."""
+    global _models_failure_logged
+    if _models_failure_logged:
+        return
+    _models_failure_logged = True
+    print(
+        "::warning title=GitHub Models unavailable::"
+        f"{reason} New papers are left without a summary. Cached summaries are unchanged."
+    )
+    print(f"GITHUB MODELS CHECK FAILED: {reason}")
+
+
+def summary_cache_keys(item: dict) -> list[str]:
+    keys: list[str] = []
+    ident = str(item.get("id") or "").strip().lower()
+    doi = extract_doi(str(item.get("link") or "")) or extract_doi(ident)
+    if doi:
+        keys.append(doi)
+    if ident:
+        keys.append(ident)
+    link = str(item.get("link") or "").strip().lower()
+    if link:
+        keys.append(link)
+    return keys
+
+
+def load_summary_items() -> list[dict]:
+    payload = load_json_file(SUMMARIES_OUT)
+    items = payload.get("items")
+    if not isinstance(items, list):
+        return []
+    return [item for item in items if isinstance(item, dict) and str(item.get("summary") or "").strip()]
+
+
+def accept_model_summary(content: str) -> str | None:
+    text = re.sub(r"\s+", " ", content or "").strip().strip('"').strip()
+    if not text or text.upper() == "NONE":
+        return None
+    if SUMMARY_HEDGE_RE.search(text):
+        print("  Summary rejected: hedging or hype.")
+        return None
+    sentences = [part for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
+    words = text.split()
+    if len(sentences) < 1 or len(sentences) > 2 or not 8 <= len(words) <= 40:
+        print("  Summary rejected: expected one or two short sentences.")
+        return None
+    bare = re.sub(r"(?i)[A-Za-z]+-?\d+\w*", "", text)
+    if len(re.findall(r"\d+(?:\.\d+)?", bare)) > 1:
+        print("  Summary rejected: more than one number.")
+        return None
+    return text
+
+
+def github_model_summary(title: str, abstract: str) -> str | None:
+    """One parent-language summary from GitHub Models, or None on any failure."""
+    global _summary_token_warned
+    token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not token:
+        if not _summary_token_warned:
+            log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
+            _summary_token_warned = True
+        return None
+    body = json.dumps(
+        {
+            "model": SUMMARY_MODEL,
+            "temperature": 0,
+            "max_tokens": 120,
+            "messages": [
+                {"role": "system", "content": SUMMARY_SYSTEM},
+                {"role": "user", "content": f"Title: {title}\n\nAbstract:\n{abstract[:6000]}"},
+            ],
+        }
+    ).encode("utf-8")
+    request = urllib.request.Request(
+        SUMMARY_URL,
+        data=body,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            raw = response.read()
+            content_type = response.headers.get("Content-Type", "")
+    except urllib.error.HTTPError as exc:
+        log_models_failure(f"GitHub Models returned HTTP {exc.code}.")
+        return None
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        log_models_failure(f"GitHub Models could not be reached ({exc}).")
+        return None
+    text = raw.decode("utf-8", "replace").strip()
+    if not text or text.upper() == "OK" or (not text.startswith("{") and "json" not in content_type.lower()):
+        log_models_failure("GitHub Models returned no chat completion.")
+        return None
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        log_models_failure("GitHub Models returned a response that was not JSON.")
+        return None
+    choices = payload.get("choices") or []
+    content = ""
+    if choices and isinstance(choices[0], dict):
+        message = choices[0].get("message") or {}
+        content = str(message.get("content") or "")
+    return accept_model_summary(content)
+
+
+def crossref_abstract(doi: str) -> str:
+    url = "https://api.crossref.org/works/" + urllib.parse.quote(doi, safe="")
+    raw, err = fetch_url(url, headers={"Accept": "application/json", "User-Agent": USER_AGENT})
+    if err or not raw:
+        return ""
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except json.JSONDecodeError:
+        return ""
+    abstract = str((payload.get("message") or {}).get("abstract") or "")
+    return re.sub(r"\s+", " ", strip_html(abstract)).strip()
+
+
+def write_summaries(items: list[dict]) -> None:
+    SUMMARIES_OUT.parent.mkdir(parents=True, exist_ok=True)
+    payload = {"about": SUMMARY_ABOUT, "items": items}
+    SUMMARIES_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def fill_summaries(articles: list[dict]) -> None:
+    """Cache a model summary once per DOI. Failure leaves the item unsummarized."""
+    items = load_summary_items()
+    indexed: dict[str, dict] = {}
+    for item in items:
+        for key in summary_cache_keys(item):
+            indexed.setdefault(key, item)
+    pending: list[tuple[dict, str]] = []
+    for article in articles:
+        if not isinstance(article, dict):
+            continue
+        keys = summary_cache_keys(article)
+        if any(key in indexed and str(indexed[key].get("summary") or "").strip() for key in keys):
+            continue
+        doi = extract_doi(str(article.get("link") or "")) or extract_doi(str(article.get("id") or ""))
+        if not doi:
+            continue
+        pending.append((article, doi))
+    if not pending:
+        current = load_json_file(SUMMARIES_OUT)
+        if current.get("about") != SUMMARY_ABOUT or not isinstance(current.get("items"), list):
+            write_summaries(items)
+        print(f"Summaries unchanged ({len(items)} cached).")
+        return
+    print(f"Summaries to fetch: {len(pending)}")
+    records, _failed = europepmc_by_doi([doi for _article, doi in pending])
+    added = 0
+    for article, doi in pending:
+        record = records.get(doi) or {}
+        abstract = re.sub(r"\s+", " ", strip_html(str(record.get("abstractText") or ""))).strip()
+        if len(abstract) < 80:
+            abstract = crossref_abstract(doi)
+        if len(abstract) < 80:
+            continue
+        text = github_model_summary(str(article.get("title") or ""), abstract)
+        if not text:
+            continue
+        item = {
+            "id": doi,
+            "link": article.get("link") or f"https://doi.org/{doi}",
+            "summary": text,
+        }
+        items.append(item)
+        for key in summary_cache_keys(item):
+            indexed[key] = item
+        added += 1
+        time.sleep(0.2)
+    write_summaries(items)
+    print(f"Summaries: {added} new, {len(items)} cached.")
+
+
 def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     previous_articles = load_previous_articles()
@@ -2546,6 +2743,7 @@ def main() -> int:
                 kept["access_updated"] = datetime.now(timezone.utc).isoformat()
                 write_ledger(kept)
             write_changes(previous_articles, previous, previous_trials)
+            fill_summaries(previous)
             return 0
         write_ledger(
             {
@@ -2573,10 +2771,69 @@ def main() -> int:
     }
     write_ledger(payload)
     write_changes(previous_articles, selected, previous_trials)
+    fill_summaries(selected)
     span = f"{min(dated)[:10]} → {max(dated)[:10]}" if dated else "undated"
     print(f"\nWrote {len(selected)} articles ({span}) → {OUT}")
     return 0
 
 
+def check_models() -> int:
+    """Ask GitHub Models for one completion. A dead endpoint is logged and does not fail the job."""
+    token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
+    if not token:
+        log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
+        return 0
+    body = json.dumps(
+        {
+            "model": SUMMARY_MODEL,
+            "temperature": 0,
+            "max_tokens": 16,
+            "messages": [{"role": "user", "content": "Reply with the single word pong."}],
+        }
+    ).encode("utf-8")
+    request = urllib.request.Request(
+        SUMMARY_URL,
+        data=body,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            raw = response.read()
+            content_type = response.headers.get("Content-Type", "")
+            status = response.status
+    except urllib.error.HTTPError as exc:
+        log_models_failure(f"GitHub Models returned HTTP {exc.code}.")
+        return 0
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        log_models_failure(f"GitHub Models could not be reached ({exc}).")
+        return 0
+    text = raw.decode("utf-8", "replace").strip()
+    if not text.startswith("{") or "json" not in content_type.lower() and not text.startswith("{"):
+        shown = text.replace("\n", " ")[:80] or "(empty)"
+        log_models_failure(
+            f"GitHub Models returned HTTP {status} {content_type or 'unknown type'} body {shown!r}, not a chat completion."
+        )
+        return 0
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        log_models_failure("GitHub Models returned a response that was not JSON.")
+        return 0
+    choices = payload.get("choices") if isinstance(payload, dict) else None
+    if not choices:
+        log_models_failure("GitHub Models returned JSON without a chat completion.")
+        return 0
+    print("GitHub Models check passed: the endpoint returned a chat completion.")
+    return 0
+
+
 if __name__ == "__main__":
+    if "--check-models" in sys.argv:
+        sys.exit(check_models())
     sys.exit(main())

@@ -27,11 +27,7 @@
     for (const link of links) {
       const item = summaries.get(normalizeLink(link.url));
       if (item) {
-        return `<aside class="means">
-          <p class="means-kicker">What this means</p>
-          <p>${escapeHtml(item.summary)}</p>
-          <p class="means-note">In ordinary words, from the study’s own text.</p>
-        </aside>`;
+        return `<p class="excerpt">${escapeHtml(item.summary)}</p>`;
       }
     }
     return "";

@@ -100,7 +100,7 @@
     const tags = article.tags || [];
     if (filter !== "all" && !tags.includes(filter)) return false;
     if (!query) return true;
-    const blob = [article.title, article.summary, article.family_line, article.evidence, article.source, tags.join(" ")]
+    const blob = [article.title, summaryFor(article), article.evidence, article.source, tags.join(" ")]
       .join(" ")
       .toLowerCase();
     return blob.includes(query);
@@ -117,14 +117,18 @@
     }
   }
 
-  function meansHtml(link) {
-    const item = summaries.get(normalizeLink(link));
-    if (!item || !item.summary) return "";
-    return `<aside class="means">
-      <p class="means-kicker">What this means</p>
-      <p>${escapeHtml(item.summary)}</p>
-      <p class="means-note">A plain-language summary of the source text. It adds no outside claims.</p>
-    </aside>`;
+  function doiFrom(text) {
+    const match = String(text || "").match(/10\.\d{4,9}\/[^\s"'<>]+/i);
+    if (!match) return "";
+    return match[0].replace(/[.,);]+$/, "").toLowerCase();
+  }
+
+  function summaryFor(article) {
+    const doi = doiFrom(article.link) || doiFrom(article.id);
+    if (doi && summaries.has(doi)) return summaries.get(doi);
+    const id = String(article.id || "").trim().toLowerCase();
+    if (id && summaries.has(id)) return summaries.get(id);
+    return summaries.get(normalizeLink(article.link)) || "";
   }
 
   function accessHtml(article) {
@@ -134,13 +138,6 @@
     const full = level === "full";
     const label = full ? "Free full text" : "Free abstract";
     return `<a class="oa ${full ? "oa-full" : "oa-abstract"}" href="${escapeHtml(url)}" rel="noopener noreferrer">${label}</a>`;
-  }
-
-  function familyHtml(article) {
-    if (!article.family_line) return "";
-    return `<p class="family-kicker">What this means</p>
-      <p class="family-line">${italicizeGenes(article.family_line)}</p>
-      <p class="family-note">From the kind of study. It is not a result, and it is not a promise.</p>`;
   }
 
   function cardHtml(article) {
@@ -161,9 +158,7 @@
 <article class="card" data-evidence="${escapeHtml(evidence)}">
   <p class="evidence"><span class="evidence-name">${escapeHtml(evidence)}</span></p>
   <h3><a href="${escapeHtml(article.link)}" rel="noopener noreferrer">${italicizeGenes(article.title)}</a></h3>
-  <p class="excerpt">${italicizeGenes(String(article.summary || "").replace(/^(abstract|summary)\b[:\s-]*/i, "").replace(/^(objective|objectives|background)\b[:\s-]*/i, ""))}</p>
-  ${familyHtml(article)}
-  ${meansHtml(article.link)}
+  ${summaryFor(article) ? `<p class="excerpt">${italicizeGenes(summaryFor(article))}</p>` : ""}
   <div class="card-foot">
     <div class="foot-meta">
       <span class="source">${escapeHtml(article.source || "")}</span>
@@ -236,11 +231,16 @@
       data = await res.json();
       if (summaryRes && summaryRes.ok) {
         const packed = await summaryRes.json();
-        summaries = new Map(
-          (packed.items || [])
-            .filter((item) => item.link && item.summary)
-            .map((item) => [normalizeLink(item.link), item])
-        );
+        summaries = new Map();
+        for (const item of packed.items || []) {
+          const text = String(item.summary || "").trim();
+          if (!text) continue;
+          const id = String(item.id || "").trim().toLowerCase();
+          const doi = doiFrom(item.link) || doiFrom(id);
+          if (id) summaries.set(id, text);
+          if (doi) summaries.set(doi, text);
+          if (item.link) summaries.set(normalizeLink(item.link), text);
+        }
       }
       updatedEl.textContent = formatUpdated(data.updated);
       const dated = (data.articles || [])
