@@ -2536,7 +2536,6 @@ def log_models_failure(reason: str) -> None:
         "::warning title=GitHub Models unavailable::"
         f"{reason} New papers are left without a summary. Cached summaries are unchanged."
     )
-    print(f"GITHUB MODELS CHECK FAILED: {reason}")
 
 
 SUMMARY_ACCEPT = "application/vnd.github+json"
@@ -2574,22 +2573,13 @@ def catalog_model_ids(token: str) -> list[str] | None:
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
             raw = response.read()
-            status = response.status
     except urllib.error.HTTPError as exc:
-        raw = exc.read() if exc.fp else b""
-        print(
-            f"GitHub Models catalog GET {CATALOG_URL} HTTP {exc.code}. "
-            f"First 200 characters of the body: {models_body_preview(raw)!r}"
-        )
+        if exc.fp:
+            exc.read()
         return None
-    except (urllib.error.URLError, TimeoutError, OSError) as exc:
-        print(f"GitHub Models catalog could not be reached ({exc}).")
+    except (urllib.error.URLError, TimeoutError, OSError):
         return None
     text = raw.decode("utf-8", "replace")
-    print(
-        f"GitHub Models catalog GET {CATALOG_URL} HTTP {status}. "
-        f"First 200 characters of the body: {text[:200]!r}"
-    )
     stripped = text.strip()
     if not stripped.startswith("{") and not stripped.startswith("["):
         return None
@@ -2619,17 +2609,10 @@ def resolve_summary_model(token: str) -> str:
     if _resolved_model:
         return _resolved_model
     ids = catalog_model_ids(token)
-    if not ids:
-        print(f"GitHub Models catalog did not list models. Using {SUMMARY_MODEL}.")
-        _resolved_model = SUMMARY_MODEL
+    if ids and SUMMARY_MODEL not in ids:
+        _resolved_model = ids[0]
         return _resolved_model
-    if SUMMARY_MODEL in ids:
-        print(f"GitHub Models catalog lists {SUMMARY_MODEL}.")
-        _resolved_model = SUMMARY_MODEL
-        return _resolved_model
-    chosen = ids[0]
-    print(f"GitHub Models catalog does not list {SUMMARY_MODEL}. Using {chosen}.")
-    _resolved_model = chosen
+    _resolved_model = SUMMARY_MODEL
     return _resolved_model
 
 
