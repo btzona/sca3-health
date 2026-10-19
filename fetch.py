@@ -2539,6 +2539,142 @@ def log_models_failure(reason: str) -> None:
     print(f"GITHUB MODELS CHECK FAILED: {reason}")
 
 
+SUMMARY_ACCEPT = "application/vnd.github+json"
+CATALOG_URL = "https://models.github.ai/catalog/models"
+_resolved_model: str | None = None
+
+
+def models_body_preview(body: bytes | str) -> str:
+    if isinstance(body, bytes):
+        text = body.decode("utf-8", "replace")
+    else:
+        text = body or ""
+    return text[:200]
+
+
+def log_models_http_failure(status: int | str, body: bytes | str) -> None:
+    preview = models_body_preview(body)
+    log_models_failure(
+        f"POST {SUMMARY_URL} returned HTTP {status}. "
+        f"First 200 characters of the body: {preview!r}"
+    )
+
+
+def catalog_model_ids(token: str) -> list[str] | None:
+    """Model ids from the catalog, or None when that response is not a model list."""
+    request = urllib.request.Request(
+        CATALOG_URL,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": SUMMARY_ACCEPT,
+            "User-Agent": USER_AGENT,
+        },
+        method="GET",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            raw = response.read()
+            status = response.status
+    except urllib.error.HTTPError as exc:
+        raw = exc.read() if exc.fp else b""
+        print(
+            f"GitHub Models catalog GET {CATALOG_URL} HTTP {exc.code}. "
+            f"First 200 characters of the body: {models_body_preview(raw)!r}"
+        )
+        return None
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        print(f"GitHub Models catalog could not be reached ({exc}).")
+        return None
+    text = raw.decode("utf-8", "replace")
+    print(
+        f"GitHub Models catalog GET {CATALOG_URL} HTTP {status}. "
+        f"First 200 characters of the body: {text[:200]!r}"
+    )
+    stripped = text.strip()
+    if not stripped.startswith("{") and not stripped.startswith("["):
+        return None
+    try:
+        payload = json.loads(stripped)
+    except json.JSONDecodeError:
+        return None
+    rows = payload
+    if isinstance(payload, dict):
+        rows = payload.get("models") or payload.get("data") or payload.get("items") or []
+    if not isinstance(rows, list):
+        return None
+    ids: list[str] = []
+    for row in rows:
+        if isinstance(row, str) and row.strip():
+            ids.append(row.strip())
+        elif isinstance(row, dict):
+            ident = str(row.get("id") or row.get("name") or "").strip()
+            if ident:
+                ids.append(ident)
+    return ids
+
+
+def resolve_summary_model(token: str) -> str:
+    """Use the configured model when the catalog lists it, otherwise the first listed id."""
+    global _resolved_model
+    if _resolved_model:
+        return _resolved_model
+    ids = catalog_model_ids(token)
+    if not ids:
+        print(f"GitHub Models catalog did not list models. Using {SUMMARY_MODEL}.")
+        _resolved_model = SUMMARY_MODEL
+        return _resolved_model
+    if SUMMARY_MODEL in ids:
+        print(f"GitHub Models catalog lists {SUMMARY_MODEL}.")
+        _resolved_model = SUMMARY_MODEL
+        return _resolved_model
+    chosen = ids[0]
+    print(f"GitHub Models catalog does not list {SUMMARY_MODEL}. Using {chosen}.")
+    _resolved_model = chosen
+    return _resolved_model
+
+
+def post_chat_completion(token: str, payload: dict) -> dict | None:
+    """POST one chat completion. Failure logs the HTTP status and the start of the body."""
+    body = json.dumps(payload).encode("utf-8")
+    request = urllib.request.Request(
+        SUMMARY_URL,
+        data=body,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": SUMMARY_ACCEPT,
+            "Content-Type": "application/json",
+            "User-Agent": USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            raw = response.read()
+            status = response.status
+    except urllib.error.HTTPError as exc:
+        raw = exc.read() if exc.fp else b""
+        log_models_http_failure(exc.code, raw)
+        return None
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        log_models_failure(f"GitHub Models could not be reached ({exc}).")
+        return None
+    text = raw.decode("utf-8", "replace")
+    stripped = text.strip()
+    parsed: dict | None = None
+    if stripped.startswith("{"):
+        try:
+            loaded = json.loads(stripped)
+        except json.JSONDecodeError:
+            loaded = None
+        if isinstance(loaded, dict):
+            parsed = loaded
+    choices = parsed.get("choices") if parsed else None
+    if not choices:
+        log_models_http_failure(status, text)
+        return None
+    return parsed
+
+
 def summary_cache_keys(item: dict) -> list[str]:
     keys: list[str] = []
     ident = str(item.get("id") or "").strip().lower()
@@ -2589,46 +2725,19 @@ def github_model_summary(title: str, abstract: str) -> str | None:
             log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
             _summary_token_warned = True
         return None
-    body = json.dumps(
+    payload = post_chat_completion(
+        token,
         {
-            "model": SUMMARY_MODEL,
+            "model": resolve_summary_model(token),
             "temperature": 0,
             "max_tokens": 120,
             "messages": [
                 {"role": "system", "content": SUMMARY_SYSTEM},
                 {"role": "user", "content": f"Title: {title}\n\nAbstract:\n{abstract[:6000]}"},
             ],
-        }
-    ).encode("utf-8")
-    request = urllib.request.Request(
-        SUMMARY_URL,
-        data=body,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "User-Agent": USER_AGENT,
         },
-        method="POST",
     )
-    try:
-        with urllib.request.urlopen(request, timeout=45) as response:
-            raw = response.read()
-            content_type = response.headers.get("Content-Type", "")
-    except urllib.error.HTTPError as exc:
-        log_models_failure(f"GitHub Models returned HTTP {exc.code}.")
-        return None
-    except (urllib.error.URLError, TimeoutError, OSError) as exc:
-        log_models_failure(f"GitHub Models could not be reached ({exc}).")
-        return None
-    text = raw.decode("utf-8", "replace").strip()
-    if not text or text.upper() == "OK" or (not text.startswith("{") and "json" not in content_type.lower()):
-        log_models_failure("GitHub Models returned no chat completion.")
-        return None
-    try:
-        payload = json.loads(text)
-    except json.JSONDecodeError:
-        log_models_failure("GitHub Models returned a response that was not JSON.")
+    if not payload:
         return None
     choices = payload.get("choices") or []
     content = ""
@@ -2783,53 +2892,25 @@ def check_models() -> int:
     if not token:
         log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
         return 0
-    body = json.dumps(
+    model = resolve_summary_model(token)
+    payload = post_chat_completion(
+        token,
         {
-            "model": SUMMARY_MODEL,
+            "model": model,
             "temperature": 0,
             "max_tokens": 16,
             "messages": [{"role": "user", "content": "Reply with the single word pong."}],
-        }
-    ).encode("utf-8")
-    request = urllib.request.Request(
-        SUMMARY_URL,
-        data=body,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "User-Agent": USER_AGENT,
         },
-        method="POST",
     )
-    try:
-        with urllib.request.urlopen(request, timeout=45) as response:
-            raw = response.read()
-            content_type = response.headers.get("Content-Type", "")
-            status = response.status
-    except urllib.error.HTTPError as exc:
-        log_models_failure(f"GitHub Models returned HTTP {exc.code}.")
+    if not payload:
         return 0
-    except (urllib.error.URLError, TimeoutError, OSError) as exc:
-        log_models_failure(f"GitHub Models could not be reached ({exc}).")
-        return 0
-    text = raw.decode("utf-8", "replace").strip()
-    if not text.startswith("{") or "json" not in content_type.lower() and not text.startswith("{"):
-        shown = text.replace("\n", " ")[:80] or "(empty)"
-        log_models_failure(
-            f"GitHub Models returned HTTP {status} {content_type or 'unknown type'} body {shown!r}, not a chat completion."
-        )
-        return 0
-    try:
-        payload = json.loads(text)
-    except json.JSONDecodeError:
-        log_models_failure("GitHub Models returned a response that was not JSON.")
-        return 0
-    choices = payload.get("choices") if isinstance(payload, dict) else None
-    if not choices:
-        log_models_failure("GitHub Models returned JSON without a chat completion.")
-        return 0
-    print("GitHub Models check passed: the endpoint returned a chat completion.")
+    choices = payload.get("choices") or []
+    content = ""
+    if choices and isinstance(choices[0], dict):
+        message = choices[0].get("message") or {}
+        content = str(message.get("content") or "")
+    print(f"GitHub Models check passed: {SUMMARY_URL} returned a chat completion from {model}.")
+    print(f"GitHub Models completion: {content!r}")
     return 0
 
 
