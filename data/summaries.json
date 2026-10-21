@@ -39,7 +39,7 @@
     {
       "id": "10.1002/acn3.70555",
       "link": "https://doi.org/10.1002/acn3.70555",
-      "summary": "Brain scans picked up changes in the brainstem several months before balance problems began. That could help future trials start treatment earlier."
+      "summary": "Brain scans found inflammation in the brainstem of gene carriers before balance problems, and it stayed high through the disease. The study points to that as an early sign trials could check."
     },
     {
       "id": "10.1007/s12687-026-00950-3",
@@ -435,6 +435,61 @@
       "id": "10.1016/j.nbd.2025.107232",
       "link": "https://doi.org/10.1016/j.nbd.2025.107232",
       "summary": "A scan of the brain's waste-clearing flow was lower in SCA3 than in healthy people, and lower again once ataxia had started."
+    },
+    {
+      "id": "10.1109/jsen.2026.3726075",
+      "link": "https://doi.org/10.1109/jsen.2026.3726075",
+      "summary": "Shoe sensors found that uneven steps set people with SCA3 apart from healthy people, and those uneven steps lined up with how severe the ataxia was. The same measures also sorted milder ataxia from moderate."
+    },
+    {
+      "id": "10.1186/s12883-026-05420-4",
+      "link": "https://doi.org/10.1186/s12883-026-05420-4",
+      "summary": "Worse balance problems went along with more anxiety in people with SCA3, and more than half of this group had anxiety. It also lined up with weaker thinking scores."
+    },
+    {
+      "id": "10.51126/revsalus.v8isupiii.48079",
+      "link": "https://doi.org/10.51126/revsalus.v8isupiii.48079",
+      "summary": "Everyone in this Azores group with Machado-Joseph disease reported dizziness and walking trouble, and most had hearing loss they did not always notice. The study says that hearing loss can be hidden by the balance problems."
+    },
+    {
+      "id": "10.1186/s13023-026-04402-6",
+      "link": "https://doi.org/10.1186/s13023-026-04402-6",
+      "summary": "Magnetic pulses over the brain lowered ataxia scores and improved thinking scores in people with SCA3. The link between the cerebellum and the movement area of the brain moved closer to the healthy pattern."
+    },
+    {
+      "id": "10.1007/s12035-026-06080-8",
+      "link": "https://doi.org/10.1007/s12035-026-06080-8",
+      "summary": "A correction says one protein blot in the original mouse citalopram study was copied into the wrong place, and a spinal-cord label was wrong. The authors say the measured results and the conclusions stay the same."
+    },
+    {
+      "id": "10.1212/wnl.0000000000217020",
+      "link": "https://doi.org/10.1212/wnl.0000000000217020",
+      "summary": "People taking troriluzole took longer to need a wheelchair than untreated people in natural-history studies. The chance of reaching a wheelchair was more than four times higher without the drug."
+    },
+    {
+      "id": "10.48195/jis2026.30502",
+      "link": "https://doi.org/10.48195/jis2026.30502",
+      "summary": "Five weeks of home physiotherapy for an older man with Machado-Joseph disease improved his hand coordination, getting around, and day-to-day independence. Adapted tools also made his medicines easier to organize."
+    },
+    {
+      "id": "10.1007/978-3-032-07539-0_13",
+      "link": "https://doi.org/10.1007/978-3-032-07539-0_13",
+      "summary": "This review says a weak balance reflex is part of Machado-Joseph disease, and a simple bedside head-turn test can show it. It also covers dizziness that stays hidden and trouble reading other people's thoughts."
+    },
+    {
+      "id": "10.2169/internalmedicine.6851-25",
+      "link": "https://doi.org/10.2169/internalmedicine.6851-25",
+      "summary": "A letter argues that stiffness, weakness, and muscle wasting in a man with SCA3 are not enough to add an ALS diagnosis. Those signs can belong to SCA3, and his nerve tests were normal."
+    },
+    {
+      "id": "10.3724/j.pibb.2026.0006",
+      "link": "https://doi.org/10.3724/j.pibb.2026.0006",
+      "summary": "A commentary says a recent magnetic-stimulation study restored the cerebellum's braking signal in Machado-Joseph disease. The authors want future work to tailor that stimulation to each person."
+    },
+    {
+      "id": "10.1016/j.nsa.2026.106975",
+      "link": "https://doi.org/10.1016/j.nsa.2026.106975",
+      "summary": "In worms with SCA3, removing one serotonin receptor did not change the disease, but leaving only that receptor eased movement problems and protein clumps. Worms missing every serotonin receptor also improved somewhat, and that part is still being checked."
     }
   ]
 }

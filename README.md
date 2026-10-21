@@ -18,7 +18,7 @@ Pages:
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
-Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks GitHub Models once for each new paper that has an abstract and is not already cached. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary. The job never writes a generic stand-in sentence. A broken models endpoint prints `GITHUB MODELS CHECK FAILED` in the workflow log and a warning on the job.
+Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks GitHub Models once for each new paper that has an abstract and is not already cached. It posts to `https://models.github.ai/inference/chat/completions` with `Authorization: Bearer`, `Content-Type: application/json`, and `Accept: application/vnd.github+json`. The model id is one listed by `https://models.github.ai/catalog/models` when that catalog returns a list, and `openai/gpt-4.1-mini` otherwise. The workflow token has `models: read`. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary. The job never writes a generic stand-in sentence. A broken models endpoint logs one warning with the HTTP status and the first 200 characters of the body. The job keeps going.
 
 ## Daily refresh
 
