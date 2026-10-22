@@ -1182,6 +1182,17 @@ main.prose {
   font-weight: 800;
 }
 
+.quiet-help {
+  margin: 2.2rem 0 0.2rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.prose a,
+.sources a {
+  overflow-wrap: anywhere;
+}
+
 .sources { font-size: 0.92rem; }
 .sources li { margin-top: 0.45rem; }
 
