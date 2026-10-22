@@ -15,8 +15,6 @@ Pages:
 - [Pipeline](pipeline.html) — therapy programs by stage, from the 5 October 2026 review.
 - [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 5 October 2026.
 - [For families at risk](families.html) — inheritance, testing, pregnancy, talking with children, NAF’s virtual counseling offer, and the ESMI and READISCA studies.
-- [Talking with your children](talking.html) — for parents: what to say, testing as an adult choice, caregiving, and grief.
-- [If your mom or dad has SCA3](young-adults.html) — for adults 18 and over who had a parent with SCA3.
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
