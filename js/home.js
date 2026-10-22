@@ -102,6 +102,6 @@
       if (window.AtaxinGlossary) AtaxinGlossary.link(root);
     })
     .catch(() => {
-      root.innerHTML = `<p>The latest items could not be loaded. <a href="research.html">The research page</a> is still there.</p>`;
+      root.innerHTML = `<p>The latest items could not be loaded. <a href="research.html">Open the research page</a>.</p>`;
     });
 })();

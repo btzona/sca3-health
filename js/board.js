@@ -88,7 +88,7 @@
       const changeBits = [];
       if (changes) {
         (changes.new_trials || []).forEach((item) => {
-          changeBits.push(`<li><p>A study you could ask about was added. ${escapeHtml(statusSentence(item.status))}</p><p class="board-title">${escapeHtml(item.title)}</p></li>`);
+          changeBits.push(`<li><p>A study was added. ${escapeHtml(statusSentence(item.status))}</p><p class="board-title">${escapeHtml(item.title)}</p></li>`);
         });
         (changes.status_changes || []).forEach((item) => {
           const spoken = statusSentence(item.to) || item.to || "";
@@ -111,8 +111,8 @@
       const month = (changes && changes.label) || "this month";
       root.innerHTML = `<div class="board-grid">
         <section class="board-panel">
-          <h3>The closest anything has come</h3>
-          <p>These are the furthest-along efforts. None is approved yet.</p>
+          <h3>Furthest along</h3>
+          <p>None is approved yet.</p>
           <div class="board-programs">${closest}</div>
         </section>
         <section class="board-panel">
@@ -128,6 +128,6 @@
       </div>`;
     })
     .catch(() => {
-      root.innerHTML = `<p>The summary could not be loaded. The papers below are still here.</p>`;
+      root.innerHTML = `<p>The summary could not be loaded.</p>`;
     });
 })();

@@ -46,7 +46,7 @@
       "id": "biomarker",
       "title": "Biomarker",
       "pattern": "\\bbiomarkers?\\b",
-      "tip": "A measurable sign, in a scan, blood, or spinal fluid, used to track a disease. It is not itself a treatment."
+      "tip": "A measurable sign, in a scan, blood, or spinal fluid, used to track a disease."
     },
     {
       "id": "neurofilament",
@@ -58,7 +58,7 @@
       "id": "anticipation",
       "title": "Anticipation",
       "pattern": "\\banticipation\\b",
-      "tip": "The repeat often grows when it is passed on, which can mean earlier symptoms in the next generation. It is not a rule for any one child."
+      "tip": "The repeat often grows when it is passed on, which can mean earlier symptoms in the next generation."
     },
     {
       "id": "pgt-m",
@@ -76,7 +76,7 @@
       "id": "penetrance",
       "title": "Penetrance",
       "pattern": "\\bpenetrance\\b|\\bfull-penetrance\\b",
-      "tip": "The chance that someone with a disease-causing genotype will develop the disease. The lower edge of full penetrance in SCA3 is not perfectly sharp."
+      "tip": "The chance that someone with a disease-causing genotype will develop the disease. The lower edge of full penetrance in SCA3 is uncertain."
     },
     {
       "id": "sca3",
