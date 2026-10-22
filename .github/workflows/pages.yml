@@ -63,7 +63,7 @@ jobs:
         run: |
           rm -rf _site
           mkdir -p _site
-          cp index.html research.html about.html stand.html trials.html pipeline.html working.html families.html talking.html young-adults.html glossary.html resources.html sitemap.xml _site/
+          cp index.html research.html about.html stand.html trials.html pipeline.html working.html families.html glossary.html resources.html sitemap.xml _site/
           cp -a css js data img fonts _site/
 
       - name: Configure GitHub Pages
