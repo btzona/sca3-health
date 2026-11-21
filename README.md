@@ -13,7 +13,7 @@ Pages:
 - [About SCA3](about.html) — a plain-language introduction, checked against GeneReviews and the papers cited on that page.
 - [Open trials](trials.html) — interventional SCA3 studies a registry still lists as recruiting or not yet recruiting. `fetch.py` refreshes `data/trials.json` on the daily run and leaves Servier’s S233107 off while the public CTIS page lists that trial as end of trial on 11 September 2026.
 - [Pipeline](pipeline.html) — therapy programs by stage, from the 5 October 2026 review.
-- [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 5 October 2026.
+- [Where things stand](stand.html) — care, the treatment pipeline, reproductive options, and guidance for at-risk minors, reviewed 22 October 2026.
 - [For families at risk](families.html) — inheritance, testing, pregnancy, talking with children, NAF’s virtual counseling offer, and the ESMI and READISCA studies.
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
@@ -71,7 +71,7 @@ Set `SCA3_PREPRINT_FROM=2026-01-01` to ask the bioRxiv and medRxiv APIs for the 
 | `trials.html` | Open interventional trials |
 | `pipeline.html` | Therapy board, reviewed 5 October 2026 |
 | `working.html` | Companies and organizations working on SCA3, with delayed stock closes for the public ones |
-| `stand.html` | Where care and trials stand, as of 5 October 2026 |
+| `stand.html` | Where care and trials stand, as of 22 October 2026 |
 | `families.html` | For families at risk |
 | `glossary.html` | Term definitions |
 | `resources.html` | Organizations, clinics, registries |

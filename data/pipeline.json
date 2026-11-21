@@ -26,7 +26,9 @@
     {
       "name": "Troriluzole",
       "approved": false,
-      "closest": false,
+      "closest": true,
+      "plain": "On 22 October 2026 the FDA accepted Biohaven’s resubmitted NDA for Vyglxia (troriluzole) in spinocerebellar ataxia. The FDA decision target is the first quarter of 2027. An advisory committee meeting is planned. The date is not yet announced. Vyglxia is unapproved.",
+      "href": "https://www.sec.gov/Archives/edgar/data/1935979/000193597926000083/bhvn-20261022.htm",
       "registry_id": "NCT03701399"
     },
     {
