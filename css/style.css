@@ -312,20 +312,51 @@ summary:focus-visible {
   align-items: center;
   min-height: 22rem;
   background:
-    linear-gradient(100deg, #f4f7f8 0%, rgba(244, 247, 248, 0.94) 40%, rgba(244, 247, 248, 0.28) 100%),
-    url("../img/cajal-purkinje.webp") right center / auto 100% no-repeat,
-    var(--paper);
-  padding: 2.6rem 0;
+    radial-gradient(ellipse 60% 120% at 100% 0%, rgba(20, 152, 143, 0.35), transparent 50%),
+    linear-gradient(155deg, #0b1f33, #14324c);
+  color: #f4f8fb;
+  padding: 2.6rem 0 3.4rem;
+}
+
+.welcome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../img/cajal-purkinje.webp") right center / auto 108% no-repeat;
+  filter: invert(1) contrast(1.15);
+  mix-blend-mode: screen;
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.welcome::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, #0b1f33 0%, rgba(11, 31, 51, 0.94) 36%, rgba(11, 31, 51, 0.42) 68%, rgba(11, 31, 51, 0.12) 100%);
+  pointer-events: none;
+}
+
+.welcome .wrap {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 700px) {
   .welcome {
     min-height: 0;
     display: block;
-    background:
-      linear-gradient(180deg, rgba(244, 247, 248, 0.42) 0%, rgba(244, 247, 248, 0.9) 46%, #f4f7f8 100%),
-      url("../img/cajal-purkinje.webp") right -3rem top / 15rem auto no-repeat,
-      var(--paper);
+    padding-bottom: 2.8rem;
+  }
+
+  .welcome::before {
+    background-position: right -2.5rem top;
+    background-size: 16rem auto;
+    opacity: 0.48;
+  }
+
+  .welcome::after {
+    background: linear-gradient(180deg, rgba(11, 31, 51, 0.35) 0%, rgba(11, 31, 51, 0.78) 38%, #0b1f33 72%);
   }
 }
 
@@ -338,7 +369,7 @@ summary:focus-visible {
   font-size: clamp(1.9rem, 4.5vw, 3.2rem);
   letter-spacing: -0.03em;
   line-height: 1.28;
-  color: var(--navy);
+  color: white;
 }
 
 .welcome .share {
@@ -347,12 +378,15 @@ summary:focus-visible {
 }
 
 .welcome-note {
+  position: relative;
+  z-index: 2;
   background: var(--paper);
-  padding: 0.4rem 0 1.6rem;
+  padding: 0 0 1.6rem;
 }
 
 .welcome-note .note-card {
   max-width: 40rem;
+  margin-top: -1.6rem;
   box-shadow: var(--shadow);
   border-top-color: var(--teal);
 }
@@ -1003,13 +1037,16 @@ summary:focus-visible {
 .share-btn[data-copied="true"] .icon-check { display: block; }
 
 .hero .share-label,
-.page-hero .share-label { color: #d5e7e4; }
+.page-hero .share-label,
+.welcome .share-label { color: #d5e7e4; }
 
 .hero .share-btn,
-.page-hero .share-btn { color: #f4f8fb; }
+.page-hero .share-btn,
+.welcome .share-btn { color: #f4f8fb; }
 
 .hero .share-btn:hover,
-.page-hero .share-btn:hover {
+.page-hero .share-btn:hover,
+.welcome .share-btn:hover {
   color: white;
   border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.08);
