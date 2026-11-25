@@ -71,11 +71,18 @@ jobs:
         with:
           enablement: true
 
+      # Artifacts belong to the workflow run, not the attempt. A re-run keeps
+      # the previous attempt's artifact, and deploy-pages fails unless exactly
+      # one artifact has the name it is given. Name this attempt's artifact so
+      # the upload and the deploy agree.
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+          name: github-pages-${{ github.run_attempt }}
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
