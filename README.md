@@ -18,7 +18,17 @@ Pages:
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
-Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks GitHub Models once for each new paper that has an abstract and is not already cached. It posts to `https://models.github.ai/inference/chat/completions` with `Authorization: Bearer`, `Content-Type: application/json`, and `Accept: application/vnd.github+json`. The model id is one listed by `https://models.github.ai/catalog/models` when that catalog returns a list, and `openai/gpt-4.1-mini` otherwise. The workflow token has `models: read`. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary. The job never writes a generic stand-in sentence. A broken models endpoint logs one warning with the HTTP status and the first 200 characters of the body. The job keeps going.
+Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks a chat model once for each new paper that has an abstract and is not already cached. GitHub Models, which this job called at `https://models.github.ai/inference/chat/completions`, was retired on 30 July 2026. That host still answers every path with HTTP 200 and a plain-text body of `OK`. The catalog URL does the same. `Accept`, `X-GitHub-Api-Version`, `Content-Type`, and the JSON body do not bring the inference API back, and the workflow’s `models: read` permission no longer reaches a model.
+
+Until a replacement is configured, a new paper stays as a title with no summary. Cached summaries are left as they are. The job never writes a generic stand-in sentence. It logs one warning with the HTTP status, content type, request id (or `(none)`), and the first 200 characters of the body, then keeps publishing the site. A timeout, HTTP 429, HTTP 5xx, or other unexpected non-JSON body is tried up to three times. The plain-text `OK` from the retired host stops further summary calls for that run.
+
+To turn summaries back on, add repository Actions secrets:
+
+- `SCA3_SUMMARY_URL` — full URL of an OpenAI-compatible `POST .../chat/completions` endpoint. For Microsoft Foundry, use the project chat completions URL from the portal.
+- `SCA3_SUMMARY_TOKEN` — sent as `Authorization: Bearer`. Or set `SCA3_SUMMARY_API_KEY` instead, which is sent as the `api-key` header Foundry uses.
+- `SCA3_SUMMARY_MODEL` — optional. The workflow default is `openai/gpt-4.1-mini`. On Foundry this should be the deployment name.
+
+The workflow `GITHUB_TOKEN` is sent only to `models.github.ai`. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary.
 
 ## Daily refresh
 

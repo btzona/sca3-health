@@ -23,6 +23,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # GitHub Models was retired on 30 July 2026. This scope no longer grants inference.
   models: read
 
 # Let an in-progress production deploy finish. Skip older queued runs.
@@ -47,16 +48,30 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Check GitHub Models
+      - name: Test summary client
+        run: python3 -m unittest tests.test_summary_client
+
+      # GitHub Models (models.github.ai) was retired on 30 July 2026 and now
+      # answers every request with HTTP 200 and the plain-text body OK.
+      # Summaries resume when these secrets point at an OpenAI-compatible
+      # chat endpoint. Empty secrets are ignored. A failed check does not
+      # stop the deploy; fetch.py logs one warning and keeps the cached summaries.
+      - name: Check summary endpoint
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SCA3_SUMMARY_MODEL: openai/gpt-4.1-mini
+          SCA3_SUMMARY_URL: ${{ secrets.SCA3_SUMMARY_URL }}
+          SCA3_SUMMARY_TOKEN: ${{ secrets.SCA3_SUMMARY_TOKEN }}
+          SCA3_SUMMARY_API_KEY: ${{ secrets.SCA3_SUMMARY_API_KEY }}
         run: python3 fetch.py --check-models
 
       - name: Refresh the ledger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SCA3_SUMMARY_MODEL: openai/gpt-4.1-mini
+          SCA3_SUMMARY_URL: ${{ secrets.SCA3_SUMMARY_URL }}
+          SCA3_SUMMARY_TOKEN: ${{ secrets.SCA3_SUMMARY_TOKEN }}
+          SCA3_SUMMARY_API_KEY: ${{ secrets.SCA3_SUMMARY_API_KEY }}
         run: python3 fetch.py
 
       - name: Assemble static site

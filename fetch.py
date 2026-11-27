@@ -2496,12 +2496,45 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
 
 
 SUMMARIES_OUT = ROOT / "data" / "summaries.json"
-SUMMARY_MODEL = os.environ.get("SCA3_SUMMARY_MODEL", "openai/gpt-4.1-mini")
-SUMMARY_URL = os.environ.get("SCA3_SUMMARY_URL", "https://models.github.ai/inference/chat/completions")
+# GitHub Models was retired on 30 July 2026. models.github.ai still answers
+# every path with HTTP 200 and the plain-text body "OK". That is a placeholder,
+# not a chat completion. A replacement OpenAI-compatible endpoint is used when
+# SCA3_SUMMARY_URL plus SCA3_SUMMARY_TOKEN or SCA3_SUMMARY_API_KEY is set.
+DEFAULT_SUMMARY_MODEL = "openai/gpt-4.1-mini"
+DEFAULT_SUMMARY_URL = "https://models.github.ai/inference/chat/completions"
+GITHUB_MODELS_HOSTS = {"models.github.ai"}
+RETIREMENT_HOSTS = GITHUB_MODELS_HOSTS | {"models.inference.ai.azure.com"}
+GITHUB_API_VERSION = "2026-03-10"
+SUMMARY_ACCEPT = "application/json, application/vnd.github+json"
+SUMMARY_ATTEMPTS = 3
+SUMMARY_RETRY_STATUSES = {408, 409, 425, 429, 500, 502, 503, 504}
+SUMMARY_BACKOFF_SECONDS = (0.4, 1.2)
+DIAGNOSTIC_HEADER_NAMES = (
+    "x-request-id",
+    "x-github-request-id",
+    "x-ms-request-id",
+    "apim-request-id",
+    "request-id",
+    "x-ratelimit-remaining",
+    "retry-after",
+)
+RETIREMENT_NOTE = (
+    "GitHub Models was retired on 30 July 2026 "
+    "(https://github.blog/changelog/2026-07-30-github-models-is-now-retired/). "
+    "The host models.github.ai now answers every path, including this one, with HTTP 200 "
+    "and a plain-text body of OK. Accept, X-GitHub-Api-Version, Content-Type, and the "
+    "JSON body do not change that response. "
+    "To restore summaries, add repository secrets SCA3_SUMMARY_URL "
+    "(an OpenAI-compatible chat completions URL) and SCA3_SUMMARY_TOKEN (sent as "
+    "Authorization: Bearer) or SCA3_SUMMARY_API_KEY (sent as the api-key header). "
+    "SCA3_SUMMARY_MODEL is optional and defaults to openai/gpt-4.1-mini. "
+    "The workflow token is not sent to a replacement host."
+)
 SUMMARY_ABOUT = (
-    "Plain-language summaries cached by DOI or id. The daily refresh asks GitHub Models "
-    "once per uncached paper that has an abstract, and stores only a reply that stays "
-    "inside that abstract. A failed call, or a paper with no abstract, leaves no summary."
+    "Plain-language summaries cached by DOI or id. The daily refresh asks the "
+    "configured chat model once per uncached paper that has an abstract, and stores "
+    "only a reply that stays inside that abstract. A failed call, or a paper with "
+    "no abstract, leaves no summary."
 )
 SUMMARY_SYSTEM = (
     "You write for a parent, in a warm everyday voice. "
@@ -2522,8 +2555,66 @@ SUMMARY_HEDGE_RE = re.compile(
     r"not a treatment|not medical|not a promise|not an approval",
     re.I,
 )
-_summary_token_warned = False
 _models_failure_logged = False
+_models_stopped = False
+_resolved_model: str | None = None
+_resolved_model_key: tuple[str, str] | None = None
+
+
+def env_nonempty(name: str, default: str = "") -> str:
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    value = value.strip()
+    return value or default
+
+
+def summary_url() -> str:
+    return env_nonempty("SCA3_SUMMARY_URL", DEFAULT_SUMMARY_URL)
+
+
+def summary_model_name() -> str:
+    return env_nonempty("SCA3_SUMMARY_MODEL", DEFAULT_SUMMARY_MODEL)
+
+
+def summary_backoff(attempt_index: int) -> float:
+    raw = env_nonempty("SCA3_SUMMARY_BACKOFF")
+    if raw:
+        try:
+            return max(0.0, float(raw))
+        except ValueError:
+            pass
+    if attempt_index < 0:
+        return SUMMARY_BACKOFF_SECONDS[0]
+    if attempt_index >= len(SUMMARY_BACKOFF_SECONDS):
+        return SUMMARY_BACKOFF_SECONDS[-1]
+    return SUMMARY_BACKOFF_SECONDS[attempt_index]
+
+
+def hostname_of(url: str) -> str:
+    return (urllib.parse.urlparse(url).hostname or "").lower().rstrip(".")
+
+
+def is_github_models_host(host: str) -> bool:
+    host = (host or "").lower().rstrip(".")
+    return host in GITHUB_MODELS_HOSTS or host.endswith(".models.github.ai")
+
+
+def active_secret_values() -> list[str]:
+    values: list[str] = []
+    for name in ("SCA3_SUMMARY_TOKEN", "SCA3_SUMMARY_API_KEY", "GITHUB_TOKEN", "GH_TOKEN"):
+        value = (os.environ.get(name) or "").strip()
+        if len(value) >= 8:
+            values.append(value)
+    return values
+
+
+def redact_secrets(text: str, secrets: list[str] | None = None) -> str:
+    redacted = text
+    for secret in secrets if secrets is not None else active_secret_values():
+        if secret and secret in redacted:
+            redacted = redacted.replace(secret, "[redacted]")
+    return redacted
 
 
 def log_models_failure(reason: str) -> None:
@@ -2532,15 +2623,18 @@ def log_models_failure(reason: str) -> None:
     if _models_failure_logged:
         return
     _models_failure_logged = True
-    print(
-        "::warning title=GitHub Models unavailable::"
+    message = redact_secrets(
         f"{reason} New papers are left without a summary. Cached summaries are unchanged."
     )
-
-
-SUMMARY_ACCEPT = "application/vnd.github+json"
-CATALOG_URL = "https://models.github.ai/catalog/models"
-_resolved_model: str | None = None
+    print(f"::warning title=Summaries unavailable::{message}")
+    summary_path = env_nonempty("GITHUB_STEP_SUMMARY")
+    if not summary_path:
+        return
+    try:
+        with open(summary_path, "a", encoding="utf-8") as handle:
+            handle.write("\n### Summaries\n\n" + message + "\n")
+    except OSError:
+        return
 
 
 def models_body_preview(body: bytes | str) -> str:
@@ -2551,111 +2645,254 @@ def models_body_preview(body: bytes | str) -> str:
     return text[:200]
 
 
-def log_models_http_failure(status: int | str, body: bytes | str) -> None:
+def header_value(headers, name: str) -> str:
+    if not headers:
+        return ""
+    direct = headers.get(name) if hasattr(headers, "get") else None
+    if direct:
+        return str(direct).strip()
+    try:
+        pairs = list(headers.items())
+    except (AttributeError, TypeError):
+        return ""
+    wanted = name.lower()
+    for key, value in pairs:
+        if str(key).lower() == wanted and value:
+            return str(value).strip()
+    return ""
+
+
+def safe_header_value(value: str) -> str:
+    cleaned = " ".join(str(value).split())
+    if len(cleaned) > 120:
+        return cleaned[:117] + "..."
+    return cleaned
+
+
+def response_diagnostics(headers, request_url: str, final_url: str) -> str:
+    content_type = header_value(headers, "Content-Type") or "(none)"
+    parts = [f"content-type={content_type}"]
+    request_id = ""
+    request_header = ""
+    for name in DIAGNOSTIC_HEADER_NAMES:
+        if name in {"x-ratelimit-remaining", "retry-after"}:
+            continue
+        value = header_value(headers, name)
+        if value:
+            request_id = value
+            request_header = name
+            break
+    if request_id:
+        parts.append(f"{request_header}={safe_header_value(request_id)}")
+    else:
+        parts.append("request-id=(none)")
+    for name in ("retry-after", "x-ratelimit-remaining"):
+        value = header_value(headers, name)
+        if value:
+            parts.append(f"{name}={safe_header_value(value)}")
+    if final_url and final_url.rstrip("/") != (request_url or "").rstrip("/"):
+        parts.append(f"final-url={final_url}")
+    return " ".join(parts)
+
+
+def is_retirement_stub(url: str, status: int, body: bytes | str) -> bool:
+    """True for the plain-text OK placeholder left on the retired Models hosts."""
+    host = hostname_of(url)
+    if host not in RETIREMENT_HOSTS and not is_github_models_host(host):
+        return False
+    if status != 200:
+        return False
+    if isinstance(body, bytes):
+        text = body.decode("utf-8", "replace")
+    else:
+        text = body or ""
+    return text.strip().upper() in {"OK", "OK."}
+
+
+def describe_models_response(
+    url: str,
+    status: int | str,
+    body: bytes | str,
+    headers,
+    final_url: str,
+    attempts: int = 1,
+) -> str:
     preview = models_body_preview(body)
-    log_models_failure(
-        f"POST {SUMMARY_URL} returned HTTP {status}. "
-        f"First 200 characters of the body: {preview!r}"
+    message = (
+        f"POST {url} returned HTTP {status} {response_diagnostics(headers, url, final_url)}. "
+        f"First 200 characters of the body: {preview!r}."
+    )
+    if isinstance(status, int) and is_retirement_stub(url, status, body):
+        message = f"{message} {RETIREMENT_NOTE}"
+    elif attempts > 1:
+        message = f"{message} Tried {attempts} times."
+    return message
+
+
+def missing_credential_reason(url: str) -> str:
+    host = hostname_of(url)
+    if is_github_models_host(host) or host in RETIREMENT_HOSTS:
+        return f"No token was available for {url}. {RETIREMENT_NOTE}"
+    return (
+        f"SCA3_SUMMARY_URL is {url}, which is not GitHub Models. "
+        "Set SCA3_SUMMARY_TOKEN or SCA3_SUMMARY_API_KEY. "
+        "GITHUB_TOKEN is not sent to that host."
     )
 
 
-def catalog_model_ids(token: str) -> list[str] | None:
-    """Model ids from the catalog, or None when that response is not a model list."""
-    request = urllib.request.Request(
-        CATALOG_URL,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": SUMMARY_ACCEPT,
-            "User-Agent": USER_AGENT,
-        },
-        method="GET",
-    )
+def summary_auth(url: str) -> tuple[str, dict[str, str]] | None:
+    """Bearer token and extra headers for this URL.
+
+    GITHUB_TOKEN is sent only to the retired GitHub Models host. A replacement
+    endpoint receives SCA3_SUMMARY_TOKEN and/or SCA3_SUMMARY_API_KEY.
+    """
+    api_key = env_nonempty("SCA3_SUMMARY_API_KEY")
+    token = env_nonempty("SCA3_SUMMARY_TOKEN")
+    extra: dict[str, str] = {}
+    if api_key:
+        extra["api-key"] = api_key
+    host = hostname_of(url)
+    if token or (api_key and not is_github_models_host(host)):
+        return token, extra
+    if is_github_models_host(host):
+        github = env_nonempty("GITHUB_TOKEN") or env_nonempty("GH_TOKEN")
+        if github or api_key:
+            return github, extra
+    return None
+
+
+def models_request_headers(url: str, token: str, extra: dict[str, str]) -> dict[str, str]:
+    headers = {
+        "Accept": SUMMARY_ACCEPT,
+        "Content-Type": "application/json",
+        "User-Agent": USER_AGENT,
+    }
+    if is_github_models_host(hostname_of(url)):
+        headers["X-GitHub-Api-Version"] = GITHUB_API_VERSION
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    for key, value in extra.items():
+        if key.lower() == "authorization":
+            continue
+        headers[key] = value
+    return headers
+
+
+def resolve_summary_model() -> str:
+    """Model id from SCA3_SUMMARY_MODEL, or openai/gpt-4.1-mini.
+
+    The GitHub Models catalog is the same retired placeholder as the inference
+    endpoint, so it is not consulted.
+    """
+    global _resolved_model, _resolved_model_key
+    configured = summary_model_name()
+    key = (summary_url(), configured)
+    if _resolved_model_key == key and _resolved_model:
+        return _resolved_model
+    _resolved_model_key = key
+    _resolved_model = configured
+    return configured
+
+
+def parse_chat_completion(raw: bytes) -> dict | None:
+    text = raw.decode("utf-8", "replace").strip()
+    if not text.startswith("{"):
+        return None
     try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            raw = response.read()
-    except urllib.error.HTTPError as exc:
-        if exc.fp:
-            exc.read()
-        return None
-    except (urllib.error.URLError, TimeoutError, OSError):
-        return None
-    text = raw.decode("utf-8", "replace")
-    stripped = text.strip()
-    if not stripped.startswith("{") and not stripped.startswith("["):
-        return None
-    try:
-        payload = json.loads(stripped)
+        loaded = json.loads(text)
     except json.JSONDecodeError:
         return None
-    rows = payload
-    if isinstance(payload, dict):
-        rows = payload.get("models") or payload.get("data") or payload.get("items") or []
-    if not isinstance(rows, list):
+    if not isinstance(loaded, dict):
         return None
-    ids: list[str] = []
-    for row in rows:
-        if isinstance(row, str) and row.strip():
-            ids.append(row.strip())
-        elif isinstance(row, dict):
-            ident = str(row.get("id") or row.get("name") or "").strip()
-            if ident:
-                ids.append(ident)
-    return ids
+    choices = loaded.get("choices")
+    if not isinstance(choices, list) or not choices:
+        return None
+    return loaded
 
 
-def resolve_summary_model(token: str) -> str:
-    """Use the configured model when the catalog lists it, otherwise the first listed id."""
-    global _resolved_model
-    if _resolved_model:
-        return _resolved_model
-    ids = catalog_model_ids(token)
-    if ids and SUMMARY_MODEL not in ids:
-        _resolved_model = ids[0]
-        return _resolved_model
-    _resolved_model = SUMMARY_MODEL
-    return _resolved_model
+def response_is_retryable(status: int) -> bool:
+    return status in SUMMARY_RETRY_STATUSES or status == 200 or status >= 500
 
 
-def post_chat_completion(token: str, payload: dict) -> dict | None:
-    """POST one chat completion. Failure logs the HTTP status and the start of the body."""
-    body = json.dumps(payload).encode("utf-8")
+def perform_models_post(
+    url: str,
+    body: bytes,
+    token: str,
+    extra: dict[str, str],
+) -> tuple[int, bytes, object, str]:
+    """POST one chat completion. HTTP errors are returned, not raised."""
     request = urllib.request.Request(
-        SUMMARY_URL,
+        url,
         data=body,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": SUMMARY_ACCEPT,
-            "Content-Type": "application/json",
-            "User-Agent": USER_AGENT,
-        },
+        headers=models_request_headers(url, token, extra),
         method="POST",
     )
     try:
         with urllib.request.urlopen(request, timeout=45) as response:
-            raw = response.read()
-            status = response.status
+            return response.status, response.read(), response.headers, response.geturl()
     except urllib.error.HTTPError as exc:
         raw = exc.read() if exc.fp else b""
-        log_models_http_failure(exc.code, raw)
+        final = getattr(exc, "url", None) or url
+        return exc.code, raw, exc.headers, final
+
+
+def stop_models(reason: str) -> None:
+    global _models_stopped
+    _models_stopped = True
+    log_models_failure(reason)
+
+
+def post_chat_completion(payload: dict) -> dict | None:
+    """POST one chat completion. Transient bad responses are retried.
+
+    The retired GitHub Models placeholder (HTTP 200, body OK) is not transient.
+    After a definitive failure, later papers in this process are skipped so a
+    dead endpoint cannot stall the Pages deploy.
+    """
+    if _models_stopped:
         return None
-    except (urllib.error.URLError, TimeoutError, OSError) as exc:
-        log_models_failure(f"GitHub Models could not be reached ({exc}).")
+    url = summary_url()
+    auth = summary_auth(url)
+    if auth is None:
+        stop_models(missing_credential_reason(url))
         return None
-    text = raw.decode("utf-8", "replace")
-    stripped = text.strip()
-    parsed: dict | None = None
-    if stripped.startswith("{"):
+    token, extra = auth
+    body = json.dumps(payload).encode("utf-8")
+    last_status: int | str = "network"
+    last_body: bytes = b""
+    last_headers = None
+    last_final = url
+    for attempt in range(SUMMARY_ATTEMPTS):
         try:
-            loaded = json.loads(stripped)
-        except json.JSONDecodeError:
-            loaded = None
-        if isinstance(loaded, dict):
-            parsed = loaded
-    choices = parsed.get("choices") if parsed else None
-    if not choices:
-        log_models_http_failure(status, text)
+            status, raw, headers, final_url = perform_models_post(url, body, token, extra)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            last_status = "network"
+            last_body = str(exc).encode("utf-8", "replace")
+            last_headers = None
+            last_final = url
+            if attempt + 1 < SUMMARY_ATTEMPTS:
+                time.sleep(summary_backoff(attempt))
+                continue
+            stop_models(f"Summary endpoint could not be reached ({exc}). Tried {attempt + 1} times.")
+            return None
+        parsed = parse_chat_completion(raw)
+        if parsed:
+            return parsed
+        last_status = status
+        last_body = raw
+        last_headers = headers
+        last_final = final_url
+        if is_retirement_stub(url, status, raw):
+            stop_models(describe_models_response(url, status, raw, headers, final_url, attempt + 1))
+            return None
+        if response_is_retryable(status) and attempt + 1 < SUMMARY_ATTEMPTS:
+            time.sleep(summary_backoff(attempt))
+            continue
+        stop_models(describe_models_response(url, status, raw, headers, final_url, attempt + 1))
         return None
-    return parsed
+    stop_models(describe_models_response(url, last_status, last_body, last_headers, last_final, SUMMARY_ATTEMPTS))
+    return None
+
 
 
 def summary_cache_keys(item: dict) -> list[str]:
@@ -2700,18 +2937,12 @@ def accept_model_summary(content: str) -> str | None:
 
 
 def github_model_summary(title: str, abstract: str) -> str | None:
-    """One parent-language summary from GitHub Models, or None on any failure."""
-    global _summary_token_warned
-    token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
-    if not token:
-        if not _summary_token_warned:
-            log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
-            _summary_token_warned = True
+    """One parent-language summary from the configured chat model, or None on failure."""
+    if _models_stopped:
         return None
     payload = post_chat_completion(
-        token,
         {
-            "model": resolve_summary_model(token),
+            "model": resolve_summary_model(),
             "temperature": 0,
             "max_tokens": 120,
             "messages": [
@@ -2777,6 +3008,8 @@ def fill_summaries(articles: list[dict]) -> None:
     records, _failed = europepmc_by_doi([doi for _article, doi in pending])
     added = 0
     for article, doi in pending:
+        if _models_stopped:
+            break
         record = records.get(doi) or {}
         abstract = re.sub(r"\s+", " ", strip_html(str(record.get("abstractText") or ""))).strip()
         if len(abstract) < 80:
@@ -2870,14 +3103,17 @@ def main() -> int:
 
 
 def check_models() -> int:
-    """Ask GitHub Models for one completion. A dead endpoint is logged and does not fail the job."""
-    token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
-    if not token:
-        log_models_failure("No GITHUB_TOKEN was available for GitHub Models.")
+    """Ask the summary endpoint for one completion.
+
+    A dead endpoint, including the retired GitHub Models placeholder, is logged
+    and does not fail the job. The Pages deploy still publishes the ledger.
+    """
+    url = summary_url()
+    if summary_auth(url) is None:
+        log_models_failure(missing_credential_reason(url))
         return 0
-    model = resolve_summary_model(token)
+    model = resolve_summary_model()
     payload = post_chat_completion(
-        token,
         {
             "model": model,
             "temperature": 0,
@@ -2892,8 +3128,8 @@ def check_models() -> int:
     if choices and isinstance(choices[0], dict):
         message = choices[0].get("message") or {}
         content = str(message.get("content") or "")
-    print(f"GitHub Models check passed: {SUMMARY_URL} returned a chat completion from {model}.")
-    print(f"GitHub Models completion: {content!r}")
+    print(f"Summary endpoint check passed: {url} returned a chat completion from {model}.")
+    print(f"Summary completion: {content!r}")
     return 0
 
 
