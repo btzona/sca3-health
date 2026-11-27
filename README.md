@@ -18,17 +18,19 @@ Pages:
 - [Glossary](glossary.html) — short definitions. The first use of a term on other pages links here.
 - [Resources](resources.html) — NAF, CRC-SCA, GeneReviews, NORD, clinics, and registries.
 
-Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks a chat model once for each new paper that has an abstract and is not already cached. GitHub Models, which this job called at `https://models.github.ai/inference/chat/completions`, was retired on 30 July 2026. That host still answers every path with HTTP 200 and a plain-text body of `OK`. The catalog URL does the same. `Accept`, `X-GitHub-Api-Version`, `Content-Type`, and the JSON body do not bring the inference API back, and the workflow’s `models: read` permission no longer reaches a model.
+Plain-language summaries live in `data/summaries.json`, cached by DOI or id. The daily job asks a chat model once for each new paper that has an abstract and is not already cached.
 
-Until a replacement is configured, a new paper stays as a title with no summary. Cached summaries are left as they are. The job never writes a generic stand-in sentence. It logs one warning with the HTTP status, content type, request id (or `(none)`), and the first 200 characters of the body, then keeps publishing the site. A timeout, HTTP 429, HTTP 5xx, or other unexpected non-JSON body is tried up to three times. The plain-text `OK` from the retired host stops further summary calls for that run.
+To turn summaries on, add one Actions secret. Create a free key in [Google AI Studio](https://aistudio.google.com/apikey), then open **Settings → Secrets and variables → Actions** and save it as `GEMINI_API_KEY`. The next run calls Gemini’s OpenAI-compatible endpoint (`https://generativelanguage.googleapis.com/v1beta/openai/chat/completions`) with the model `gemini-3.8-flash` and `Authorization: Bearer`. Requests are spaced about 15 seconds apart so a batch of new papers stays under the free-tier limit of about 5 requests a minute. If Gemini answers HTTP 429, the job waits for `Retry-After` when that is at least 15 seconds, and otherwise waits 15 seconds and then 30.
 
-To turn summaries back on, add repository Actions secrets:
+Until `GEMINI_API_KEY` is set, the job prints one note that summaries are paused and keeps publishing the site. Cached summaries stay as they are. The job never writes a generic stand-in sentence.
 
-- `SCA3_SUMMARY_URL` — full URL of an OpenAI-compatible `POST .../chat/completions` endpoint. For Microsoft Foundry, use the project chat completions URL from the portal.
+A different OpenAI-compatible endpoint still overrides Gemini when these secrets are set:
+
+- `SCA3_SUMMARY_URL` — full URL of a `POST .../chat/completions` endpoint. For Microsoft Foundry, use the project chat completions URL from the portal.
 - `SCA3_SUMMARY_TOKEN` — sent as `Authorization: Bearer`. Or set `SCA3_SUMMARY_API_KEY` instead, which is sent as the `api-key` header Foundry uses.
-- `SCA3_SUMMARY_MODEL` — optional. The workflow default is `openai/gpt-4.1-mini`. On Foundry this should be the deployment name.
+- `SCA3_SUMMARY_MODEL` — optional. Leave it empty to use `gemini-3.8-flash` with Gemini, or `openai/gpt-4.1-mini` with another endpoint. On Foundry this should be the deployment name.
 
-The workflow `GITHUB_TOKEN` is sent only to `models.github.ai`. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state. If the model call fails, or the paper has no abstract, that item stays as a title with no summary.
+GitHub Models (`models.github.ai`) was retired on 30 July 2026. That host still answers every path with HTTP 200 and a plain-text body of `OK`. The workflow `GITHUB_TOKEN` is sent only there, and only when `SCA3_SUMMARY_URL` points at it. A timeout, HTTP 429, HTTP 5xx, or other unexpected non-JSON body is tried up to three times. The plain-text `OK` stops further summary calls for that run. If a call fails, or the paper has no abstract, that item stays as a title with no summary. The prompt asks for one or two short sentences, about 35 words, in everyday language, with at most one number and no hope the abstract does not state.
 
 ## Daily refresh
 

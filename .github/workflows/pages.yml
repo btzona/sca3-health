@@ -51,27 +51,31 @@ jobs:
       - name: Test summary client
         run: python3 -m unittest tests.test_summary_client
 
-      # GitHub Models (models.github.ai) was retired on 30 July 2026 and now
-      # answers every request with HTTP 200 and the plain-text body OK.
-      # Summaries resume when these secrets point at an OpenAI-compatible
-      # chat endpoint. Empty secrets are ignored. A failed check does not
-      # stop the deploy; fetch.py logs one warning and keeps the cached summaries.
+      # Paper summaries use Google Gemini when GEMINI_API_KEY is set and
+      # SCA3_SUMMARY_URL is empty. fetch.py then calls Gemini's
+      # OpenAI-compatible endpoint with gemini-3.8-flash and paces requests
+      # for the free tier (about 5 per minute). SCA3_SUMMARY_URL plus a token
+      # or api-key still overrides that. Empty secrets are ignored. With none
+      # of them set, fetch.py prints one note and exits 0 so this deploy
+      # keeps publishing. A failed check does the same.
       - name: Check summary endpoint
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SCA3_SUMMARY_MODEL: openai/gpt-4.1-mini
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SCA3_SUMMARY_URL: ${{ secrets.SCA3_SUMMARY_URL }}
           SCA3_SUMMARY_TOKEN: ${{ secrets.SCA3_SUMMARY_TOKEN }}
           SCA3_SUMMARY_API_KEY: ${{ secrets.SCA3_SUMMARY_API_KEY }}
+          SCA3_SUMMARY_MODEL: ${{ secrets.SCA3_SUMMARY_MODEL }}
         run: python3 fetch.py --check-models
 
       - name: Refresh the ledger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SCA3_SUMMARY_MODEL: openai/gpt-4.1-mini
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SCA3_SUMMARY_URL: ${{ secrets.SCA3_SUMMARY_URL }}
           SCA3_SUMMARY_TOKEN: ${{ secrets.SCA3_SUMMARY_TOKEN }}
           SCA3_SUMMARY_API_KEY: ${{ secrets.SCA3_SUMMARY_API_KEY }}
+          SCA3_SUMMARY_MODEL: ${{ secrets.SCA3_SUMMARY_MODEL }}
         run: python3 fetch.py
 
       - name: Assemble static site

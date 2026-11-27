@@ -2498,10 +2498,19 @@ def write_changes(previous_articles: list[dict], articles: list[dict], previous_
 SUMMARIES_OUT = ROOT / "data" / "summaries.json"
 # GitHub Models was retired on 30 July 2026. models.github.ai still answers
 # every path with HTTP 200 and the plain-text body "OK". That is a placeholder,
-# not a chat completion. A replacement OpenAI-compatible endpoint is used when
-# SCA3_SUMMARY_URL plus SCA3_SUMMARY_TOKEN or SCA3_SUMMARY_API_KEY is set.
+# not a chat completion. With no SCA3_SUMMARY_URL, a GEMINI_API_KEY uses Google
+# Gemini's free-tier OpenAI-compatible endpoint. An explicit SCA3_SUMMARY_URL
+# still wins, with SCA3_SUMMARY_TOKEN or SCA3_SUMMARY_API_KEY.
 DEFAULT_SUMMARY_MODEL = "openai/gpt-4.1-mini"
 DEFAULT_SUMMARY_URL = "https://models.github.ai/inference/chat/completions"
+GEMINI_SUMMARY_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+GEMINI_SUMMARY_MODEL = "gemini-3.8-flash"
+GEMINI_HOST = "generativelanguage.googleapis.com"
+# Free tier for gemini-3.8-flash is about 5 requests per minute. Stay at 4/min.
+GEMINI_PACE_SECONDS = 15.0
+# A 429 waits for Retry-After when that is longer than this floor, else 15s then 30s.
+GEMINI_429_WAIT_SECONDS = (15.0, 30.0)
+GEMINI_429_WAIT_CAP_SECONDS = 60.0
 GITHUB_MODELS_HOSTS = {"models.github.ai"}
 RETIREMENT_HOSTS = GITHUB_MODELS_HOSTS | {"models.inference.ai.azure.com"}
 GITHUB_API_VERSION = "2026-03-10"
@@ -2524,11 +2533,18 @@ RETIREMENT_NOTE = (
     "The host models.github.ai now answers every path, including this one, with HTTP 200 "
     "and a plain-text body of OK. Accept, X-GitHub-Api-Version, Content-Type, and the "
     "JSON body do not change that response. "
-    "To restore summaries, add repository secrets SCA3_SUMMARY_URL "
-    "(an OpenAI-compatible chat completions URL) and SCA3_SUMMARY_TOKEN (sent as "
-    "Authorization: Bearer) or SCA3_SUMMARY_API_KEY (sent as the api-key header). "
-    "SCA3_SUMMARY_MODEL is optional and defaults to openai/gpt-4.1-mini. "
+    "To restore summaries, add a GEMINI_API_KEY repository secret (Google AI Studio, free tier) "
+    "or set SCA3_SUMMARY_URL (an OpenAI-compatible chat completions URL) and "
+    "SCA3_SUMMARY_TOKEN (sent as Authorization: Bearer) or SCA3_SUMMARY_API_KEY "
+    "(sent as the api-key header). "
+    "SCA3_SUMMARY_MODEL is optional. Gemini defaults to gemini-3.8-flash. "
     "The workflow token is not sent to a replacement host."
+)
+SUMMARIES_PAUSED_NOTE = (
+    "Summaries are paused until GEMINI_API_KEY is added under "
+    "Settings → Secrets and variables → Actions. "
+    "Create a free key in Google AI Studio, save it as that repository secret, "
+    "and the next run will summarize new papers. The site keeps publishing in the meantime."
 )
 SUMMARY_ABOUT = (
     "Plain-language summaries cached by DOI or id. The daily refresh asks the "
@@ -2557,6 +2573,8 @@ SUMMARY_HEDGE_RE = re.compile(
 )
 _models_failure_logged = False
 _models_stopped = False
+_summaries_note_logged = False
+_last_summary_post_at: float | None = None
 _resolved_model: str | None = None
 _resolved_model_key: tuple[str, str] | None = None
 
@@ -2569,12 +2587,43 @@ def env_nonempty(name: str, default: str = "") -> str:
     return value or default
 
 
+def is_gemini_host(host: str) -> bool:
+    return (host or "").lower().rstrip(".") == GEMINI_HOST
+
+
 def summary_url() -> str:
-    return env_nonempty("SCA3_SUMMARY_URL", DEFAULT_SUMMARY_URL)
+    """Chat completions URL.
+
+    An explicit SCA3_SUMMARY_URL wins. Otherwise GEMINI_API_KEY selects the
+    Gemini OpenAI-compatible endpoint. A token or api-key with no URL keeps
+    the old GitHub Models default. With none of those, summaries are paused.
+    """
+    explicit = env_nonempty("SCA3_SUMMARY_URL")
+    if explicit:
+        return explicit
+    if env_nonempty("GEMINI_API_KEY"):
+        return GEMINI_SUMMARY_URL
+    if env_nonempty("SCA3_SUMMARY_TOKEN") or env_nonempty("SCA3_SUMMARY_API_KEY"):
+        return DEFAULT_SUMMARY_URL
+    return ""
+
+
+def summaries_configured() -> bool:
+    return bool(
+        env_nonempty("SCA3_SUMMARY_URL")
+        or env_nonempty("GEMINI_API_KEY")
+        or env_nonempty("SCA3_SUMMARY_TOKEN")
+        or env_nonempty("SCA3_SUMMARY_API_KEY")
+    )
 
 
 def summary_model_name() -> str:
-    return env_nonempty("SCA3_SUMMARY_MODEL", DEFAULT_SUMMARY_MODEL)
+    configured = env_nonempty("SCA3_SUMMARY_MODEL")
+    if configured:
+        return configured
+    if is_gemini_host(hostname_of(summary_url())):
+        return GEMINI_SUMMARY_MODEL
+    return DEFAULT_SUMMARY_MODEL
 
 
 def summary_backoff(attempt_index: int) -> float:
@@ -2595,6 +2644,89 @@ def hostname_of(url: str) -> str:
     return (urllib.parse.urlparse(url).hostname or "").lower().rstrip(".")
 
 
+def parse_retry_after(headers) -> float | None:
+    """Seconds from a Retry-After header, or None when it is missing or invalid."""
+    raw = header_value(headers, "Retry-After")
+    if not raw:
+        return None
+    try:
+        return max(0.0, float(raw))
+    except ValueError:
+        pass
+    try:
+        when = parsedate_to_datetime(raw)
+    except (TypeError, ValueError, OverflowError):
+        return None
+    if when is None:
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=timezone.utc)
+    return max(0.0, (when - datetime.now(timezone.utc)).total_seconds())
+
+
+def retry_wait_seconds(attempt_index: int, status: int | str, headers) -> float:
+    """How long to sleep before another try.
+
+    SCA3_SUMMARY_BACKOFF forces a fixed delay (tests use 0). A 429 otherwise
+    honors Retry-After when that is at least 15 seconds, and otherwise waits
+    15 seconds, then 30. Other retries keep the short backoff.
+    """
+    raw = env_nonempty("SCA3_SUMMARY_BACKOFF")
+    if raw:
+        try:
+            return max(0.0, float(raw))
+        except ValueError:
+            pass
+    if status == 429:
+        hinted = parse_retry_after(headers)
+        if hinted is not None and hinted >= GEMINI_429_WAIT_SECONDS[0]:
+            return min(hinted, GEMINI_429_WAIT_CAP_SECONDS)
+        index = attempt_index if attempt_index >= 0 else 0
+        if index >= len(GEMINI_429_WAIT_SECONDS):
+            index = len(GEMINI_429_WAIT_SECONDS) - 1
+        return GEMINI_429_WAIT_SECONDS[index]
+    return summary_backoff(attempt_index)
+
+
+def gemini_pace_seconds() -> float:
+    """Gap between Gemini calls. SCA3_SUMMARY_PACE overrides it (tests use 0)."""
+    raw = env_nonempty("SCA3_SUMMARY_PACE")
+    if raw:
+        try:
+            return max(0.0, float(raw))
+        except ValueError:
+            pass
+    if is_gemini_host(hostname_of(summary_url())):
+        return GEMINI_PACE_SECONDS
+    return 0.0
+
+
+def pace_before_summary_post() -> None:
+    """Wait out the free-tier gap before the next Gemini request."""
+    gap = gemini_pace_seconds()
+    if gap <= 0 or _last_summary_post_at is None:
+        return
+    remaining = gap - (time.monotonic() - _last_summary_post_at)
+    if remaining > 0:
+        time.sleep(remaining)
+
+
+def note_summary_post() -> None:
+    global _last_summary_post_at
+    _last_summary_post_at = time.monotonic()
+
+
+def chat_completion_payload(model: str, messages: list[dict], *, max_tokens: int | None = None) -> dict:
+    """OpenAI chat body. Gemini gets only model and messages."""
+    payload: dict = {"model": model, "messages": messages}
+    if is_gemini_host(hostname_of(summary_url())):
+        return payload
+    payload["temperature"] = 0
+    if max_tokens is not None:
+        payload["max_tokens"] = max_tokens
+    return payload
+
+
 def is_github_models_host(host: str) -> bool:
     host = (host or "").lower().rstrip(".")
     return host in GITHUB_MODELS_HOSTS or host.endswith(".models.github.ai")
@@ -2602,7 +2734,13 @@ def is_github_models_host(host: str) -> bool:
 
 def active_secret_values() -> list[str]:
     values: list[str] = []
-    for name in ("SCA3_SUMMARY_TOKEN", "SCA3_SUMMARY_API_KEY", "GITHUB_TOKEN", "GH_TOKEN"):
+    for name in (
+        "SCA3_SUMMARY_TOKEN",
+        "SCA3_SUMMARY_API_KEY",
+        "GEMINI_API_KEY",
+        "GITHUB_TOKEN",
+        "GH_TOKEN",
+    ):
         value = (os.environ.get(name) or "").strip()
         if len(value) >= 8:
             values.append(value)
@@ -2615,6 +2753,15 @@ def redact_secrets(text: str, secrets: list[str] | None = None) -> str:
         if secret and secret in redacted:
             redacted = redacted.replace(secret, "[redacted]")
     return redacted
+
+
+def log_summaries_paused() -> None:
+    """One plain note when no summary provider is configured. Not a warning."""
+    global _summaries_note_logged
+    if _summaries_note_logged:
+        return
+    _summaries_note_logged = True
+    print(SUMMARIES_PAUSED_NOTE)
 
 
 def log_models_failure(reason: str) -> None:
@@ -2743,17 +2890,30 @@ def missing_credential_reason(url: str) -> str:
 def summary_auth(url: str) -> tuple[str, dict[str, str]] | None:
     """Bearer token and extra headers for this URL.
 
-    GITHUB_TOKEN is sent only to the retired GitHub Models host. A replacement
-    endpoint receives SCA3_SUMMARY_TOKEN and/or SCA3_SUMMARY_API_KEY.
+    GITHUB_TOKEN is sent only to the retired GitHub Models host. An explicit
+    SCA3_SUMMARY_URL uses SCA3_SUMMARY_TOKEN and/or SCA3_SUMMARY_API_KEY.
+    When that URL is unset, Gemini receives GEMINI_API_KEY as
+    Authorization: Bearer.
     """
     api_key = env_nonempty("SCA3_SUMMARY_API_KEY")
     token = env_nonempty("SCA3_SUMMARY_TOKEN")
+    host = hostname_of(url)
+    # No custom URL: the Gemini key is the whole configuration.
+    if not env_nonempty("SCA3_SUMMARY_URL") and is_gemini_host(host):
+        gemini = env_nonempty("GEMINI_API_KEY")
+        if gemini:
+            return gemini, {}
+        return None
     extra: dict[str, str] = {}
     if api_key:
         extra["api-key"] = api_key
-    host = hostname_of(url)
     if token or (api_key and not is_github_models_host(host)):
         return token, extra
+    if is_gemini_host(host):
+        gemini = env_nonempty("GEMINI_API_KEY")
+        if gemini:
+            return gemini, {}
+        return None
     if is_github_models_host(host):
         github = env_nonempty("GITHUB_TOKEN") or env_nonempty("GH_TOKEN")
         if github or api_key:
@@ -2762,8 +2922,9 @@ def summary_auth(url: str) -> tuple[str, dict[str, str]] | None:
 
 
 def models_request_headers(url: str, token: str, extra: dict[str, str]) -> dict[str, str]:
+    gemini = is_gemini_host(hostname_of(url))
     headers = {
-        "Accept": SUMMARY_ACCEPT,
+        "Accept": "application/json" if gemini else SUMMARY_ACCEPT,
         "Content-Type": "application/json",
         "User-Agent": USER_AGENT,
     }
@@ -2779,8 +2940,9 @@ def models_request_headers(url: str, token: str, extra: dict[str, str]) -> dict[
 
 
 def resolve_summary_model() -> str:
-    """Model id from SCA3_SUMMARY_MODEL, or openai/gpt-4.1-mini.
+    """Model id from SCA3_SUMMARY_MODEL, else the default for this endpoint.
 
+    Gemini uses gemini-3.8-flash. Any other host uses openai/gpt-4.1-mini.
     The GitHub Models catalog is the same retired placeholder as the inference
     endpoint, so it is not consulted.
     """
@@ -2847,11 +3009,16 @@ def post_chat_completion(payload: dict) -> dict | None:
 
     The retired GitHub Models placeholder (HTTP 200, body OK) is not transient.
     After a definitive failure, later papers in this process are skipped so a
-    dead endpoint cannot stall the Pages deploy.
+    dead endpoint cannot stall the Pages deploy. Gemini calls are spaced so a
+    batch stays under the free-tier limit, and HTTP 429 waits 15–30 seconds
+    or for Retry-After when that is longer.
     """
     if _models_stopped:
         return None
     url = summary_url()
+    if not url or not summaries_configured():
+        log_summaries_paused()
+        return None
     auth = summary_auth(url)
     if auth is None:
         stop_models(missing_credential_reason(url))
@@ -2862,6 +3029,7 @@ def post_chat_completion(payload: dict) -> dict | None:
     last_body: bytes = b""
     last_headers = None
     last_final = url
+    pace_before_summary_post()
     for attempt in range(SUMMARY_ATTEMPTS):
         try:
             status, raw, headers, final_url = perform_models_post(url, body, token, extra)
@@ -2871,10 +3039,11 @@ def post_chat_completion(payload: dict) -> dict | None:
             last_headers = None
             last_final = url
             if attempt + 1 < SUMMARY_ATTEMPTS:
-                time.sleep(summary_backoff(attempt))
+                time.sleep(retry_wait_seconds(attempt, "network", None))
                 continue
             stop_models(f"Summary endpoint could not be reached ({exc}). Tried {attempt + 1} times.")
             return None
+        note_summary_post()
         parsed = parse_chat_completion(raw)
         if parsed:
             return parsed
@@ -2886,7 +3055,7 @@ def post_chat_completion(payload: dict) -> dict | None:
             stop_models(describe_models_response(url, status, raw, headers, final_url, attempt + 1))
             return None
         if response_is_retryable(status) and attempt + 1 < SUMMARY_ATTEMPTS:
-            time.sleep(summary_backoff(attempt))
+            time.sleep(retry_wait_seconds(attempt, status, headers))
             continue
         stop_models(describe_models_response(url, status, raw, headers, final_url, attempt + 1))
         return None
@@ -2941,15 +3110,14 @@ def github_model_summary(title: str, abstract: str) -> str | None:
     if _models_stopped:
         return None
     payload = post_chat_completion(
-        {
-            "model": resolve_summary_model(),
-            "temperature": 0,
-            "max_tokens": 120,
-            "messages": [
+        chat_completion_payload(
+            resolve_summary_model(),
+            [
                 {"role": "system", "content": SUMMARY_SYSTEM},
                 {"role": "user", "content": f"Title: {title}\n\nAbstract:\n{abstract[:6000]}"},
             ],
-        },
+            max_tokens=120,
+        ),
     )
     if not payload:
         return None
@@ -2980,9 +3148,23 @@ def write_summaries(items: list[dict]) -> None:
     SUMMARIES_OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def pause_between_summaries() -> None:
+    """Short pause for a private endpoint. Gemini pacing happens on the POST."""
+    if is_gemini_host(hostname_of(summary_url())):
+        return
+    time.sleep(0.2)
+
+
 def fill_summaries(articles: list[dict]) -> None:
     """Cache a model summary once per DOI. Failure leaves the item unsummarized."""
     items = load_summary_items()
+    if not summaries_configured():
+        log_summaries_paused()
+        current = load_json_file(SUMMARIES_OUT)
+        if current.get("about") != SUMMARY_ABOUT or not isinstance(current.get("items"), list):
+            write_summaries(items)
+        print(f"Summaries unchanged ({len(items)} cached).")
+        return
     indexed: dict[str, dict] = {}
     for item in items:
         for key in summary_cache_keys(item):
@@ -3028,7 +3210,7 @@ def fill_summaries(articles: list[dict]) -> None:
         for key in summary_cache_keys(item):
             indexed[key] = item
         added += 1
-        time.sleep(0.2)
+        pause_between_summaries()
     write_summaries(items)
     print(f"Summaries: {added} new, {len(items)} cached.")
 
@@ -3106,20 +3288,23 @@ def check_models() -> int:
     """Ask the summary endpoint for one completion.
 
     A dead endpoint, including the retired GitHub Models placeholder, is logged
-    and does not fail the job. The Pages deploy still publishes the ledger.
+    and does not fail the job. With no Gemini key and no custom endpoint, this
+    prints one note and returns 0 so the Pages deploy still publishes the ledger.
     """
+    if not summaries_configured():
+        log_summaries_paused()
+        return 0
     url = summary_url()
     if summary_auth(url) is None:
         log_models_failure(missing_credential_reason(url))
         return 0
     model = resolve_summary_model()
     payload = post_chat_completion(
-        {
-            "model": model,
-            "temperature": 0,
-            "max_tokens": 16,
-            "messages": [{"role": "user", "content": "Reply with the single word pong."}],
-        },
+        chat_completion_payload(
+            model,
+            [{"role": "user", "content": "Reply with the single word pong."}],
+            max_tokens=16,
+        ),
     )
     if not payload:
         return 0
